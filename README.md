@@ -3,3 +3,4 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 
 ## Contributors
 
+Simona "simi" Asaro
