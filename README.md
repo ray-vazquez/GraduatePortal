@@ -4,4 +4,6 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 
 ## Contributors
 
-Matina Patsos
+Bill Peirce
+Tomomi Watanabe Hudspath
+Ryan Downey
