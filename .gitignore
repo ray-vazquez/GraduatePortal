@@ -16,6 +16,19 @@
 .env.test.local
 .env.production.local
 
+# workspace
+*~
+.DS_Store
+Thumbs.db
+.project
+.vscode/*
+!/.vscode/launch.json
+*.code*
+.idea
+.sublime*
+/atom-shell/
+
+#logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
