@@ -7,3 +7,4 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 Bill Peirce
 Tomomi Watanabe Hudspath
 Ryan Downey
+Simona "simi" Asaro
