@@ -8,3 +8,5 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 * Tomomi Watanabe Hudspath
 * Ryan Downey
 * Simona "simi" Asaro
+* Matt Bitley
+
