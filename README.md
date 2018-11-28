@@ -9,4 +9,4 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 * Ryan Downey
 * Simona "simi" Asaro
 * Matt Bitley
-
+* Patrick Gorman
