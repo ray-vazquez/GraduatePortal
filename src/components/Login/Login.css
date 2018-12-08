@@ -1,0 +1,26 @@
+.login {
+  max-width: 480px;
+  margin: auto;
+}
+.login header {
+  margin: 35px auto 20px;
+}
+.login-input {
+  margin: 10px 0;
+}
+.login .form-group{
+  margin-bottom: 0;
+}
+.login-error {
+  margin: 0 auto 10px;
+  width: 300px;
+  color: #a94442;
+}
+.login-btn {
+  margin: 10px 0;
+  width: 100%;
+}
+.panel.login {
+  margin-top: 3em;
+  border: 1px solid #ccc;
+}
