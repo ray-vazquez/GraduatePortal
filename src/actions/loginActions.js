@@ -1,6 +1,7 @@
 import history from "../history";
 import { LOGIN } from "../constants/actionTypes";
 import { loginRequest } from "../services/mock-ajax/api";
+// import { loginRequest } from "../services/api";
 
 const loginAction = (username, passsword) => {
   return {

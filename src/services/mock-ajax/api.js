@@ -2,12 +2,14 @@
 import billPic from "./bill_profile_pic.jpg";
 import billResume from "./william_peirce_resume.pdf";
 import altResume from "./alt-resume.pdf";
+import noPic from "./no-profile.svg";
 
 // Fake api & profiles
-const api = `http://????`;
+const api = `http://api`; // this will change when we have an actual server
 const profiles = {
   AH7393MN7: {
       id: "AH7393MN7",
+      isActive: 1,
       firstName: "Bill",
       lastName: "Peirce",
       image: billPic, // this will be a url in actual profile
@@ -18,15 +20,17 @@ const profiles = {
       yearOfGrad: "2019",
       links: {
           github: "https://github.com/queensburybill",
-          linkedin: "https://www.linkedin.com/in/williampeirce/"
+          linkedin: "https://www.linkedin.com/in/williampeirce/",
+          website: "" // include logic to handle the absence of a link
       },
       resume: billResume // this will be a url in actual profile
   },
   GD800JZ43: {
       id: "GD800JZ43",
+      isActive: 1,
       firstName: "Sandra",
       lastName: "Oh",
-      image: "", // include logic to redirect to the default noProfile.svg file in the mock-ajax folder
+      image: noPic, // this will be a url to a default profile image in actual profile
       skills: ["HTML", "CSS", "JavaScript", "Sass", "React", "Redux"],
       email: "./maryjones@gmail.com",
       phone: "518-666-6666",
@@ -42,14 +46,13 @@ const profiles = {
 };
 
 // Regular expressions for matching against request URLs
-const regexLogin = /login\/\w+\/\w+$/;
-const regexSearch = /search\/[\w](-[\w])*$/;
-const regexCreateProfile = /profile\/create$/;
-const regexEditProfile = /profile\/\w+\/edit/;
-const regexDeleteProfile = /profile\/\w+\/delete/;
-const regexUploadImage = /profile\/\w+\/edit\/upload-image$/;
-const regexDeleteImage = /profile\/\w+\/edit\/delete-image$/;
-const regexUploadResume = /profile\/\w+\/edit\/upload-resume$/;
+const regexLogin = /login$/;
+const regexLoadGraduates = /graduates$/;
+const regexCreateProfile = /profile\/new$/;
+const regexEditProfile = /profile\/[^(new)]$/;
+const regexUploadImage = /profile\/\w+\/upload-image$/;
+const regexDeleteImage = /profile\/\w+\/delete-image$/;
+const regexUploadResume = /profile\/\w+\/upload-resume$/;
 const regexViewResume = /profile\/\w+\/view-resume$/;
 const regexDownloadResume = /profile\/\w+\/download-resume$/;
 const regexDeleteResume = /profile\/\w+\/delete-resume$/;
@@ -58,7 +61,7 @@ const regexDownloadBatchResumes = /download-resumes$/;
 
 // No guarantees these will work with your logic - you may need to rewrite some code for that 
 
-const send = (url, data = null) => {
+const send = (url, data = null, method = "POST") => {
   return new Promise((resolve, reject) => {
 
     return setTimeout(() => {
@@ -74,8 +77,8 @@ const send = (url, data = null) => {
         });
       }
 
-      // SEARCH PROFILES: fulfilled
-      else if (regexSearch.test(url)) {
+      // LOAD GRADUATE PROFILES: fulfilled
+      else if (regexLoadGraduates.test(url)) {
         resolve({
           // Toggle the lines below to mimic whether profiles were found or not
           // *********  FOUND:  *********
@@ -84,53 +87,34 @@ const send = (url, data = null) => {
           profiles: profiles
           // *********  NOT FOUND:  *********
           // isSuccess: 0,
-          // message: "Sorry, no profiles were found matching your search terms.",
+          // retMessage: "No profiles were found matching your search terms.",
           // profiles: {}
         });
       }
       
-      // CREATE PROFILE: fullfilled
+      // CREATE NEW PROFILE: fullfilled
       else if (regexCreateProfile.test(url)) {
         resolve({
           // toggle the lines below to allow or deny profile creation
           // ******  ALLOW  ******
           isSuccess: 1, 
-          message: "Success",
-          id: "PZ639XH21"  // new random id
+          message: "Success"
           // ******  DENY  ******
           // isSuccess: 0,
-          // message: "Sorry, we are unable to create a new profile at this time."
+          // retMessage: "We are unable to create a new profile at this time."
         });
       }
       
-      // EDIT PROFILE: fullfilled ( used for both creating and editing profiles )
+      // EDIT PROFILE: fullfilled ( used for both editing and activating/deactivating profiles )
       else if (regexEditProfile.test(url)) {
         resolve({
           // toggle the lines below to allow or deny submission of a profile
           // ******  ALLOW  ******
           isSuccess: 1, 
-          message: "Success",
-          profiles: {
-            [data.id]: data
-          }
+          message: "Success"
           // ******  DENY  ******
           // isSuccess: 0,
-          // message: "Sorry, we are unable to edit this profile at this time."
-        });
-      }
-      
-      // DELETE PROFILE: fullfilled
-      else if (regexDeleteProfile.test(url)) {
-        delete profiles.data  // comment this line to DENY deletion of profile
-        resolve({
-          // toggle the lines below (and above) to allow or deny profile deletion
-          // ******  ALLOW  ******
-          isSuccess: 1, 
-          message: "Success",
-          profiles
-          // ******  DENY  ******
-          // isSuccess: 0,
-          // message: "Sorry, we are unable to delete this profile at this time."
+          // message: "We are unable to edit this profile at this time."
         });
       }
       
@@ -246,32 +230,28 @@ const send = (url, data = null) => {
 // Once again, you may need to rewrite some code or at least change function names for these to work.
 // If the final endpoints don't match mine then the urls below and regexes above will both need reworking.
 export const loginRequest = (username, password) => {
-  return send(`${api}/login/${username}/${password}`);
+  return send(`${api}/login`, { username, password });
 };
 
-export const searchProfilesRequest = (userInput) => {
-  userInput = userInput.trim().replace(" ", "-");
-  return send(`${api}/search/${userInput}`);
+export const loadGraduatesRequest = () => {
+  return send(`${api}/graduates`, null, "GET");
 };
 
-export const createProfileRequest = () => {
-  return send(`${api}/profile/create`);
+export const createProfileRequest = (profile) => {
+  return send(`${api}/profile/new`, { profile });
 };
 
-export const editProfileRequest = (id, profileData) => {
-  return send(`${api}/profile/${id}/edit`, profileData);
+export const editProfileRequest = (id, profile) => {
+  return send(`${api}/profile/${id}`, { profile }, "PUT");
 };
 
-export const deleteProfileRequest = (id) => {
-  return send(`${api}/profile/${id}/delete`, id);
-};
-
+// *************   NOT SURE ABOUT THESE YET:   ***************
 export const uploadImageRequest = (id, imageData) => {
   return send(`${api}/profile/${id}/edit/upload-image`, imageData);
 };
 
 export const deleteImageRequest = (id) => {
-  return send(`${api}/profile/${id}/edit/delete-image`);
+  return send(`${api}/profile/${id}/edit/delete-image`, null, "DELETE");
 };
 
 export const uploadResumeRequest = (id, resumeData) => {
@@ -279,17 +259,17 @@ export const uploadResumeRequest = (id, resumeData) => {
 };
 
 export const viewResumeRequest = (id) => {
-  return send(`${api}/profile/${id}/view-resume`);
+  return send(`${api}/profile/${id}/view-resume`, null, "GET");
 };
 
 export const downloadResumeRequest = (id) => {
-  return send(`${api}/profile/${id}/download-resume`);
+  return send(`${api}/profile/${id}/download-resume`, null, "GET");
 };
 
 export const deleteResumeRequest = (id) => {
-  return send(`${api}/profile/${id}/delete-resume`, id);
+  return send(`${api}/profile/${id}/delete-resume`, id, "DELETE");
 };
 
 export const downloadBatchResumesRequest = (ids) => {
-  return send(`${api}/download-resumes`, { ids });
+  return send(`${api}/download-resumes`, { ids }, "GET");
 };
