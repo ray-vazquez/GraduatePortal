@@ -3,7 +3,7 @@ import * as types from "./constants/actionTypes";
 const reducer = (
   state = {
     profiles: {},
-    isAdmin: false,
+    isAdmin: true,
     userInput: "",
     hasSearched: false,
     isLoading: false,
@@ -45,6 +45,11 @@ const reducer = (
         hasError: true,
         isLoginInvalid: false
       };
+      case types.LOGOUT:
+        return {
+          ...state,
+          isAdmin: false
+        };
     default:
       return state;
   }

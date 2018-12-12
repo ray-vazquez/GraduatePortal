@@ -1,3 +1,16 @@
 .App {
   text-align: center;
 }
+.wrapper {
+    position: relative; /* necessary to push footer to bottom */
+    height: auto; /* necessary to push footer to bottom */
+    min-height: 100%; /* fills the space when content is less than 100% height of viewport */
+    width: 100%;
+    margin: 0;
+    padding-bottom: 80px; /* creates a space for footer to overlap .wrapper. MUST match footer properties height & margin-top (Footer.css) */
+}
+@media (min-width: 992px) {
+  .wrapper {
+    padding-bottom: 64px; /* creates a space for footer to overlap .wrapper */
+  }
+}
