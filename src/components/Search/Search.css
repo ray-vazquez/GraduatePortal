@@ -1,0 +1,34 @@
+.SerachDirectory {
+  max-width: 420px;
+  margin: auto;
+  position: relative;
+}
+.Search {
+  position: fixed;
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem 0 0.5rem;
+  background-color: #efefef;
+}
+
+.container-search {
+  background: #efefef;
+}
+
+.search {
+  box-shadow: 0 0 3.125rem rgba(0, 0, 0, 0.18);
+}
+.UserDirectory-searches {
+  padding-top: 95px;
+}
+.card {
+  margin-bottom: 0;
+}
+.thumbnail {
+  box-shadow: none;
+  margin-bottom: 0;
+}
+.thumbnail > img {
+  border-radius: 50%;
+  border: 3px #efefef solid;
+}

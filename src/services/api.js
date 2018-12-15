@@ -21,3 +21,14 @@ export const loginRequest = (username, password) => {
     return response;
   });
 };
+
+export const fetchAllProfilesRequest = () => {
+  return send(`${api}/search`, null, "GET");
+};
+
+export const searchProfilesRequest = userInput => {
+  return send(`${api}/search/${userInput}`, { userInput }).then(response => {
+    if (response.data && response.data.profiles && response.data.profiles > 0)
+      return response;
+  });
+};
