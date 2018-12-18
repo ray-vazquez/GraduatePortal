@@ -1,4 +1,11 @@
 import axios from "axios";
+import config from "../config";
+console.log(config);
+
+/**
+ * Import using config.apiUrl
+ * @example const api = `${config.apiUrl}api`;
+ */
 
 const api = "http://????";
 
