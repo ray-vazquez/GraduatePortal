@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Login from "./Login";
-import { login } from "../../actions/loginActions";
+import { login } from "./loginActions";
 
 function mapStateToProps({ isLoading, hasError, isLoginInvalid, validationState }) {
   return {

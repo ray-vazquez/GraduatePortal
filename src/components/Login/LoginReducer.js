@@ -1,13 +1,12 @@
-import * as types from "./constants/actionTypes";
+import * as types from "../../constants/actionTypes";
 
-const reducer = (
+const LoginReducer = (
   state = {
-    profiles: {},
-    isAdmin: true,
-    userInput: "",
-    hasSearched: false,
+    isAdmin: false,
+    isLoginInvalid: false,
     isLoading: false,
-    hasError: false
+    hasError: false,
+    validationState: ""
   },
   action
 ) => {
@@ -55,4 +54,4 @@ const reducer = (
   }
 };
 
-export default reducer;
+export default LoginReducer;

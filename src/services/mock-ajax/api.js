@@ -1,11 +1,14 @@
+import config from "../../config";
+
 // *******  FOR DEVELOPMENT ONLY - this is the only way I could get photos & resumes to work
 import billPic from "./bill_profile_pic.jpg";
 import billResume from "./william_peirce_resume.pdf";
 import altResume from "./alt-resume.pdf";
 import noPic from "./no-profile.svg";
 
-// Fake api & profiles
-const api = `http://api`; // this will change when we have an actual server
+const api = `${config.apiUrl}api`;
+
+// Fake rofiles
 const profiles = {
   AH7393MN7: {
     id: "AH7393MN7",

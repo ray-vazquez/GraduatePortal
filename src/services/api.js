@@ -1,13 +1,7 @@
 import axios from "axios";
 import config from "../config";
-console.log(config);
 
-/**
- * Import using config.apiUrl
- * @example const api = `${config.apiUrl}api`;
- */
-
-const api = "http://????";
+const api = `${config.apiUrl}api`;
 
 const send = (url, data = null, method = "POST") => {
   const token = localStorage.getItem("token");
