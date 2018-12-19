@@ -25,7 +25,7 @@ class Login extends Component {
           </header>
           <main className="panel-body">
             {this.props.isLoginInvalid && (
-              <p className="login-error">Your Username or Password does not match what we have in our records.</p>
+              <p className="login-error">Your username or password does not match what we have in our records.</p>
             )}
             <FormGroup validationState={this.props.validationState}>
               <FormControl

@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
-import {logout } from "../../actions/navbarActions";
+import {logout } from "./NavBarActions";
 
-function mapStateToProps({ isAdmin }) {
+function mapStateToProps(state) {
   return {
-    isAdmin
+    isAdmin: state.Shared.isAdmin
   };
 }
 
