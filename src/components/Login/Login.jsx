@@ -1,18 +1,45 @@
 import React, { Component } from "react";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
+import { Media } from "react-bootstrap";
 import "./Login.css";
 import ErrorMessage from "../Widgets/ErrorMessage";
 
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    searchInput: "",
+    profiles: []
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.login(this.state.username, this.state.password);
   };
+
+  filterProfiles = () => {
+    let searchInput = this.state.searchInput.split(" ");
+    const profiles = Object.values(this.props.profiles).filter(profile => {
+      for (let searchTerm of searchInput) {
+        let regexSearchTerm = new RegExp(searchTerm);
+        if (regexSearchTerm.test(profile.firstName)) return true;
+        if (regexSearchTerm.test(profile.lastName)) return true;
+        for (let skill of profile.skills) {
+          if (regexSearchTerm.test(skill)) return true;
+        };
+      };
+      return false;
+    });
+    return this.setState({
+      profiles
+    })
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      profiles: this.props.profiles
+    })
+  }
 
   render() {
     return (
@@ -60,6 +87,38 @@ class Login extends Component {
             )}
           </main>
         </form>
+        <div>
+          <FormGroup>
+            <FormControl
+              type="text"
+              className="login-input"
+              placeholder="Enter name or skills"
+              aria-label="Search Input"
+              value={this.state.searchInput}
+              onChange={e => {
+                this.setState({
+                  searchInput: e.target.value
+                })
+                this.filterProfiles();
+              }}
+            />
+          </FormGroup>
+          {Object.values(this.state.profiles).map(profile => {
+            return (
+              <Media
+                key={profile.id}
+                profile={profile} >
+                <Media.Left>
+                  <img width={64} height={64} src={profile.image} alt={profile.firstName + " " + profile.lastName} />
+                </Media.Left>
+                <Media.Body>
+                  <Media.Heading>{profile.firstName + " " + profile.lastName}</Media.Heading>
+                  <p>{profile.story}</p>
+                </Media.Body>
+              </Media>
+            );
+          })}
+        </div>
       </div>
     );
   }
