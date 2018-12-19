@@ -22,5 +22,6 @@
 }
 .panel.login {
   margin-top: 3em;
+  margin-bottom: 4em;
   border: 1px solid #ccc;
 }

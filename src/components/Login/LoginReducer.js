@@ -2,33 +2,31 @@ import * as types from "../../constants/actionTypes";
 
 const LoginReducer = (
   state = {
-    isAdmin: false,
     isLoginInvalid: false,
     isLoading: false,
     hasError: false,
-    validationState: ""
+    validationState: null
   },
   action
 ) => {
   switch (action.type) {
     case types.LOGIN_FULFILLED: {
       const { isSuccess } = action.payload;
-    return isSuccess
-      ? {
-          ...state,
-          isAdmin: true,
-          isLoginInvalid: false,
-          isLoading: false,
-          hasError: false,
-          validationState: "success"
-        }
-      : {
-          ...state,
-          isLoginInvalid: true,
-          isLoading: false,
-          hasError: false,
-          validationState: "error"
-        };
+      return isSuccess
+        ? {
+            ...state,
+            isLoginInvalid: false,
+            isLoading: false,
+            hasError: false,
+            validationState: "success"
+          }
+        : {
+            ...state,
+            isLoginInvalid: true,
+            isLoading: false,
+            hasError: false,
+            validationState: "error"
+          };
       }
     case types.LOGIN_PENDING:
       return {
@@ -44,11 +42,6 @@ const LoginReducer = (
         hasError: true,
         isLoginInvalid: false
       };
-      case types.LOGOUT:
-        return {
-          ...state,
-          isAdmin: false
-        };
     default:
       return state;
   }

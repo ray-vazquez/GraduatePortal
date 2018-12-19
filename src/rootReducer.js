@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import LoginReducer from './components/Login/LoginReducer';
-import NavBarReducer from './components/NavBar/NavBarReducer';
+import sharedReducer from './sharedReducer';
 
 const rootReducer = combineReducers({
-  Login: LoginReducer,
-  NavBar: NavBarReducer
+  Shared: sharedReducer,
+  Login: LoginReducer
 });
 
 export default rootReducer;
