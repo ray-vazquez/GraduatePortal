@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import EditProfile from './EditProfile'
-import { editProfile } from '../../actions/profileActions'
+import { editProfile } from './EditProfileActions'
 
 function mapStateToProps ({ isLoading, hasError, isLoginInvalid, validationState }) {
   return {
