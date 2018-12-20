@@ -17,42 +17,50 @@ class Login extends Component {
     this.props.login(this.state.username, this.state.password);
   };
 
+  handleChange = e => {
+    this.setState({ searchInput: e.target.value }, () => this.filterProfiles());
+  };
+
   filterProfiles = () => {
-    let searchInput = this.state.searchInput.split(" ");
+    let searchTerms = this.state.searchInput.split(" ");
     const profiles = Object.values(this.props.profiles).filter(profile => {
-      for (let searchTerm of searchInput) {
-        let regexSearchTerm = new RegExp(searchTerm);
-        if (regexSearchTerm.test(profile.firstName)) return true;
-        if (regexSearchTerm.test(profile.lastName)) return true;
-        for (let skill of profile.skills) {
-          if (regexSearchTerm.test(skill)) return true;
-        };
-      };
+      let profileTerms = profile.skills
+        .concat(profile.firstName)
+        .concat(profile.lastName);
+      for (let searchTerm of searchTerms) {
+        let regexSearchTerm = new RegExp(searchTerm, "i");
+        for (let profileTerm of profileTerms) {
+          if (regexSearchTerm.test(profileTerm)) return true;
+        }
+      }
       return false;
     });
-    return this.setState({
-      profiles
-    })
-  }
+    return this.setState({ profiles });
+  };
 
   componentDidMount = () => {
     this.setState({
       profiles: this.props.profiles
-    })
-  }
+    });
+  };
 
   render() {
     return (
       <div className="login container text-center">
-        <form 
-          className="panel login" 
-          onSubmit={this.handleSubmit}>
+        <form className="panel login" onSubmit={this.handleSubmit}>
           <header className="panel-body">
-            <h2>Graduate Portal<br/>Admin Login</h2>
+            <h2>
+              Graduate Portal
+              <br />
+              Admin Login
+            </h2>
           </header>
           <main className="panel-body">
             {this.props.isLoginInvalid && (
-              <p className="login-error">Your username or password does not match what we have in our records.</p>
+              <p className="login-error">
+                Your username or password does not match what we have in our
+                records.
+              </p>
             )}
             <FormGroup validationState={this.props.validationState}>
               <FormControl
@@ -73,16 +81,18 @@ class Login extends Component {
                 onChange={e => this.setState({ password: e.target.value })}
               />
             </FormGroup>
-            <Button 
+            <Button
               type="submit"
               className="btn btn-primary login-btn"
-              disabled={this.props.isLoading === true} >
+              disabled={this.props.isLoading === true}
+            >
               {this.props.isLoading ? "LOADING ..." : "LOGIN"}
             </Button>
             {this.props.hasError && (
               <ErrorMessage>
-                Sorry! The Graduate Portal is temporarily down. Our engineers are aware of the problem
-                and are hard at work trying to fix it. Please come back later.
+                Sorry! The Graduate Portal is temporarily down. Our engineers
+                are aware of the problem and are hard at work trying to fix it.
+                Please come back later.
               </ErrorMessage>
             )}
           </main>
@@ -95,24 +105,24 @@ class Login extends Component {
               placeholder="Enter name or skills"
               aria-label="Search Input"
               value={this.state.searchInput}
-              onChange={e => {
-                this.setState({
-                  searchInput: e.target.value
-                })
-                this.filterProfiles();
-              }}
+              onChange={e => this.handleChange(e)}
             />
           </FormGroup>
           {Object.values(this.state.profiles).map(profile => {
             return (
-              <Media
-                key={profile.id}
-                profile={profile} >
+              <Media key={profile.id} profile={profile}>
                 <Media.Left>
-                  <img width={64} height={64} src={profile.image} alt={profile.firstName + " " + profile.lastName} />
+                  <img
+                    width={64}
+                    height={64}
+                    src={profile.image}
+                    alt={profile.firstName + " " + profile.lastName}
+                  />
                 </Media.Left>
                 <Media.Body>
-                  <Media.Heading>{profile.firstName + " " + profile.lastName}</Media.Heading>
+                  <Media.Heading>
+                    {profile.firstName + " " + profile.lastName}
+                  </Media.Heading>
                   <p>{profile.story}</p>
                 </Media.Body>
               </Media>
