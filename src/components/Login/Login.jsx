@@ -1,47 +1,17 @@
 import React, { Component } from "react";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
-import { Media } from "react-bootstrap";
 import "./Login.css";
 import ErrorMessage from "../Widgets/ErrorMessage";
 
 class Login extends Component {
   state = {
     username: "",
-    password: "",
-    searchInput: "",
-    profiles: []
+    password: ""
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.login(this.state.username, this.state.password);
-  };
-
-  handleChange = e => {
-    this.setState({ searchInput: e.target.value }, () => this.filterProfiles());
-  };
-
-  filterProfiles = () => {
-    let searchTerms = this.state.searchInput.split(" ");
-    const profiles = Object.values(this.props.profiles).filter(profile => {
-      let profileTerms = profile.skills
-        .concat(profile.firstName)
-        .concat(profile.lastName);
-      for (let searchTerm of searchTerms) {
-        let regexSearchTerm = new RegExp(searchTerm, "i");
-        for (let profileTerm of profileTerms) {
-          if (regexSearchTerm.test(profileTerm)) return true;
-        }
-      }
-      return false;
-    });
-    return this.setState({ profiles });
-  };
-
-  componentDidMount = () => {
-    this.setState({
-      profiles: this.props.profiles
-    });
   };
 
   render() {
@@ -62,7 +32,7 @@ class Login extends Component {
                 records.
               </p>
             )}
-            <FormGroup validationState={this.props.validationState}>
+            <FormGroup validationState={this.props.isLoginInvalid ? "error" : "success"}>
               <FormControl
                 type="text"
                 className="login-input"
@@ -72,7 +42,7 @@ class Login extends Component {
                 onChange={e => this.setState({ username: e.target.value })}
               />
             </FormGroup>
-            <FormGroup validationState={this.props.validationState}>
+            <FormGroup validationState={this.props.isLoginInvalid ? "error" : "success"}>
               <FormControl
                 type="password"
                 placeholder="Password"
@@ -97,38 +67,6 @@ class Login extends Component {
             )}
           </main>
         </form>
-        <div>
-          <FormGroup>
-            <FormControl
-              type="text"
-              className="login-input"
-              placeholder="Enter name or skills"
-              aria-label="Search Input"
-              value={this.state.searchInput}
-              onChange={e => this.handleChange(e)}
-            />
-          </FormGroup>
-          {Object.values(this.state.profiles).map(profile => {
-            return (
-              <Media key={profile.id} profile={profile}>
-                <Media.Left>
-                  <img
-                    width={64}
-                    height={64}
-                    src={profile.image}
-                    alt={profile.firstName + " " + profile.lastName}
-                  />
-                </Media.Left>
-                <Media.Body>
-                  <Media.Heading>
-                    {profile.firstName + " " + profile.lastName}
-                  </Media.Heading>
-                  <p>{profile.story}</p>
-                </Media.Body>
-              </Media>
-            );
-          })}
-        </div>
       </div>
     );
   }
