@@ -3,16 +3,17 @@ import * as types from "./constants/actionTypes";
 const sharedReducer = (
   state = {
     profiles: null,
-    isAdmin: false
+    isAdmin: !!localStorage.token
   },
   action
 ) => {
   switch (action.type) {
     case types.LOGIN_FULFILLED: {
-      const { isSuccess } = action.payload;
-      return isSuccess
+      const { token } = action.payload;
+      console.log(token);
+      return token
         ? { ...state, isAdmin: true }
-        : { ...state };
+        : {  ...state, isAdmin: false };
     }
     case types.LOGOUT:
       return {

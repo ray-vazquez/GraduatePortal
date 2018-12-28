@@ -2,10 +2,9 @@ import * as types from "../../constants/actionTypes";
 
 const LoginReducer = (
   state = {
-    isLoginInvalid: false,
     isLoading: false,
     hasError: false,
-    validationState: null
+    isLoginInvalid: false
   },
   action
 ) => {
@@ -15,17 +14,15 @@ const LoginReducer = (
       return isSuccess
         ? {
             ...state,
-            isLoginInvalid: false,
             isLoading: false,
             hasError: false,
-            validationState: "success"
+            isLoginInvalid: false
           }
         : {
             ...state,
-            isLoginInvalid: true,
             isLoading: false,
             hasError: false,
-            validationState: "error"
+            isLoginInvalid: true
           };
       }
     case types.LOGIN_PENDING:
@@ -33,14 +30,12 @@ const LoginReducer = (
         ...state,
         isLoading: true,
         hasError: false,
-        isLoginInvalid: false
       };
     case types.LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
         hasError: true,
-        isLoginInvalid: false
       };
     default:
       return state;

@@ -17,17 +17,22 @@ class Login extends Component {
   render() {
     return (
       <div className="login container text-center">
-        <form 
-          className="panel login" 
-          onSubmit={this.handleSubmit}>
+        <form className="panel login" onSubmit={this.handleSubmit}>
           <header className="panel-body">
-            <h2>Graduate Portal<br/>Admin Login</h2>
+            <h2>
+              Graduate Portal
+              <br />
+              Admin Login
+            </h2>
           </header>
           <main className="panel-body">
             {this.props.isLoginInvalid && (
-              <p className="login-error">Your username or password does not match what we have in our records.</p>
+              <p className="login-error">
+                Your username or password does not match what we have in our
+                records.
+              </p>
             )}
-            <FormGroup validationState={this.props.validationState}>
+            <FormGroup validationState={this.props.isLoginInvalid ? "error" : "success"}>
               <FormControl
                 type="text"
                 className="login-input"
@@ -37,7 +42,7 @@ class Login extends Component {
                 onChange={e => this.setState({ username: e.target.value })}
               />
             </FormGroup>
-            <FormGroup validationState={this.props.validationState}>
+            <FormGroup validationState={this.props.isLoginInvalid ? "error" : "success"}>
               <FormControl
                 type="password"
                 placeholder="Password"
@@ -46,16 +51,18 @@ class Login extends Component {
                 onChange={e => this.setState({ password: e.target.value })}
               />
             </FormGroup>
-            <Button 
+            <Button
               type="submit"
               className="btn btn-primary login-btn"
-              disabled={this.props.isLoading === true} >
+              disabled={this.props.isLoading === true}
+            >
               {this.props.isLoading ? "LOADING ..." : "LOGIN"}
             </Button>
             {this.props.hasError && (
               <ErrorMessage>
-                Sorry! The Graduate Portal is temporarily down. Our engineers are aware of the problem
-                and are hard at work trying to fix it. Please come back later.
+                Sorry! The Graduate Portal is temporarily down. Our engineers
+                are aware of the problem and are hard at work trying to fix it.
+                Please come back later.
               </ErrorMessage>
             )}
           </main>
