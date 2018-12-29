@@ -1,26 +1,41 @@
-.SerachDirectory {
-  max-width: 420px;
+.ProfileDirectory {
+  max-width: 650px;
   margin: auto;
   position: relative;
 }
-.Search {
-  position: fixed;
-  width: 100%;
-  max-width: 420px;
-  padding: 2rem 0 0.5rem;
-  background-color: #efefef;
-}
 
-.container-search {
-  background: #efefef;
-}
-
-.search {
-  box-shadow: 0 0 3.125rem rgba(0, 0, 0, 0.18);
-}
-.UserDirectory-searches {
+.ProfileDirectory-profiles {
   padding-top: 95px;
 }
+
+/**********************************/
+/*Input Box search icon position***/
+/**********************************/
+/* enable absolute positioning */
+.inner-addon {
+  position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align glyph */
+.right-addon .glyphicon {
+  right: 0px;
+}
+
+/* add padding  */
+.right-addon input {
+  padding-right: 30px;
+}
+
+/*************************************/
+/****Profile Card**********************/
+/*************************************/
 .card {
   margin-bottom: 0;
 }
@@ -29,6 +44,13 @@
   margin-bottom: 0;
 }
 .thumbnail > img {
+  border-radius: 50%;
+  border: 3px #efefef solid;
+}
+
+.profile-thumbnail {
+  box-shadow: none;
+  margin-bottom: 0;
   border-radius: 50%;
   border: 3px #efefef solid;
 }
