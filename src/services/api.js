@@ -24,7 +24,7 @@ export const loginRequest = (username, password) => {
 };
 
 export const fetchAllProfilesRequest = () => {
-  return send(`${api}/search`, null, "GET");
+  return send(`${api}/graduates`, null, "GET");
 };
 
 export const searchProfilesRequest = userInput => {
