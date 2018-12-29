@@ -1,8 +1,7 @@
 import { connect } from "react-redux";
 import Search from "./Search";
 
-import { fetchAllProfiles } from "../../actions/searchActions";
-//import { searchProfiles } from "../../actions/searchActions";
+import { fetchAllProfiles } from "./searchActions";
 
 function mapStateToProps(state) {
   return {
@@ -15,7 +14,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchAllProfiles: () => dispatch(fetchAllProfiles())
-    // searchProfiles: userInput => dispatch(searchProfiles(userInput))
   };
 }
 

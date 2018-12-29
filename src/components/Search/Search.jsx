@@ -1,15 +1,8 @@
 import React, { Component } from "react";
-import {
-  FormGroup,
-  FormControl,
-  Button,
-  InputGroup,
-  Glyphicon
-} from "react-bootstrap";
+import { FormGroup, FormControl, Button } from "react-bootstrap";
 
 import { Media } from "react-bootstrap";
 
-import SearchResult from "./SearchResult";
 import "./Search.css";
 import Loading from "../Widgets/Loading";
 import ErrorMessage from "../Widgets/ErrorMessage";
@@ -19,11 +12,6 @@ class Search extends Component {
     searchInput: "",
     profiles: [] //local state after getting from store
   };
-
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   this.props.searchProfiles(this.state.searchInput);
-  // };
 
   handleChange = e => {
     this.setState({ searchInput: e.target.value }, () => this.filterProfiles());
@@ -55,20 +43,10 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.profiles) this.props.fetchAllProfiles();
-
-    //From Bill's Filter
-    // this.setState({
-    //   profiles: this.props.profiles
-    // });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.state.profiles !== nextProps.profiles) {
-      this.setState({
-        profiles: nextProps.profiles
+    if (!this.props.profiles)
+      this.props.fetchAllProfiles().then(() => {
+        this.setState({ profiles: this.props.profiles });
       });
-    }
   }
 
   render() {
@@ -87,18 +65,8 @@ class Search extends Component {
               value={this.state.searchInput}
               onChange={e => this.handleChange(e)}
             />
+            <i class="fas fa-search" />
           </FormGroup>
-
-          {/* <div className="inner-addon right-addon">
-            <i className="glyphicon glyphicon-search" />
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter Name or Skills"
-              value={this.state.searchInput}
-              onChange={e => this.props.searchProfiles(e.target.value)}
-            />
-          </div> */}
 
           <div className="ProfileDirectory-profiles">
             {this.state.isLoading && <Loading />}
@@ -119,8 +87,7 @@ class Search extends Component {
                       <Media.Left>
                         <img
                           className="profile-thumbnail"
-                          width={200}
-                          height={200}
+                          width={150}
                           src={graduate.image}
                           alt=""
                         />
@@ -132,9 +99,17 @@ class Search extends Component {
                         <p>{graduate.skills.join(", ")}</p>
                         <p>{graduate.story}</p>
 
-                        <i className="fab fa-linkedin-in" />
+                        <a href={graduate.links.linkedin}>
+                          <i className="fab fa-linkedin-in fa-lg" />
+                        </a>
 
-                        <i className="fab fa-github" />
+                        <a href={graduate.links.github}>
+                          <i className="fab fa-github fa-lg" />
+                        </a>
+
+                        <Button bsStyle="primary" bsSize="small">
+                          View Resume
+                        </Button>
                       </Media.Body>
                     </Media>
                   </div>
