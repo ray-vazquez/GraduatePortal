@@ -80,7 +80,7 @@ const send = (url, data = null, method = "POST") => {
         });
       }
 
-      // FETCH ALL PROFILES: fulfilled
+      // LOAD GRADUATE PROFILES: fulfilled
       else if (regexFetchAllProfiles.test(url)) {
         resolve({
           // Toggle the lines below to mimic whether profiles were found or not

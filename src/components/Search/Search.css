@@ -1,0 +1,56 @@
+.ProfileDirectory {
+  max-width: 650px;
+  margin: auto;
+  position: relative;
+}
+
+.ProfileDirectory-profiles {
+  padding-top: 95px;
+}
+
+/**********************************/
+/*Input Box search icon position***/
+/**********************************/
+/* enable absolute positioning */
+.inner-addon {
+  position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align glyph */
+.right-addon .glyphicon {
+  right: 0px;
+}
+
+/* add padding  */
+.right-addon input {
+  padding-right: 30px;
+}
+
+/*************************************/
+/****Profile Card**********************/
+/*************************************/
+.card {
+  margin-bottom: 0;
+}
+.thumbnail {
+  box-shadow: none;
+  margin-bottom: 0;
+}
+.thumbnail > img {
+  border-radius: 50%;
+  border: 3px #efefef solid;
+}
+
+.profile-thumbnail {
+  box-shadow: none;
+  margin-bottom: 0;
+  border-radius: 50%;
+  border: 3px #efefef solid;
+}
