@@ -55,20 +55,12 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.profiles) this.props.fetchAllProfiles();
-
-    //From Bill's Filter
-    // this.setState({
-    //   profiles: this.props.profiles
-    // });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.state.profiles !== nextProps.profiles) {
-      this.setState({
-        profiles: nextProps.profiles
+    if (!this.props.profiles)
+      this.props.fetchAllProfiles().then(() => {
+        this.setState({
+          profiles: this.props.profiles
+        });
       });
-    }
   }
 
   render() {
@@ -111,7 +103,7 @@ class Search extends Component {
             )}
             {this.state.profiles &&
               Object.values(this.state.profiles).map(graduate => {
-                const key = "graduate-" + graduate.graduate_id;
+                const key = "graduate-" + graduate.id;
 
                 return (
                   <div className="card" key={key}>

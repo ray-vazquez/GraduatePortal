@@ -1,11 +1,5 @@
 import config from "../../config";
 
-// *******  FOR DEVELOPMENT ONLY - this is the only way I could get photos & resumes to work
-import billPic from "./bill_profile_pic.jpg";
-import billResume from "./william_peirce_resume.pdf";
-import altResume from "./alt-resume.pdf";
-import noPic from "./no-profile.svg";
-
 const api = `${config.apiUrl}api`;
 
 // Fake Profiles
@@ -15,7 +9,8 @@ const profiles = {
     isActive: 1,
     firstName: "Bill",
     lastName: "Peirce",
-    image: billPic, // this will be a url in actual profile
+    image:
+      "https://media.licdn.com/dms/image/C4E03AQEqrNIDTM7Ukg/profile-displayphoto-shrink_200_200/0?e=1551312000&v=beta&t=8Z8iddB-sUBe1zW5a30_y81PRUG1740XXGK_PjPU7LY",
     skills: ["HTML", "CSS", "JavaScript", "JQuery", "React"],
     phone: "518-555-6666",
     story:
@@ -27,14 +22,15 @@ const profiles = {
       linkedin: "https://www.linkedin.com/in/williampeirce/",
       website: "" // include logic to handle the absence of a link
     },
-    resume: billResume // this will be a url in actual profile
+    resume: "https://www.cpd.org.au/wp-content/uploads/2014/11/placeholder.pdf"
   },
   GD800JZ43: {
     id: "GD800JZ43",
     isActive: 1,
     firstName: "Sandra",
     lastName: "Oh",
-    image: noPic, // this will be a url to a default profile image in actual profile
+    image:
+      "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NDg0MDU0NTc5MzQ5MDA3/sandra-oh-23212-1-402.jpg",
     skills: ["HTML", "CSS", "JavaScript", "Sass", "React", "Redux"],
     phone: "518-666-6666",
     story:
@@ -46,7 +42,7 @@ const profiles = {
       linkedin: "https://www.linkedin.com/in/sandra-oh-468a083",
       website: "https://twitter.com/IamSandraOh"
     },
-    resume: "" // include logic to handle the absence of a resume
+    resume: "https://www.cpd.org.au/wp-content/uploads/2014/11/placeholder.pdf"
   }
 };
 
@@ -54,12 +50,10 @@ const profiles = {
 const regexLogin = /login$/;
 const regexFetchAllProfiles = /graduates$/;
 const regexCreateProfile = /graduate\/new$/;
-const regexEditProfile = /graduate\/\w+\/edit$/;
+const regexEditProfile = /graduate\/edit$/;
 const regexUploadImage = /graduate\/\w+\/upload-image$/;
 const regexDeleteImage = /graduate\/\w+\/delete-image$/;
 const regexUploadResume = /graduate\/\w+\/upload-resume$/;
-const regexViewResume = /graduate\/\w+\/view-resume$/;
-const regexDownloadResume = /graduate\/\w+\/download-resume$/;
 const regexDeleteResume = /graduate\/\w+\/delete-resume$/;
 const regexDownloadBatchResumes = /download-resumes$/;
 
@@ -167,34 +161,6 @@ const send = (url, data = null, method = "POST") => {
         });
       }
 
-      // VIEW RESUME: fullfilled
-      else if (regexViewResume.test(url)) {
-        resolve({
-          // toggle the lines below to allow or deny submission of a profile
-          // ******  ALLOW  ******
-          isSuccess: 1,
-          message: "Success",
-          file: billResume
-          // ******  DENY  ******
-          // isSuccess: 0,
-          // message: "Sorry, we are unable to access the resume you requested."
-        });
-      }
-
-      // DOWNLOAD RESUME: fullfilled
-      else if (regexDownloadResume.test(url)) {
-        resolve({
-          // toggle the lines below to allow or deny submission of a profile
-          // ******  ALLOW  ******
-          isSuccess: 1,
-          message: "Success",
-          file: billResume
-          // ******  DENY  ******
-          // isSuccess: 0,
-          // message: "Sorry, we are unable to access the resume you requested."
-        });
-      }
-
       // DELETE RESUME: fullfilled
       else if (regexDeleteResume.test(url)) {
         profiles[data.id].resume = ""; // comment this line to DENY deletion of resume
@@ -203,7 +169,7 @@ const send = (url, data = null, method = "POST") => {
           // ******  ALLOW  ******
           isSuccess: 1,
           message: "Success",
-          file: billResume
+          file: {}
           // ******  DENY  ******
           // isSuccess: 0,
           // message: "Sorry, we are unable to delete the resume you requested."
@@ -217,10 +183,7 @@ const send = (url, data = null, method = "POST") => {
           // ******  ALLOW  ******
           isSuccess: 1,
           message: "Success",
-          files: Object.values(data).reduce((obj, id, index) => {
-            let resumes = [billResume, altResume];
-            return (obj[id] = resumes[index]);
-          }, {})
+          files: {} // Not sure how this will work yet
           // ******  DENY  ******
           // isSuccess: 0,
           // message: "Sorry, we are unable to access the resume you requested."
@@ -244,8 +207,8 @@ export const createProfileRequest = profile => {
   return send(`${api}/graduate/new`, { profile });
 };
 
-export const editProfileRequest = (id, profile) => {
-  return send(`${api}/graduate/${id}`, { profile }, "PUT");
+export const editProfileRequest = profile => {
+  return send(`${api}/graduate/edit`, { profile }, "PUT");
 };
 
 // *************   NOT SURE ABOUT THESE YET:   ***************
@@ -259,14 +222,6 @@ export const deleteImageRequest = id => {
 
 export const uploadResumeRequest = (id, resumeData) => {
   return send(`${api}/graduate/${id}/edit/upload-resume`, resumeData);
-};
-
-export const viewResumeRequest = id => {
-  return send(`${api}/graduate/${id}/view-resume`, null, "GET");
-};
-
-export const downloadResumeRequest = id => {
-  return send(`${api}/graduate/${id}/download-resume`, null, "GET");
 };
 
 export const deleteResumeRequest = id => {
