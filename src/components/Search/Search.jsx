@@ -83,7 +83,7 @@ class Search extends Component {
             )}
             {this.state.profiles &&
               Object.values(this.state.profiles).map(graduate => {
-                const key = "graduate-" + graduate.graduate_id;
+                const key = "graduate-" + graduate.id;
 
                 return (
                   <div className="card" key={key}>
