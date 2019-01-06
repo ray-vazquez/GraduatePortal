@@ -5,32 +5,17 @@
 }
 
 .ProfileDirectory-profiles {
-  padding-top: 95px;
+  /* padding-top: 95px; */
 }
 
 /**********************************/
 /*Input Box search icon position***/
 /**********************************/
 /* enable absolute positioning */
-.inner-addon {
-  position: relative;
-}
-
-/* style glyph */
-.inner-addon .glyphicon {
+.search-icon {
   position: absolute;
   padding: 10px;
-  pointer-events: none;
-}
-
-/* align glyph */
-.right-addon .glyphicon {
   right: 0px;
-}
-
-/* add padding  */
-.right-addon input {
-  padding-right: 30px;
 }
 
 /*************************************/
@@ -53,4 +38,10 @@
   margin-bottom: 0;
   border-radius: 50%;
   border: 3px #efefef solid;
+}
+
+.fa-linkedin-in {
+  /* background-color: #333333;
+  color: #efefef;
+  border-radius: 50%; */
 }
