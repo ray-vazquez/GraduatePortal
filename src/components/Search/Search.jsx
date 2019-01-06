@@ -57,6 +57,11 @@ class Search extends Component {
         </div>
         <main className="">
           <FormGroup>
+            <span className="search-icon">
+              <a>
+                <i className="fas fa-search" />
+              </a>
+            </span>
             <FormControl
               type="text"
               className="login-input"
@@ -65,7 +70,6 @@ class Search extends Component {
               value={this.state.searchInput}
               onChange={e => this.handleChange(e)}
             />
-            <i class="fas fa-search" />
           </FormGroup>
 
           <div className="ProfileDirectory-profiles">
@@ -87,7 +91,7 @@ class Search extends Component {
                       <Media.Left>
                         <img
                           className="profile-thumbnail"
-                          width={150}
+                          width={100}
                           src={graduate.image}
                           alt=""
                         />
@@ -96,6 +100,7 @@ class Search extends Component {
                         <Media.Heading>
                           <p>{graduate.firstName + " " + graduate.lastName} </p>
                         </Media.Heading>
+                        <p>{graduate.yearOfGrad}</p>
                         <p>{graduate.skills.join(", ")}</p>
                         <p>{graduate.story}</p>
 
@@ -107,9 +112,29 @@ class Search extends Component {
                           <i className="fab fa-github fa-lg" />
                         </a>
 
-                        <Button bsStyle="primary" bsSize="small">
+                        <a href={graduate.links.website}>
+                          <i className="fas fa-globe fa-lg" />
+                        </a>
+                        <a href={graduate.links.email}>
+                          <i className="fas fa-envelope fa-lg" />
+                        </a>
+
+                        <Button
+                          bsStyle="primary"
+                          bsSize="small"
+                          onClick={graduate.resume}
+                        >
+                          <span>
+                            <i className="fas fa-eye" />
+                          </span>
                           View Resume
                         </Button>
+
+                        {this.state.isAdmin && (
+                          <Button bsStyle="primary" bsSize="small">
+                            Edit Resume
+                          </Button>
+                        )}
                       </Media.Body>
                     </Media>
                   </div>

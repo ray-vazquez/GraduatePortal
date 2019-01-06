@@ -12,25 +12,10 @@
 /*Input Box search icon position***/
 /**********************************/
 /* enable absolute positioning */
-.inner-addon {
-  position: relative;
-}
-
-/* style glyph */
-.inner-addon .glyphicon {
+.search-icon {
   position: absolute;
   padding: 10px;
-  pointer-events: none;
-}
-
-/* align glyph */
-.right-addon .glyphicon {
   right: 0px;
-}
-
-/* add padding  */
-.right-addon input {
-  padding-right: 30px;
 }
 
 /*************************************/
