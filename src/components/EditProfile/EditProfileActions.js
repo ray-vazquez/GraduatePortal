@@ -1,5 +1,7 @@
 import history from "../history";
-import { EDIT_PROFILE } from "../constants/actionTypes";
+import {
+  EDIT_PROFILE
+} from "../constants/actionTypes";
 // import { profileRequest } from '../services/mock-ajax/api'
 
 const profileAction = () => {

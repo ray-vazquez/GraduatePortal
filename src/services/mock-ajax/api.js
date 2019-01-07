@@ -8,7 +8,7 @@ import noPic from "./no-profile.svg";
 
 const api = `${config.apiUrl}api`;
 
-// Fake rofiles
+// Fake Profiles
 const profiles = {
   AH7393MN7: {
     id: "AH7393MN7",
@@ -17,12 +17,12 @@ const profiles = {
     lastName: "Peirce",
     image: billPic, // this will be a url in actual profile
     skills: ["HTML", "CSS", "JavaScript", "JQuery", "React"],
-    email: "queensburybill@gmail.com",
     phone: "518-555-6666",
     story:
       "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.  Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
     yearOfGrad: "2019",
     links: {
+      email: "queensburybill@gmail.com",
       github: "https://github.com/queensburybill",
       linkedin: "https://www.linkedin.com/in/williampeirce/",
       website: "" // include logic to handle the absence of a link
@@ -36,12 +36,12 @@ const profiles = {
     lastName: "Oh",
     image: noPic, // this will be a url to a default profile image in actual profile
     skills: ["HTML", "CSS", "JavaScript", "Sass", "React", "Redux"],
-    email: "./maryjones@gmail.com",
     phone: "518-666-6666",
     story:
       "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
     yearOfGrad: "2018",
     links: {
+      email: "maryjones@gmail.com",
       github: "https://github.com/Louis345",
       linkedin: "https://www.linkedin.com/in/sandra-oh-468a083",
       website: "https://twitter.com/IamSandraOh"
@@ -80,7 +80,7 @@ const send = (url, data = null, method = "POST") => {
         });
       }
 
-      // FETCH ALL PROFILES: fulfilled
+      // LOAD GRADUATE PROFILES: fulfilled
       else if (regexFetchAllProfiles.test(url)) {
         resolve({
           // Toggle the lines below to mimic whether profiles were found or not

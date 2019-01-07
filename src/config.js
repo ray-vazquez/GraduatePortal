@@ -8,7 +8,8 @@ const config = {
     apiUrl: "/"
   },
   development: {
-    apiUrl: "http://13.58.93.53:8080/"
+    // apiUrl: "http://13.58.93.53:8080/"
+    apiUrl: "http://nodereacttest-env.th8vtgbnhi.us-east-2.elasticbeanstalk.com/"
   }
 };
 

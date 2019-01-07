@@ -28,7 +28,7 @@ class NavBar extends Component {
                   SEARCH
                 </NavItem>
               </LinkContainer>
-              <NavItem eventKey={2} href="#" className="acc-link">
+              <NavItem eventKey={2} href="/profile/add" className="acc-link">
                 CREATE PROFILE
               </NavItem>
               <NavItem 

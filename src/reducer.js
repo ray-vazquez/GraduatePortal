@@ -1,10 +1,13 @@
-import * as types from "../../constants/actionTypes";
+import * as types from "./constants/actionTypes";
 
-const LoginReducer = (
+const reducer = (
   state = {
+    profiles: null,
+    isAdmin: true,
+    userInput: "",
+    hasSearched: false,
     isLoading: false,
-    hasError: false,
-    isLoginInvalid: false
+    hasError: false
   },
   action
 ) => {
@@ -14,32 +17,42 @@ const LoginReducer = (
       return isSuccess
         ? {
             ...state,
+            isAdmin: true,
+            isLoginInvalid: false,
             isLoading: false,
             hasError: false,
-            isLoginInvalid: false
+            validationState: "success"
           }
         : {
             ...state,
+            isLoginInvalid: true,
             isLoading: false,
             hasError: false,
-            isLoginInvalid: true
+            validationState: "error"
           };
-      }
+    }
     case types.LOGIN_PENDING:
       return {
         ...state,
         isLoading: true,
         hasError: false,
+        isLoginInvalid: false
       };
     case types.LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
         hasError: true,
+        isLoginInvalid: false
+      };
+    case types.LOGOUT:
+      return {
+        ...state,
+        isAdmin: false
       };
     default:
       return state;
   }
 };
 
-export default LoginReducer;
+export default reducer;
