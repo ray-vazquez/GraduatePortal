@@ -1,15 +1,15 @@
-import * as types from './constants/actionTypes'
+import * as types from './constants/actionTypes';
 
-const reducer = (
-    state = {
-      profiles: {},
-      isAdmin: true,
-      userInput: '',
-      hasSearched: false,
-      isLoading: false,
-      hasError: false
-    },
-    action
+const EditProfileReducer = (
+  state = {
+    profiles: {},
+    isAdmin: true,
+    userInput: '',
+    hasSearched: false,
+    isLoading: false,
+    hasError: false
+  },
+  action
 ) => {
   switch (action.type) {
     case types.EDIT_PROFILE_PENDING:
@@ -23,4 +23,4 @@ const reducer = (
   }
 }
 
-export default reducer
+export default EditProfileReducer;
