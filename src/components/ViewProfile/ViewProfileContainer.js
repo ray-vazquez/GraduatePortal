@@ -2,15 +2,16 @@ import {
     connect
 } from "react-redux";
 import ViewProfile from "./ViewProfile";
+
 import {
     fetchAllProfiles
-} from "./ViewProfileActions";
+} from "../Search/searchActions";
 
 function mapStateToProps(state) {
     return {
         profiles: state.Shared.profiles,
-        // isLoading: state.ViewProfile.isLoading,
-        // hasError: state.ViewProfile.hasError
+        isLoading: state.Search.isLoading,
+        hasError: state.Search.hasError
     };
 }
 
