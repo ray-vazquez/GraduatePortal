@@ -1,10 +1,10 @@
 import {
   connect
 } from "react-redux";
-import EditProfile from "./EditProfile";
+import NewProfile from "./NewProfile";
 import {
-  fetchProfileEdit
-} from "./EditProfileActions";
+  profileNew
+} from "./NewProfileActions";
 
 function mapStateToProps({
   isLoading,
@@ -22,11 +22,11 @@ function mapStateToProps({
 
 function mapDispatchToProps(dispatch) {
   return {
-    editProfile: (graduateId) => dispatch(fetchProfileEdit(graduateId))
+    newProfile: (profileData) => dispatch(profileNew(profileData))
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EditProfile);
+)(NewProfile);
