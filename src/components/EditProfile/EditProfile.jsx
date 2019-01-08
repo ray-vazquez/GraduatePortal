@@ -21,166 +21,244 @@ function FieldGroup({ id, label, help, ...props }) {
 
 class EditProfile extends Component {
   state = {
-    isNew: false,
-    isAdmin: false,
+    graduateId: this.props.match.params.graduateId,
+    profileData: null,
+    isAdmin: true,
     isLoading: false,
-    hasError: false,
-    profile: {
-      graduateId: null,
-      firstName: null,
-      lastName: null,
-      isActive: null,
-      skills: [],
-      github: null,
-      linkedin: null,
-      email: null,
-      website: null,
-      phone: null,
-      yearOfGrad: null,
-      image: null,
-      resume: null,
-      story: null
-    }
+    hasError: false
   };
 
-  handleUpdateProfile = e => {
+  handleEditProfile = e => {
     e.preventDefault();
-    this.props.editProfile(this.state.graduateId);
+    console.log(this.state);
+    this.setState({
+      graduateId: this.state.graduateId,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      skills: this.state.skills,
+      github: this.state.github,
+      linkedin: this.state.linkedin,
+      email: this.state.email,
+      website: this.state.website,
+      phone: this.state.phone,
+      yearOfGrad: this.state.yearOfGrad,
+      inage: this.state.image,
+      resume: this.state.resume,
+      story: this.state.story,
+      isActive: this.state.isActive
+    });
+    this.props.fetchProfileEdit(this.state.profileData);
   };
+
+  componentDidMount() {
+    if (!this.props.profiles)
+      this.props.fetchAllProfiles().then(() => {
+        this.setState({
+          profileData: Object.values(this.props.profiles).filter(profile => {
+            return profile.id === parseInt(this.state.graduateId);
+          })
+        });
+      });
+  }
 
   render() {
+    console.log("profileData:", this.state.profileData);
     return (
-      <div className="container">
-        <header>
-          <h2>
-            Graduate Portal
-            <br />
-            {this.state.isNew ? "New" : "Edit"} Profile
-          </h2>
-        </header>
-        <form onSubmit={this.handleUpdateProfile}>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              First Name
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="First Name" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Last Name
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Last Name" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Year of Graduation
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Year of Graduation" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Skills
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Skills" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formControlsTextarea">
-            <Col componentClass={ControlLabel} sm={2}>
-              Story
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Story" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Phone Number
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Phone Number" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <FormGroup controlId="formBasicText">
-              <Col componentClass={ControlLabel} sm={2}>
-                Email
-              </Col>
-              <Col sm={10}>
-                <FormControl type="text" placeholder="Email" />
-              </Col>
-            </FormGroup>
-            <Col componentClass={ControlLabel} sm={2}>
-              Linked In
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Linked In" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              GitHub
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="GitHub" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Website
-            </Col>
-            <Col sm={10}>
-              <FormControl type="text" placeholder="Website" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formControlsFile">
-            <Col componentClass={ControlLabel} sm={2}>
-              Image
-            </Col>
-            <Col sm={10}>
-              <FieldGroup
-                id="formControlsFile"
-                type="file"
-                label="File"
-                help="Upload Image File."
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formControlsFile">
-            <Col componentClass={ControlLabel} sm={2}>
-              Resume
-            </Col>
-            <Col sm={10}>
-              <FieldGroup
-                id="formControlsFile"
-                type="file"
-                label="File"
-                help="Upload Resume File in PDF format."
-              />
-            </Col>
-          </FormGroup>
-          <Button
-            type="submit"
-            className="btn btn-primary"
-            disabled={this.props.isLoading === true}
-          >
-            {this.props.isLoading ? "UPDATE" : "ADD"}
-          </Button>
-          {this.props.hasError && (
-            <ErrorMessage>
-              Sorry! The Graduate Portal is temporarily down. Our engineers are
-              aware of the problem and are hard at work trying to fix it. Please
-              come back later.
-            </ErrorMessage>
-          )}
-        </form>
-      </div>
+      <main className="">
+        {this.state.profileData &&
+          Object.values(this.state.profileData).map(graduate => {
+            const key = "graduate-" + graduate.id;
+            return (
+              <div className="card" key={key}>
+                <header>
+                  <h2>{this.state.isNew ? "New" : "Edit"} Profile</h2>
+                </header>
+                <form onSubmit={this.handleEditProfile}>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      First Name
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.firstName}
+                        onChange={e =>
+                          this.setState({ firstName: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Last Name
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.lastName}
+                        onChange={e =>
+                          this.setState({ lastName: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Year of Graduation
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.yearOfGrad}
+                        onChange={e =>
+                          this.setState({ yearOfGrad: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Skills
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.skills.join(", ")}
+                        onChange={e =>
+                          this.setState({ skills: [e.target.value] })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formControlsTextarea">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Story
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.story}
+                        onChange={e => this.setState({ story: e.target.value })}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Phone Number
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.phone}
+                        onChange={e => this.setState({ phone: e.target.value })}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <FormGroup controlId="formBasicText">
+                      <Col componentClass={ControlLabel} sm={2}>
+                        Email
+                      </Col>
+                      <Col sm={10}>
+                        <FormControl
+                          type="text"
+                          placeholder={graduate.email}
+                          onChange={e =>
+                            this.setState({ email: e.target.value })
+                          }
+                        />
+                      </Col>
+                    </FormGroup>
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Linked In
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.linkedin}
+                        onChange={e =>
+                          this.setState({ linkedin: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      GitHub
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.github}
+                        onChange={e =>
+                          this.setState({ github: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formBasicText">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Website
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={graduate.website}
+                        onChange={e =>
+                          this.setState({ website: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formControlsFile">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Image
+                    </Col>
+                    <Col sm={10}>
+                      <FieldGroup
+                        id="formControlsFile"
+                        type="file"
+                        label="File"
+                        help={graduate.image}
+                        onChange={e => this.setState({ image: e.target.value })}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup controlId="formControlsFile">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Resume
+                    </Col>
+                    <Col sm={10}>
+                      <FieldGroup
+                        id="formControlsFile"
+                        type="file"
+                        label="File"
+                        help={graduate.resume}
+                        onChange={e =>
+                          this.setState({ resume: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </FormGroup>
+                  <Button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={this.props.isLoading === true}
+                  >
+                    {this.props.isLoading ? "UPDATE" : "UPDATE"}
+                  </Button>
+                  {this.props.hasError && (
+                    <ErrorMessage>
+                      Sorry! The Graduate Portal is temporarily down. Our
+                      engineers are aware of the problem and are hard at work
+                      trying to fix it. Please come back later.
+                    </ErrorMessage>
+                  )}
+                </form>
+              </div>
+            );
+          })}
+      </main>
     );
   }
 }
