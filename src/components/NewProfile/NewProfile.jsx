@@ -19,33 +19,34 @@ function FieldGroup({ id, label, help, ...props }) {
   );
 }
 
-class EditProfile extends Component {
+class NewProfile extends Component {
   state = {
-    isNew: false,
-    isAdmin: false,
-    isLoading: false,
+    isNew: true,
+    isAdmin: true,
     hasError: false,
-    profile: {
-      graduateId: null,
-      firstName: null,
-      lastName: null,
-      isActive: null,
-      skills: [],
-      github: null,
-      linkedin: null,
-      email: null,
-      website: null,
-      phone: null,
-      yearOfGrad: null,
-      image: null,
-      resume: null,
-      story: null
-    }
+    isActive: 1
   };
 
-  handleUpdateProfile = e => {
+  handleNewProfile = e => {
     e.preventDefault();
-    this.props.editProfile(this.state.graduateId);
+    console.log(this.state);
+    this.setState({
+      graduateId: this.state.graduateId,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      skills: this.state.skills,
+      github: this.state.github,
+      linkedin: this.state.linkedin,
+      email: this.state.email,
+      website: this.state.website,
+      phone: this.state.phone,
+      yearOfGrad: this.state.yearOfGrad,
+      inage: this.state.image,
+      resume: this.state.resume,
+      story: this.state.story,
+      isActive: this.state.isActive
+    });
+    this.props.newProfile(this.state);
   };
 
   render() {
@@ -58,13 +59,17 @@ class EditProfile extends Component {
             {this.state.isNew ? "New" : "Edit"} Profile
           </h2>
         </header>
-        <form onSubmit={this.handleUpdateProfile}>
+        <form onSubmit={this.handleNewProfile}>
           <FormGroup controlId="formBasicText">
             <Col componentClass={ControlLabel} sm={2}>
               First Name
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="First Name" />
+              <FormControl
+                type="text"
+                placeholder="First Name"
+                onChange={e => this.setState({ firstName: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -72,7 +77,11 @@ class EditProfile extends Component {
               Last Name
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Last Name" />
+              <FormControl
+                type="text"
+                placeholder="Last Name"
+                onChange={e => this.setState({ lastName: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -80,7 +89,11 @@ class EditProfile extends Component {
               Year of Graduation
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Year of Graduation" />
+              <FormControl
+                type="text"
+                placeholder="Year of Graduation"
+                onChange={e => this.setState({ yearOfGrad: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -88,7 +101,11 @@ class EditProfile extends Component {
               Skills
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Skills" />
+              <FormControl
+                type="text"
+                placeholder="Skills"
+                onChange={e => this.setState({ skills: [e.target.value] })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formControlsTextarea">
@@ -96,7 +113,11 @@ class EditProfile extends Component {
               Story
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Story" />
+              <FormControl
+                type="text"
+                placeholder="Story"
+                onChange={e => this.setState({ story: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -104,7 +125,11 @@ class EditProfile extends Component {
               Phone Number
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Phone Number" />
+              <FormControl
+                type="text"
+                placeholder="Phone Number"
+                onChange={e => this.setState({ phone: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -113,14 +138,22 @@ class EditProfile extends Component {
                 Email
               </Col>
               <Col sm={10}>
-                <FormControl type="text" placeholder="Email" />
+                <FormControl
+                  type="text"
+                  placeholder="Email"
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
               </Col>
             </FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
               Linked In
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Linked In" />
+              <FormControl
+                type="text"
+                placeholder="Linked In"
+                onChange={e => this.setState({ linkedin: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -128,7 +161,11 @@ class EditProfile extends Component {
               GitHub
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="GitHub" />
+              <FormControl
+                type="text"
+                placeholder="GitHub"
+                onChange={e => this.setState({ github: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -136,7 +173,11 @@ class EditProfile extends Component {
               Website
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Website" />
+              <FormControl
+                type="text"
+                placeholder="Website"
+                onChange={e => this.setState({ website: e.target.value })}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formControlsFile">
@@ -149,6 +190,7 @@ class EditProfile extends Component {
                 type="file"
                 label="File"
                 help="Upload Image File."
+                onChange={e => this.setState({ image: e.target.value })}
               />
             </Col>
           </FormGroup>
@@ -162,6 +204,7 @@ class EditProfile extends Component {
                 type="file"
                 label="File"
                 help="Upload Resume File in PDF format."
+                onChange={e => this.setState({ resume: e.target.value })}
               />
             </Col>
           </FormGroup>
@@ -185,4 +228,4 @@ class EditProfile extends Component {
   }
 }
 
-export default EditProfile;
+export default NewProfile;

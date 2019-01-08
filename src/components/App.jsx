@@ -6,20 +6,22 @@ import NavBarContainer from "./NavBar/NavBarContainer";
 import Footer from "./Footer/Footer";
 import LoginContainer from "./Login/LoginContainer";
 import SearchContainer from "./Search/SearchContainer";
-// import ViewProfileContainer from './ViewProfile/ViewProfileContainer';
-import EditProfileContainer from "./EditProfile/EditProfileContainer";
+import ViewProfileContainer from "./ViewProfile/ViewProfileContainer";
+import NewProfileContainer from "./NewProfile/NewProfileContainer";
 
 function App() {
   return (
     <div>
-      <Route path="/" component={NavBarContainer} />
+      <NavBarContainer />
       <main className="container">
         <Switch>
           <Route exact path="/" component={SearchContainer} />
-          <Route path="/login" component={LoginContainer} />
-          {/* <Route path='/profile/:gradId' component={ViewProfileContainer} /> */}
-          {/* <Route path='/profile/:gradId/edit' component={EditProfileContainer} /> */}
-          <Route path="/profile/add" component={EditProfileContainer} />
+          <Route exact path="/login" component={LoginContainer} />
+          <Route exact path="/search" component={SearchContainer} />
+          <Route path="/profile/:graduateId" component={ViewProfileContainer} />
+          {/* <Route path='/profile/edit/:graduateId' component={EditProfileContainer} /> */}
+          {/* <Route path='/profile/new' component={NewProfileContainer} /> */}
+          <Route path="/profile/add" component={NewProfileContainer} />
           <Redirect to="/" />
         </Switch>
       </main>
