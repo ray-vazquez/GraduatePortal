@@ -4,7 +4,8 @@ const LoginReducer = (
   state = {
     isLoading: false,
     hasError: false,
-    isLoginInvalid: false
+    isLoginInvalid: false,
+    validationState: null
   },
   action
 ) => {
@@ -37,7 +38,8 @@ const LoginReducer = (
       return {
         ...state,
         isLoading: false,
-        hasError: true
+        hasError: true,
+        validationState: "error"
       };
     default:
       return state;

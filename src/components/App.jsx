@@ -16,7 +16,7 @@ function App() {
       <main className="container">
         <Switch>
           <Route exact path="/" component={SearchContainer} />
-          <Route exact path="/login" component={LoginContainer} />
+          <Route path="/login" component={LoginContainer} />
           {/* <Route path='/profile/:gradId' component={ViewProfileContainer} /> */}
           {/* <Route path='/profile/:gradId/edit' component={EditProfileContainer} /> */}
           <Route path="/profile/add" component={EditProfileContainer} />

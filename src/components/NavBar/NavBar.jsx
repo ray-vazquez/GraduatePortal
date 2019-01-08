@@ -17,11 +17,11 @@ class NavBar extends Component {
                 <img src={accLogo} alt={"acc logo"} />
               </a>
             </Navbar.Brand>
-            {/* Toggle button for mobile isn't necessary for non-admins. */}
+            {/* Toggle button for mobile isn't necessary for non-admins */}
             {this.props.isAdmin && <Navbar.Toggle />}
           </Navbar.Header>
 
-          {/* Show extra features for admins. */}
+          {/* Show extra features for admins */}
           {this.props.isAdmin ? (
             <Navbar.Collapse>
               <Nav pullRight>
@@ -32,8 +32,9 @@ class NavBar extends Component {
                   <NavItem eventKey={2}>CREATE PROFILE</NavItem>
                 </LinkContainer>
                 <NavItem
-                  eventKey={3}
                   className="acc-link"
+                  href="#"
+                  eventKey={3}
                   onClick={this.props.logout}
                 >
                   LOGOUT
