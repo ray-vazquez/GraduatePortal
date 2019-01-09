@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import { Media } from "react-bootstrap";
 
@@ -10,7 +10,8 @@ import ErrorMessage from "../Widgets/ErrorMessage";
 class ViewProfile extends Component {
   state = {
     graduateId: this.props.match.params.graduateId,
-    profileData: null
+    profileData: null,
+    isAdmin: false
   };
 
   componentDidMount() {
@@ -89,7 +90,7 @@ class ViewProfile extends Component {
 
                         {this.state.isAdmin && (
                           <Button bsStyle="primary" bsSize="small">
-                            Edit Resume
+                            Edit Profile
                           </Button>
                         )}
                       </Media.Body>

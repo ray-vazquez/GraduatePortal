@@ -1,26 +1,25 @@
-import * as types from './constants/actionTypes';
+import * as types from "../../constants/actionTypes";
 
 const EditProfileReducer = (
   state = {
-    profiles: {},
-    isAdmin: true,
-    userInput: '',
-    hasSearched: false,
     isLoading: false,
-    hasError: false
+    hasError: false,
+    isAdmin: false
   },
   action
 ) => {
-  switch (action.type) {
-    case types.EDIT_PROFILE_PENDING:
-      return {}
-    case types.EDIT_PROFILE_FULFILLED:
-      return {}
-    case types.EDIT_PROFILE_REJECTED:
-      return {}
+  switch (action.types) {
+    case types.FETCH_ALL_PROFILES_REJECTED:
+      {
+        return {
+          ...state,
+          isLoading: false,
+          hasError: true
+        };
+      }
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default EditProfileReducer;

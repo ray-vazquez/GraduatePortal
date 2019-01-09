@@ -2,27 +2,22 @@ import {
   connect
 } from "react-redux";
 import EditProfile from "./EditProfile";
-import {
-  fetchProfileEdit
-} from "./EditProfileActions";
 
-function mapStateToProps({
-  isLoading,
-  hasError,
-  isLoginInvalid,
-  validationState
-}) {
+import {
+  fetchAllProfiles
+} from "../Search/searchActions";
+
+function mapStateToProps(state) {
   return {
-    isLoading,
-    hasError,
-    isLoginInvalid,
-    validationState
+    profiles: state.Shared.profiles,
+    isLoading: state.Search.isLoading,
+    hasError: state.Search.hasError
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    editProfile: (graduateId) => dispatch(fetchProfileEdit(graduateId))
+    fetchAllProfiles: () => dispatch(fetchAllProfiles())
   };
 }
 

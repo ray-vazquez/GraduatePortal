@@ -5,9 +5,9 @@ import {
   fetchProfilesEditRequest
 } from "../../services/api";
 
-export const fetchProfileEdit = (graduateId) => {
+export const fetchProfileEdit = (profileData) => {
   return {
     type: EDIT_PROFILE,
-    payload: fetchProfilesEditRequest(graduateId)
+    payload: fetchProfilesEditRequest(profileData)
   };
 };

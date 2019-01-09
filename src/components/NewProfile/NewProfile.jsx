@@ -53,11 +53,7 @@ class NewProfile extends Component {
     return (
       <div className="container">
         <header>
-          <h2>
-            Graduate Portal
-            <br />
-            {this.state.isNew ? "New" : "Edit"} Profile
-          </h2>
+          <h2>{this.state.isNew ? "New" : "Edit"} Profile</h2>
         </header>
         <form onSubmit={this.handleNewProfile}>
           <FormGroup controlId="formBasicText">

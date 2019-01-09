@@ -48,18 +48,9 @@ export const fetchProfilesNewRequest = (profileData) => {
   }, "POST");
 };
 
-export const fetchProfilesEditRequest = (graduateId) => {
+export const fetchProfilesEditRequest = (profileData) => {
   return send(`${api}/graduates/edit`, {
-    graduateId
-  }).then(response => {
-    if (response.token) localStorage.token = response.token;
-    return response;
-  }, "PUT");
-};
-
-export const fetchProfilesViewRequest = (graduateId) => {
-  return send(`${api}/graduates/${graduateId}`, {
-    graduateId
+    profileData
   }).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
