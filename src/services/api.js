@@ -41,9 +41,7 @@ export const searchProfilesRequest = userInput => {
 
 export const fetchProfilesNewRequest = (profileData) => {
   console.log('api new profile: ', profileData);
-  return send(`${api}/graduates/new`, {
-    profileData
-  }).then(response => {
+  return send(`${api}/graduates/new`, profileData).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
   });
