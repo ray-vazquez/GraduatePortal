@@ -130,7 +130,8 @@ class NewProfile extends Component {
             </Col>
             <Col sm={10}>
               <FormControl
-                type="text"
+                componentClass="textarea"
+                type="textarea"
                 placeholder="Story"
                 name="story"
                 onChange={this.onChangeInput}

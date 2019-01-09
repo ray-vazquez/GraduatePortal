@@ -85,7 +85,7 @@ class Search extends Component {
             {this.state.profiles &&
               Object.values(this.state.profiles).map(graduate => {
                 const key = "graduate-" + graduate.id;
-
+                const viewLink = "/profile/" + graduate.id;
                 return (
                   <div className="card" key={key}>
                     <Media>
@@ -99,7 +99,11 @@ class Search extends Component {
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
-                          <p>{graduate.firstName + " " + graduate.lastName} </p>
+                          <p>
+                            <a href={viewLink}>
+                              {graduate.firstName + " " + graduate.lastName}
+                            </a>{" "}
+                          </p>
                         </Media.Heading>
                         <p>{graduate.yearOfGrad}</p>
                         <p>{graduate.skills.join(", ")}</p>

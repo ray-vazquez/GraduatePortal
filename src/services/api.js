@@ -48,10 +48,8 @@ export const fetchProfilesNewRequest = (profileData) => {
 };
 
 export const fetchProfileEditRequest = (profileData) => {
-  return send(`${api}/graduates/edit`, {
-    profileData
-  }).then(response => {
+  return send(`${api}/graduates/edit`, profileData, "PUT").then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
-  }, "PUT");
+  });
 };
