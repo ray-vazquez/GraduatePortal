@@ -81,7 +81,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.firstName}
+                        placeholder="First Name"
+                        value={graduate.firstName}
                         onChange={e =>
                           this.setState({ firstName: e.target.value })
                         }
@@ -95,7 +96,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.lastName}
+                        placeholder="Last Name"
+                        value={graduate.lastName}
                         onChange={e =>
                           this.setState({ lastName: e.target.value })
                         }
@@ -109,7 +111,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.yearOfGrad}
+                        placeholder="Year of Graduation"
+                        value={graduate.yearOfGrad}
                         onChange={e =>
                           this.setState({ yearOfGrad: e.target.value })
                         }
@@ -123,7 +126,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.skills.join(", ")}
+                        placeholder="Skills"
+                        value={graduate.skills.join(", ")}
                         onChange={e =>
                           this.setState({ skills: [e.target.value] })
                         }
@@ -136,8 +140,9 @@ class EditProfile extends Component {
                     </Col>
                     <Col sm={10}>
                       <FormControl
-                        type="text"
-                        placeholder={graduate.story}
+                        componentClass="textarea"
+                        placeholder="Story"
+                        value={graduate.story}
                         onChange={e => this.setState({ story: e.target.value })}
                       />
                     </Col>
@@ -149,7 +154,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.phone}
+                        placeholder="Phone Number"
+                        value={graduate.phone}
                         onChange={e => this.setState({ phone: e.target.value })}
                       />
                     </Col>
@@ -162,7 +168,8 @@ class EditProfile extends Component {
                       <Col sm={10}>
                         <FormControl
                           type="text"
-                          placeholder={graduate.email}
+                          placeholder="Email"
+                          value={graduate.email}
                           onChange={e =>
                             this.setState({ email: e.target.value })
                           }
@@ -170,12 +177,13 @@ class EditProfile extends Component {
                       </Col>
                     </FormGroup>
                     <Col componentClass={ControlLabel} sm={2}>
-                      Linked In
+                      LinkedIn
                     </Col>
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.linkedin}
+                        placeholder="LinkedIn"
+                        value={graduate.linkedin}
                         onChange={e =>
                           this.setState({ linkedin: e.target.value })
                         }
@@ -189,7 +197,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.github}
+                        placeholder="GitHub"
+                        value={graduate.github}
                         onChange={e =>
                           this.setState({ github: e.target.value })
                         }
@@ -203,7 +212,8 @@ class EditProfile extends Component {
                     <Col sm={10}>
                       <FormControl
                         type="text"
-                        placeholder={graduate.website}
+                        placeholder="Website"
+                        value={graduate.website}
                         onChange={e =>
                           this.setState({ website: e.target.value })
                         }
@@ -218,8 +228,8 @@ class EditProfile extends Component {
                       <FieldGroup
                         id="formControlsFile"
                         type="file"
-                        label="File"
-                        help={graduate.image}
+                        label={graduate.image ? graduate.image : "None"}
+                        help="Upload New Image"
                         onChange={e => this.setState({ image: e.target.value })}
                       />
                     </Col>
@@ -232,8 +242,8 @@ class EditProfile extends Component {
                       <FieldGroup
                         id="formControlsFile"
                         type="file"
-                        label="File"
-                        help={graduate.resume}
+                        label={graduate.resume ? graduate.resume : "None"}
+                        help="Upload New Resume"
                         onChange={e =>
                           this.setState({ resume: e.target.value })
                         }
@@ -245,7 +255,7 @@ class EditProfile extends Component {
                     className="btn btn-primary"
                     disabled={this.props.isLoading === true}
                   >
-                    {this.props.isLoading ? "UPDATE" : "UPDATE"}
+                    {this.props.isLoading ? "LOADING..." : "UPDATE"}
                   </Button>
                   {this.props.hasError && (
                     <ErrorMessage>
