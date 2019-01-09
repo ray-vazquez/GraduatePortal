@@ -4,6 +4,10 @@ import {
 import EditProfile from "./EditProfile";
 
 import {
+  fetchProfileEdit
+} from "../EditProfile/EditProfileActions";
+
+import {
   fetchAllProfiles
 } from "../Search/searchActions";
 
@@ -17,6 +21,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchProfileEdit: (profileData) => dispatch(fetchProfileEdit(profileData)),
     fetchAllProfiles: () => dispatch(fetchAllProfiles())
   };
 }

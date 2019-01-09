@@ -22,7 +22,7 @@ function FieldGroup({ id, label, help, ...props }) {
 class EditProfile extends Component {
   state = {
     graduateId: this.props.match.params.graduateId,
-    profileData: null,
+    profileData: {},
     isAdmin: true,
     isLoading: false,
     hasError: false
@@ -32,20 +32,22 @@ class EditProfile extends Component {
     e.preventDefault();
     console.log(this.state);
     this.setState({
-      graduateId: this.state.graduateId,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      skills: this.state.skills,
-      github: this.state.github,
-      linkedin: this.state.linkedin,
-      email: this.state.email,
-      website: this.state.website,
-      phone: this.state.phone,
-      yearOfGrad: this.state.yearOfGrad,
-      inage: this.state.image,
-      resume: this.state.resume,
-      story: this.state.story,
-      isActive: this.state.isActive
+      profileData: {
+        graduateId: this.state.graduateId,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        skills: this.state.skills,
+        github: this.state.github,
+        linkedin: this.state.linkedin,
+        email: this.state.email,
+        website: this.state.website,
+        phone: this.state.phone,
+        yearOfGrad: this.state.yearOfGrad,
+        inage: this.state.image,
+        resume: this.state.resume,
+        story: this.state.story,
+        isActive: this.state.isActive
+      }
     });
     this.props.fetchProfileEdit(this.state.profileData);
   };

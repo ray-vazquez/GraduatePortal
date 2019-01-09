@@ -24,29 +24,32 @@ class NewProfile extends Component {
     isNew: true,
     isAdmin: true,
     hasError: false,
-    isActive: 1
+    isActive: 1,
+    profileData: {}
   };
 
   handleNewProfile = e => {
     e.preventDefault();
     console.log(this.state);
     this.setState({
-      graduateId: this.state.graduateId,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      skills: this.state.skills,
-      github: this.state.github,
-      linkedin: this.state.linkedin,
-      email: this.state.email,
-      website: this.state.website,
-      phone: this.state.phone,
-      yearOfGrad: this.state.yearOfGrad,
-      inage: this.state.image,
-      resume: this.state.resume,
-      story: this.state.story,
-      isActive: this.state.isActive
+      profileData: {
+        graduateId: this.state.graduateId,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        skills: this.state.skills,
+        github: this.state.github,
+        linkedin: this.state.linkedin,
+        email: this.state.email,
+        website: this.state.website,
+        phone: this.state.phone,
+        yearOfGrad: this.state.yearOfGrad,
+        inage: this.state.image,
+        resume: this.state.resume,
+        story: this.state.story,
+        isActive: this.state.isActive
+      }
     });
-    this.props.newProfile(this.state);
+    this.props.newProfile(this.state.profileData);
   };
 
   render() {

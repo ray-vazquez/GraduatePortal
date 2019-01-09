@@ -48,7 +48,7 @@ export const fetchProfilesNewRequest = (profileData) => {
   }, "POST");
 };
 
-export const fetchProfilesEditRequest = (profileData) => {
+export const fetchProfileEditRequest = (profileData) => {
   return send(`${api}/graduates/edit`, {
     profileData
   }).then(response => {
