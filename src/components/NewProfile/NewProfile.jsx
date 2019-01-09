@@ -28,7 +28,7 @@ class NewProfile extends Component {
     profileData: {
       firstName: "",
       lastName: "",
-      yearOfGrad: "",
+      yearOfGrad: 0,
       skills: [],
       story: "",
       phone: "",
@@ -57,6 +57,12 @@ class NewProfile extends Component {
     console.log(this.state);
     const { profileData } = this.state.profileData;
     this.props.profileNew(profileData);
+  };
+
+  uploadFile = e => {
+    e.preventDefault();
+    console.log("uploadFile: ", e.target.files);
+    window.uploadFile(e.target.files);
   };
 
   render() {
@@ -196,17 +202,30 @@ class NewProfile extends Component {
               />
             </Col>
           </FormGroup>
+          <FormGroup controlId="formBasicText">
+            <Col componentClass={ControlLabel} sm={2}>
+              Website
+            </Col>
+            <Col sm={10}>
+              <FormControl
+                type="text"
+                placeholder="Website"
+                name="website"
+                onChange={this.onChangeInput}
+              />
+            </Col>
+          </FormGroup>
           <FormGroup controlId="formControlsFile">
             <Col componentClass={ControlLabel} sm={2}>
               Image
             </Col>
             <Col sm={10}>
               <FieldGroup
-                id="formControlsFile"
+                id="uploadButton"
                 type="file"
                 help="Upload Image File."
                 name="image"
-                onChange={this.onChangeInput}
+                onChange={e => this.uploadFile(e)}
               />
             </Col>
           </FormGroup>
@@ -216,11 +235,11 @@ class NewProfile extends Component {
             </Col>
             <Col sm={10}>
               <FieldGroup
-                id="formControlsFile"
+                id="uploadButton"
                 type="file"
                 help="Upload Resume File in PDF format."
                 name="resume"
-                onChange={this.onChangeInput}
+                onChange={e => this.uploadFile(e)}
               />
             </Col>
           </FormGroup>
