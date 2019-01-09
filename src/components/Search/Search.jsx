@@ -10,7 +10,7 @@ import ErrorMessage from "../Widgets/ErrorMessage";
 class Search extends Component {
   state = {
     searchInput: "",
-    profiles: [] //local state after getting from store
+    profiles: null //local state after getting from store
   };
 
   handleChange = e => {
@@ -43,7 +43,7 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.profiles)
+    if (!this.state.profiles)
       this.props.fetchAllProfiles().then(() => {
         this.setState({ profiles: this.props.profiles });
       });
@@ -84,7 +84,7 @@ class Search extends Component {
             )}
             {this.state.profiles &&
               Object.values(this.state.profiles).map(graduate => {
-                const key = "graduate-" + graduate.graduate_id;
+                const key = "graduate-" + graduate.id;
 
                 return (
                   <div className="card" key={key}>

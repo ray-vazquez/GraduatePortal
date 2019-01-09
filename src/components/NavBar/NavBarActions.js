@@ -11,6 +11,9 @@ export const logout = () => {
   localStorage.removeItem("token");
   return dispatch => {
     dispatch(logoutAction());
-    history.push("/");
+    let currentRoute = history.location.pathname;
+    if ((/^\/profile\/add/.test(currentRoute)) || (/^\/profile\/edit/.test(currentRoute))) {
+      history.push("/");
+    };
   };
 };
