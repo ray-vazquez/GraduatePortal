@@ -10,13 +10,15 @@ function mapStateToProps({
   isLoading,
   hasError,
   isLoginInvalid,
-  validationState
+  validationState,
+  profileData
 }) {
   return {
     isLoading,
     hasError,
     isLoginInvalid,
-    validationState
+    validationState,
+    profileData
   };
 }
 
