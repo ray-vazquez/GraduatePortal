@@ -32,7 +32,7 @@ class Login extends Component {
                 records.
               </p>
             )}
-            <FormGroup validationState={this.props.isLoginInvalid ? "error" : "success"}>
+            <FormGroup validationState={this.props.validationState}>
               <FormControl
                 type="text"
                 className="login-input"
@@ -42,7 +42,7 @@ class Login extends Component {
                 onChange={e => this.setState({ username: e.target.value })}
               />
             </FormGroup>
-            <FormGroup validationState={this.props.isLoginInvalid ? "error" : "success"}>
+            <FormGroup validationState={this.props.validationState}>
               <FormControl
                 type="password"
                 placeholder="Password"
@@ -58,6 +58,7 @@ class Login extends Component {
             >
               {this.props.isLoading ? "LOADING ..." : "LOGIN"}
             </Button>
+            {console.log(this.props.hasError, this.props.validationState)}
             {this.props.hasError && (
               <ErrorMessage>
                 Sorry! The Graduate Portal is temporarily down. Our engineers
