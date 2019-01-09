@@ -28,28 +28,21 @@ class NewProfile extends Component {
     profileData: {}
   };
 
+  onChangeInput = e => {
+    this.setState({
+      ...this.state,
+      profileData: {
+        ...this.state.profileData,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
   handleNewProfile = e => {
     e.preventDefault();
     console.log(this.state);
-    this.setState({
-      profileData: {
-        graduateId: this.state.graduateId,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        skills: this.state.skills,
-        github: this.state.github,
-        linkedin: this.state.linkedin,
-        email: this.state.email,
-        website: this.state.website,
-        phone: this.state.phone,
-        yearOfGrad: this.state.yearOfGrad,
-        inage: this.state.image,
-        resume: this.state.resume,
-        story: this.state.story,
-        isActive: this.state.isActive
-      }
-    });
-    this.props.newProfile(this.state.profileData);
+    const { profileData } = this.state.profileData;
+    this.props.newProfile(profileData);
   };
 
   render() {
@@ -67,7 +60,8 @@ class NewProfile extends Component {
               <FormControl
                 type="text"
                 placeholder="First Name"
-                onChange={e => this.setState({ firstName: e.target.value })}
+                name="firstName"
+                onChange={this.onChangeInput}
               />
             </Col>
           </FormGroup>
@@ -79,7 +73,8 @@ class NewProfile extends Component {
               <FormControl
                 type="text"
                 placeholder="Last Name"
-                onChange={e => this.setState({ lastName: e.target.value })}
+                name="lastName"
+                onChange={this.onChangeInput}
               />
             </Col>
           </FormGroup>
@@ -91,7 +86,8 @@ class NewProfile extends Component {
               <FormControl
                 type="text"
                 placeholder="Year of Graduation"
-                onChange={e => this.setState({ yearOfGrad: e.target.value })}
+                name="yearOfGrad"
+                onChange={this.onChangeInput}
               />
             </Col>
           </FormGroup>
@@ -100,11 +96,7 @@ class NewProfile extends Component {
               Skills
             </Col>
             <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="Skills"
-                onChange={e => this.setState({ skills: [e.target.value] })}
-              />
+              <FormControl type="text" placeholder="Skills" />
             </Col>
           </FormGroup>
           <FormGroup controlId="formControlsTextarea">
@@ -112,11 +104,7 @@ class NewProfile extends Component {
               Story
             </Col>
             <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="Story"
-                onChange={e => this.setState({ story: e.target.value })}
-              />
+              <FormControl type="text" placeholder="Story" />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -124,11 +112,7 @@ class NewProfile extends Component {
               Phone Number
             </Col>
             <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="Phone Number"
-                onChange={e => this.setState({ phone: e.target.value })}
-              />
+              <FormControl type="text" placeholder="Phone Number" />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -137,22 +121,14 @@ class NewProfile extends Component {
                 Email
               </Col>
               <Col sm={10}>
-                <FormControl
-                  type="text"
-                  placeholder="Email"
-                  onChange={e => this.setState({ email: e.target.value })}
-                />
+                <FormControl type="text" placeholder="Email" />
               </Col>
             </FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
               Linked In
             </Col>
             <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="Linked In"
-                onChange={e => this.setState({ linkedin: e.target.value })}
-              />
+              <FormControl type="text" placeholder="Linked In" />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -160,11 +136,7 @@ class NewProfile extends Component {
               GitHub
             </Col>
             <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="GitHub"
-                onChange={e => this.setState({ github: e.target.value })}
-              />
+              <FormControl type="text" placeholder="GitHub" />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -172,11 +144,7 @@ class NewProfile extends Component {
               Website
             </Col>
             <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="Website"
-                onChange={e => this.setState({ website: e.target.value })}
-              />
+              <FormControl type="text" placeholder="Website" />
             </Col>
           </FormGroup>
           <FormGroup controlId="formControlsFile">
@@ -189,7 +157,6 @@ class NewProfile extends Component {
                 type="file"
                 label="File"
                 help="Upload Image File."
-                onChange={e => this.setState({ image: e.target.value })}
               />
             </Col>
           </FormGroup>
@@ -203,7 +170,6 @@ class NewProfile extends Component {
                 type="file"
                 label="File"
                 help="Upload Resume File in PDF format."
-                onChange={e => this.setState({ resume: e.target.value })}
               />
             </Col>
           </FormGroup>
