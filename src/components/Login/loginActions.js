@@ -2,16 +2,16 @@ import history from "../../history";
 import { LOGIN } from "../../constants/actionTypes";
 import { loginRequest } from "../../services/api";
 
-const loginAction = (username, passsword) => {
+const loginAction = (username, password) => {
   return {
     type: LOGIN,
-    payload: loginRequest(username, passsword)
+    payload: loginRequest(username, password)
   };
 };
 
-export const login = (username, passsword) => {
+export const login = (username, password) => {
   return dispatch => {
-    dispatch(loginAction(username, passsword)).then(data => {
+    dispatch(loginAction(username, password)).then(data => {
       if (data.value.token) {
         history.push("/");
       }

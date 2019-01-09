@@ -52,11 +52,23 @@ class NewProfile extends Component {
     });
   };
 
+  onChangeSkills = e => {
+    let skillsArray = e.target.value.split(",");
+    for (let i = 0; i < skillsArray.length; i++) {
+      skillsArray[i] = skillsArray[i].trim();
+    } 
+    this.setState({
+      ...this.state,
+      profileData: {
+        ...this.state.profileData,
+        skills: skillsArray
+      }
+    });
+  };
+
   handleNewProfile = e => {
     e.preventDefault();
-    console.log(this.state);
-    const { profileData } = this.state.profileData;
-    this.props.profileNew(profileData);
+    this.props.profileNew(this.state.profileData);
   };
 
   uploadFile = e => {
@@ -120,7 +132,7 @@ class NewProfile extends Component {
                 type="text"
                 placeholder="Skills"
                 name="skills"
-                onChange={this.onChangeInput}
+                onChange={this.onChangeSkills}
               />
             </Col>
           </FormGroup>
