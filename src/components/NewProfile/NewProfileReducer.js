@@ -1,8 +1,7 @@
-import * as types from './constants/actionTypes';
+import * as types from '../../constants/actionTypes';
 
 const NewProfileReducer = (
   state = {
-    profileData: {},
     isAdmin: true,
     isLoading: false,
     hasError: false

@@ -6,25 +6,20 @@ import {
   profileNew
 } from "./NewProfileActions";
 
-function mapStateToProps({
-  isLoading,
-  hasError,
-  isLoginInvalid,
-  validationState,
-  profileData
-}) {
+function mapStateToProps(state) {
   return {
-    isLoading,
-    hasError,
-    isLoginInvalid,
-    validationState,
-    profileData
+    profileData: state.NewProfile.profileData,
+    isLoading: state.NewProfile.isLoading,
+    hasError: state.NewProfile.hasError
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    newProfile: (profileData) => dispatch(profileNew(profileData))
+    profileNew: (profileData) => {
+      console.log('dispatch new profile: ', profileData);
+      dispatch(profileNew(profileData))
+    }
   };
 }
 

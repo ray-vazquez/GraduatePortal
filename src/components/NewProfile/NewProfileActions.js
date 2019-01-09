@@ -6,6 +6,7 @@ import {
 } from "../../services/api";
 
 export const profileNew = (profileData) => {
+  console.log('actions new profile:', profileData);
   return {
     type: NEW_PROFILE,
     payload: fetchProfilesNewRequest(profileData)

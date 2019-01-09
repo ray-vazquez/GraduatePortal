@@ -25,7 +25,21 @@ class NewProfile extends Component {
     isAdmin: true,
     hasError: false,
     isActive: 1,
-    profileData: {}
+    profileData: {
+      firstName: "",
+      lastName: "",
+      yearOfGrad: "",
+      skills: [],
+      story: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      github: "",
+      website: "",
+      image: "",
+      resume: "",
+      isActive: 1
+    }
   };
 
   onChangeInput = e => {
@@ -33,7 +47,7 @@ class NewProfile extends Component {
       ...this.state,
       profileData: {
         ...this.state.profileData,
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value ? e.target.value : ""
       }
     });
   };
@@ -42,7 +56,7 @@ class NewProfile extends Component {
     e.preventDefault();
     console.log(this.state);
     const { profileData } = this.state.profileData;
-    this.props.newProfile(profileData);
+    this.props.profileNew(profileData);
   };
 
   render() {
@@ -96,7 +110,12 @@ class NewProfile extends Component {
               Skills
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Skills" />
+              <FormControl
+                type="text"
+                placeholder="Skills"
+                name="skills"
+                onChange={this.onChangeInput}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formControlsTextarea">
@@ -104,7 +123,12 @@ class NewProfile extends Component {
               Story
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Story" />
+              <FormControl
+                type="text"
+                placeholder="Story"
+                name="story"
+                onChange={this.onChangeInput}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -112,7 +136,12 @@ class NewProfile extends Component {
               Phone Number
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Phone Number" />
+              <FormControl
+                type="text"
+                placeholder="Phone Number"
+                name="phone"
+                onChange={this.onChangeInput}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -121,14 +150,24 @@ class NewProfile extends Component {
                 Email
               </Col>
               <Col sm={10}>
-                <FormControl type="text" placeholder="Email" />
+                <FormControl
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  onChange={this.onChangeInput}
+                />
               </Col>
             </FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
               Linked In
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Linked In" />
+              <FormControl
+                type="text"
+                placeholder="Linked In"
+                name="linkedin"
+                onChange={this.onChangeInput}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -136,7 +175,12 @@ class NewProfile extends Component {
               GitHub
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="GitHub" />
+              <FormControl
+                type="text"
+                placeholder="GitHub"
+                name="github"
+                onChange={this.onChangeInput}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formBasicText">
@@ -144,7 +188,12 @@ class NewProfile extends Component {
               Website
             </Col>
             <Col sm={10}>
-              <FormControl type="text" placeholder="Website" />
+              <FormControl
+                type="text"
+                placeholder="Website"
+                name="website"
+                onChange={this.onChangeInput}
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formControlsFile">
@@ -155,8 +204,9 @@ class NewProfile extends Component {
               <FieldGroup
                 id="formControlsFile"
                 type="file"
-                label="File"
                 help="Upload Image File."
+                name="image"
+                onChange={this.onChangeInput}
               />
             </Col>
           </FormGroup>
@@ -168,8 +218,9 @@ class NewProfile extends Component {
               <FieldGroup
                 id="formControlsFile"
                 type="file"
-                label="File"
                 help="Upload Resume File in PDF format."
+                name="resume"
+                onChange={this.onChangeInput}
               />
             </Col>
           </FormGroup>
