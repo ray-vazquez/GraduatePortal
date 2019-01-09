@@ -3,7 +3,8 @@ import * as types from "../../constants/actionTypes";
 const ViewProfileReducer = (
     state = {
         isLoading: false,
-        hasError: false
+        hasError: false,
+        isAdmin: false
     },
     action
 ) => {

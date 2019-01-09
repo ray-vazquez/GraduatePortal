@@ -10,8 +10,6 @@ const NewProfileReducer = (
   action
 ) => {
   switch (action.type) {
-    case types.NEW_PROFILE_FULFILLED:
-      return {}
     case types.NEW_PROFILE_REJECTED:
       return {
         ...state,
