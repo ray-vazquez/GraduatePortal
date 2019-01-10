@@ -58,7 +58,6 @@ class Login extends Component {
             >
               {this.props.isLoading ? "LOADING ..." : "LOGIN"}
             </Button>
-            {console.log(this.props.hasError, this.props.validationState)}
             {this.props.hasError && (
               <ErrorMessage>
                 Sorry! The Graduate Portal is temporarily down. Our engineers
