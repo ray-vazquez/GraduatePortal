@@ -22,34 +22,69 @@ function FieldGroup({ id, label, help, ...props }) {
 class EditProfile extends Component {
   state = {
     graduateId: this.props.match.params.graduateId,
-    profileData: {},
+    isNew: false,
     isAdmin: true,
     isLoading: false,
-    hasError: false
+    hasError: false,
+    isActive: 1,
+    profileData: {}
+  };
+
+  onChangeInput = e => {
+    e.preventDefault();
+    this.setState({
+      ...this.state,
+      profileData: {
+        ...this.state.profileData,
+        [e.target.name]: e.target.value ? e.target.value : ""
+      }
+    });
+  };
+
+  onChangeSkills = e => {
+    e.preventDefault();
+    let skillsArray = e.target.value.split(",");
+    for (let i = 0; i < skillsArray.length; i++) {
+      skillsArray[i] = skillsArray[i].trim();
+    }
+    this.setState({
+      ...this.state,
+      profileData: {
+        ...this.state.profileData,
+        skills: skillsArray
+      }
+    });
   };
 
   handleEditProfile = e => {
     e.preventDefault();
-    console.log(this.state);
-    this.setState({
-      profileData: {
-        graduateId: this.state.graduateId,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        skills: this.state.skills,
-        github: this.state.github,
-        linkedin: this.state.linkedin,
-        email: this.state.email,
-        website: this.state.website,
-        phone: this.state.phone,
-        yearOfGrad: this.state.yearOfGrad,
-        inage: this.state.image,
-        resume: this.state.resume,
-        story: this.state.story,
-        isActive: this.state.isActive
-      }
-    });
-    this.props.fetchProfileEdit(this.state.profileData);
+    this.props.profileEdit(this.state.profileData);
+  };
+
+  uploadFile = e => {
+    e.preventDefault();
+    let name = e.target.name;
+    console.log("uploadFile: ", e.target.files[0]);
+    if (name === "image")
+      this.props.uploadImageFile(e.target.files[0]).then(response =>
+        this.setState({
+          ...this.state,
+          profileData: {
+            ...this.state.profileData,
+            [name]: response.value.url.replace(/\s/g, "")
+          }
+        })
+      );
+    else if (name === "resume")
+      this.props.uploadResumeFile(e.target.files[0]).then(response =>
+        this.setState({
+          ...this.state,
+          profileData: {
+            ...this.state.profileData,
+            [name]: response.value.url.replace(/\s/g, "")
+          }
+        })
+      );
   };
 
   componentDidMount() {
@@ -85,9 +120,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="First Name"
                         value={graduate.firstName}
-                        onChange={e =>
-                          this.setState({ firstName: e.target.value })
-                        }
+                        name="firstName"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -100,9 +134,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="Last Name"
                         value={graduate.lastName}
-                        onChange={e =>
-                          this.setState({ lastName: e.target.value })
-                        }
+                        name="lastName"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -115,9 +148,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="Year of Graduation"
                         value={graduate.yearOfGrad}
-                        onChange={e =>
-                          this.setState({ yearOfGrad: e.target.value })
-                        }
+                        name="yearOfGrad"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -129,10 +161,9 @@ class EditProfile extends Component {
                       <FormControl
                         type="text"
                         placeholder="Skills"
-                        value={graduate.skills.join(", ")}
-                        onChange={e =>
-                          this.setState({ skills: [e.target.value] })
-                        }
+                        value={graduate.skills}
+                        name="skills"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -145,7 +176,8 @@ class EditProfile extends Component {
                         componentClass="textarea"
                         placeholder="Story"
                         value={graduate.story}
-                        onChange={e => this.setState({ story: e.target.value })}
+                        name="story"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -158,7 +190,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="Phone Number"
                         value={graduate.phone}
-                        onChange={e => this.setState({ phone: e.target.value })}
+                        name="phone"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -172,9 +205,8 @@ class EditProfile extends Component {
                           type="text"
                           placeholder="Email"
                           value={graduate.email}
-                          onChange={e =>
-                            this.setState({ email: e.target.value })
-                          }
+                          name="email"
+                          onChange={this.onChangeInput}
                         />
                       </Col>
                     </FormGroup>
@@ -186,9 +218,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="LinkedIn"
                         value={graduate.linkedin}
-                        onChange={e =>
-                          this.setState({ linkedin: e.target.value })
-                        }
+                        name="linkedin"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -201,9 +232,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="GitHub"
                         value={graduate.github}
-                        onChange={e =>
-                          this.setState({ github: e.target.value })
-                        }
+                        name="github"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -216,9 +246,8 @@ class EditProfile extends Component {
                         type="text"
                         placeholder="Website"
                         value={graduate.website}
-                        onChange={e =>
-                          this.setState({ website: e.target.value })
-                        }
+                        name="website"
+                        onChange={this.onChangeInput}
                       />
                     </Col>
                   </FormGroup>
@@ -228,11 +257,16 @@ class EditProfile extends Component {
                     </Col>
                     <Col sm={10}>
                       <FieldGroup
-                        id="formControlsFile"
+                        id="uploadButton"
                         type="file"
-                        label={graduate.image ? graduate.image : "None"}
-                        help="Upload New Image"
-                        onChange={e => this.setState({ image: e.target.value })}
+                        label={
+                          graduate.image
+                            ? graduate.image
+                            : this.state.profileData.image
+                        }
+                        help="Upload New Image File."
+                        name="image"
+                        onChange={e => this.uploadFile(e)}
                       />
                     </Col>
                   </FormGroup>
@@ -242,13 +276,16 @@ class EditProfile extends Component {
                     </Col>
                     <Col sm={10}>
                       <FieldGroup
-                        id="formControlsFile"
+                        id="uploadButton"
                         type="file"
-                        label={graduate.resume ? graduate.resume : "None"}
-                        help="Upload New Resume"
-                        onChange={e =>
-                          this.setState({ resume: e.target.value })
+                        label={
+                          graduate.resume
+                            ? graduate.resume
+                            : this.state.profileData.resume
                         }
+                        help="Upload New Resume File in PDF format."
+                        name="resume"
+                        onChange={e => this.uploadFile(e)}
                       />
                     </Col>
                   </FormGroup>
