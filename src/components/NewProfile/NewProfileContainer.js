@@ -4,7 +4,8 @@ import {
 import NewProfile from "./NewProfile";
 import {
   profileNew,
-  uploadFile
+  uploadImageFile,
+  uploadResumeFile
 } from "./NewProfileActions";
 
 function mapStateToProps(state) {
@@ -17,7 +18,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   profileNew: (profileData) => dispatch(profileNew(profileData)),
-  uploadFile: (data) => dispatch(uploadFile(data))
+  uploadImageFile: (data) => dispatch(uploadImageFile(data)),
+  uploadResumeFile: (data) => dispatch(uploadResumeFile(data))
 })
 
 export default connect(

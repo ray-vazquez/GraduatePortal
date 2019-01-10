@@ -24,7 +24,6 @@ const upload = (url, image = null, method = "PUT") => {
     method,
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: token ? `Bearer ${token}` : ""
     },
     data
@@ -69,8 +68,15 @@ export const fetchProfileEditRequest = (profileData) => {
   });
 };
 
-export const uploadFilesRequest = (image) => {
-  return upload(`${api}/upload/image`, image).then(response => {
+export const uploadImageRequest = (data) => {
+  return upload(`${api}/upload/image`, data).then(response => {
+    if (response.token) localStorage.token = response.token;
+    return response;
+  });
+};
+
+export const uploadResumeRequest = (data) => {
+  return upload(`${api}/upload/resume`, data).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
   });
