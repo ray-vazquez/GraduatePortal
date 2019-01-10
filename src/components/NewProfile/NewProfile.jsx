@@ -56,7 +56,7 @@ class NewProfile extends Component {
     let skillsArray = e.target.value.split(",");
     for (let i = 0; i < skillsArray.length; i++) {
       skillsArray[i] = skillsArray[i].trim();
-    } 
+    }
     this.setState({
       ...this.state,
       profileData: {
@@ -73,8 +73,18 @@ class NewProfile extends Component {
 
   uploadFile = e => {
     e.preventDefault();
-    console.log("uploadFile: ", e.target.files);
-    window.uploadFile(e.target.files);
+    let name = e.target.name;
+    console.log("uploadFile: ", e.target.files[0]);
+    console.log(e.target.name);
+    this.props.uploadFile(e.target.files[0]).then(response =>
+      this.setState({
+        ...this.state,
+        profileData: {
+          ...this.state.profileData,
+          [name]: response.value.url.replace(/\s/g, "")
+        }
+      })
+    );
   };
 
   render() {
@@ -236,7 +246,11 @@ class NewProfile extends Component {
               <FieldGroup
                 id="uploadButton"
                 type="file"
-                help="Upload Image File."
+                help={
+                  this.state.profileData.image
+                    ? this.state.profileData.image
+                    : "Upload Image File."
+                }
                 name="image"
                 onChange={e => this.uploadFile(e)}
               />
@@ -250,7 +264,11 @@ class NewProfile extends Component {
               <FieldGroup
                 id="uploadButton"
                 type="file"
-                help="Upload Resume File in PDF format."
+                help={
+                  this.state.profileData.resume
+                    ? this.state.profileData.resume
+                    : "Upload Resume File in PDF format."
+                }
                 name="resume"
                 onChange={e => this.uploadFile(e)}
               />

@@ -16,6 +16,21 @@ const send = (url, data = null, method = "POST") => {
   }).then(response => response.data);
 };
 
+const upload = (url, image = null, method = "PUT") => {
+  const token = localStorage.getItem("token");
+  const data = new FormData();
+  data.append("image", image)
+  return axios(url, {
+    method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : ""
+    },
+    data
+  }).then(response => response.data);
+};
+
 export const loginRequest = (username, password) => {
   return send(`${api}/login`, {
     username,
@@ -49,6 +64,13 @@ export const fetchProfilesNewRequest = (profileData) => {
 
 export const fetchProfileEditRequest = (profileData) => {
   return send(`${api}/graduates/edit`, profileData, "PUT").then(response => {
+    if (response.token) localStorage.token = response.token;
+    return response;
+  });
+};
+
+export const uploadFilesRequest = (image) => {
+  return upload(`${api}/upload/image`, image).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
   });
