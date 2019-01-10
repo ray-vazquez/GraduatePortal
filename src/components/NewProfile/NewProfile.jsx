@@ -75,16 +75,26 @@ class NewProfile extends Component {
     e.preventDefault();
     let name = e.target.name;
     console.log("uploadFile: ", e.target.files[0]);
-    console.log(e.target.name);
-    this.props.uploadFile(e.target.files[0]).then(response =>
-      this.setState({
-        ...this.state,
-        profileData: {
-          ...this.state.profileData,
-          [name]: response.value.url.replace(/\s/g, "")
-        }
-      })
-    );
+    if (name === "image")
+      this.props.uploadImageFile(e.target.files[0]).then(response =>
+        this.setState({
+          ...this.state,
+          profileData: {
+            ...this.state.profileData,
+            [name]: response.value.url.replace(/\s/g, "")
+          }
+        })
+      );
+    else if (name === "resume")
+      this.props.uploadResumeFile(e.target.files[0]).then(response =>
+        this.setState({
+          ...this.state,
+          profileData: {
+            ...this.state.profileData,
+            [name]: response.value.url.replace(/\s/g, "")
+          }
+        })
+      );
   };
 
   render() {

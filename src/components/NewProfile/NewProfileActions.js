@@ -4,7 +4,8 @@ import {
 } from "../../constants/actionTypes";
 import {
   fetchProfilesNewRequest,
-  uploadFilesRequest
+  uploadImageRequest,
+  uploadResumeRequest
 } from "../../services/api";
 
 export const profileNew = (profileData) => {
@@ -15,10 +16,18 @@ export const profileNew = (profileData) => {
   };
 };
 
-export const uploadFile = (data) => {
-  console.log('actions new profile uploadFile: ', data);
+export const uploadImageFile = (data) => {
+  console.log('actions image uploadFile: ', data);
   return {
     type: UPLOAD_FILE,
-    payload: uploadFilesRequest(data)
+    payload: uploadImageRequest(data)
+  };
+};
+
+export const uploadResumeFile = (data) => {
+  console.log('actions resume uploadFile: ', data);
+  return {
+    type: UPLOAD_FILE,
+    payload: uploadResumeRequest(data)
   };
 };
