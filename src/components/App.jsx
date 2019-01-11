@@ -6,24 +6,29 @@ import NavBarContainer from "./NavBar/NavBarContainer";
 import Footer from "./Footer/Footer";
 import LoginContainer from "./Login/LoginContainer";
 import SearchContainer from "./Search/SearchContainer";
-//import ViewProfileContainer from "./ViewProfile/ViewProfileContainer";
+import ViewProfileContainer from "./ViewProfile/ViewProfileContainer";
+import NewProfileContainer from "./NewProfile/NewProfileContainer";
 import EditProfileContainer from "./EditProfile/EditProfileContainer";
 
 function App() {
   return (
     <div>
-      <NavBarContainer />
+      <Route path="/" component={NavBarContainer} />
       <main className="container">
         <Switch>
           <Route exact path="/" component={SearchContainer} />
           <Route exact path="/login" component={LoginContainer} />
-          <Route exact path="/search" component={SearchContainer} />
-          {/* <Route path='/profile/:gradId' component={ViewProfileContainer} /> */}
+          <Route exact path="/profile/add" component={NewProfileContainer} />
           <Route
-            path="/profile/:gradId/edit"
+            exact
+            path="/profile/edit/:graduateId"
             component={EditProfileContainer}
           />
-          <Route path="/profile/add" component={EditProfileContainer} />
+          <Route
+            exact
+            path="/profile/:graduateId"
+            component={ViewProfileContainer}
+          />
           <Redirect to="/" />
         </Switch>
       </main>

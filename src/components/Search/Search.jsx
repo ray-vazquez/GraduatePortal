@@ -11,7 +11,7 @@ import noPic from "../../images/no-profile.svg"; //if no profile picture use thi
 class Search extends Component {
   state = {
     searchInput: "",
-    profiles: [] //local state after getting from store
+    profiles: null //local state after getting from store
   };
 
   handleChange = e => {
@@ -44,13 +44,14 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.profiles)
+    if (!this.state.profiles)
       this.props.fetchAllProfiles().then(() => {
         this.setState({ profiles: this.props.profiles });
       });
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="ProfileDirectory">
         <div className="">
@@ -93,6 +94,7 @@ class Search extends Component {
                   : graduate.story;
                 const fullBio = graduate.story;
 
+                const viewLink = "/profile/" + graduate.id;
                 return (
                   <div className="card" key={key}>
                     <Media>
@@ -118,12 +120,9 @@ class Search extends Component {
                       <Media.Body>
                         <Media.Heading>
                           <p>
-                            <a
-                              href={`/profile/${graduate.id}`}
-                              target={"_blank"}
-                            >
+                            <a href={viewLink}>
                               {graduate.firstName + " " + graduate.lastName}
-                            </a>
+                            </a>{" "}
                           </p>
                         </Media.Heading>
                         <p>{graduate.yearOfGrad}</p>

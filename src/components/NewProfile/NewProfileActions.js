@@ -1,18 +1,18 @@
 import {
-  EDIT_PROFILE,
+  NEW_PROFILE,
   UPLOAD_FILE
 } from "../../constants/actionTypes";
 import {
-  fetchProfileEditRequest,
+  fetchProfilesNewRequest,
   uploadImageRequest,
   uploadResumeRequest
 } from "../../services/api";
 
-export const profileEdit = (profileData) => {
-  console.log('actions edit profile:', profileData);
+export const profileNew = (profileData) => {
+  console.log('actions new profile:', profileData);
   return {
-    type: EDIT_PROFILE,
-    payload: fetchProfileEditRequest(profileData)
+    type: NEW_PROFILE,
+    payload: fetchProfilesNewRequest(profileData)
   };
 };
 

@@ -1,20 +1,37 @@
-import { connect } from 'react-redux'
-import EditProfile from './EditProfile'
-import { editProfile } from './EditProfileActions'
+import {
+  connect
+} from "react-redux";
+import EditProfile from "./EditProfile";
 
-function mapStateToProps ({ isLoading, hasError, isLoginInvalid, validationState }) {
+import {
+  profileEdit
+} from "../EditProfile/EditProfileActions";
+
+import {
+  uploadImageFile,
+  uploadResumeFile
+} from "../NewProfile/NewProfileActions";
+
+import {
+  fetchAllProfiles
+} from "../Search/searchActions";
+
+function mapStateToProps(state) {
   return {
-    isLoading,
-    hasError,
-    isLoginInvalid,
-    validationState
-  }
+    profiles: state.Shared.profiles,
+    isLoading: state.Search.isLoading,
+    hasError: state.Search.hasError
+  };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    editProfile: () => dispatch(editProfile())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  profileEdit: (profileData) => dispatch(profileEdit(profileData)),
+  fetchAllProfiles: () => dispatch(fetchAllProfiles()),
+  uploadImageFile: (data) => dispatch(uploadImageFile(data)),
+  uploadResumeFile: (data) => dispatch(uploadResumeFile(data))
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditProfile);
