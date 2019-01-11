@@ -15,6 +15,10 @@ class ViewProfile extends Component {
     isAdmin: false
   };
 
+  addDefaultSrc(e) {
+    e.target.src = noPic;
+  }
+
   componentDidMount() {
     if (!this.props.profiles)
       this.props.fetchAllProfiles().then(() => {
@@ -54,6 +58,7 @@ class ViewProfile extends Component {
                             width={100}
                             src={graduate.image}
                             alt=""
+                            onError={this.addDefaultSrc}
                           />
                         ) : (
                           <img

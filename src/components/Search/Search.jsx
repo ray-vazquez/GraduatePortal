@@ -43,6 +43,10 @@ class Search extends Component {
     return this.setState({ profiles });
   };
 
+  addDefaultSrc(e) {
+    e.target.src = noPic;
+  }
+
   componentDidMount() {
     if (!this.state.profiles)
       this.props.fetchAllProfiles().then(() => {
@@ -106,6 +110,7 @@ class Search extends Component {
                               width={100}
                               src={graduate.image}
                               alt=""
+                              onError={this.addDefaultSrc}
                             />
                           ) : (
                             <img
