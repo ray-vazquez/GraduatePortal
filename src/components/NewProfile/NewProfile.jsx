@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   FormGroup,
   FormControl,
@@ -6,8 +6,9 @@ import {
   Button,
   Col,
   ControlLabel
-} from "react-bootstrap";
-import ErrorMessage from "../Widgets/ErrorMessage";
+} from 'react-bootstrap';
+import ErrorMessage from '../Widgets/ErrorMessage';
+import ModalWidget from '../Widgets/Modal';
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -26,20 +27,21 @@ class NewProfile extends Component {
     hasError: false,
     isActive: 1,
     profileData: {
-      firstName: "",
-      lastName: "",
+      firstName: '',
+      lastName: '',
       yearOfGrad: 0,
       skills: [],
-      story: "",
-      phone: "",
-      email: "",
-      linkedin: "",
-      github: "",
-      website: "",
-      image: "",
-      resume: "",
+      story: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+      github: '',
+      website: '',
+      image: '',
+      resume: '',
       isActive: 1
-    }
+    },
+    submitForm: false
   };
 
   onChangeInput = e => {
@@ -47,13 +49,13 @@ class NewProfile extends Component {
       ...this.state,
       profileData: {
         ...this.state.profileData,
-        [e.target.name]: e.target.value ? e.target.value : ""
+        [e.target.name]: e.target.value ? e.target.value : ''
       }
     });
   };
 
   onChangeSkills = e => {
-    let skillsArray = e.target.value.split(",");
+    let skillsArray = e.target.value.split(',');
     for (let i = 0; i < skillsArray.length; i++) {
       skillsArray[i] = skillsArray[i].trim();
     }
@@ -68,40 +70,56 @@ class NewProfile extends Component {
 
   handleNewProfile = e => {
     e.preventDefault();
-    this.props.profileNew(this.state.profileData);
+    const response = this.props.profileNew(this.state.profileData);
+    this.setState({
+      submitForm: true,
+      graduateId: response.graduateId
+    });
   };
 
   uploadFile = e => {
     e.preventDefault();
     let name = e.target.name;
-    console.log("uploadFile: ", e.target.files[0]);
-    if (name === "image")
+    console.log('uploadFile: ', e.target.files[0]);
+    if (name === 'image')
       this.props.uploadImageFile(e.target.files[0]).then(response =>
         this.setState({
           ...this.state,
           profileData: {
             ...this.state.profileData,
-            [name]: response.value.url.replace(/\s/g, "")
+            [name]: response.value.url.replace(/\s/g, '')
           }
         })
       );
-    else if (name === "resume")
+    else if (name === 'resume')
       this.props.uploadResumeFile(e.target.files[0]).then(response =>
         this.setState({
           ...this.state,
           profileData: {
             ...this.state.profileData,
-            [name]: response.value.url.replace(/\s/g, "")
+            [name]: response.value.url.replace(/\s/g, '')
           }
         })
       );
   };
 
+  closeModal = () => {
+    this.setState({
+      submitForm: false
+    });
+  };
+
   render() {
     return (
       <div className="container">
+        <ModalWidget
+          show={this.state.submitForm}
+          message={'Graduate Added Successfully!'}
+          title={'New Graduate Profile'}
+          closeModal={this.closeModal}
+        />
         <header>
-          <h2>{this.state.isNew ? "New" : "Edit"} Profile</h2>
+          <h2>{this.state.isNew ? 'New' : 'Edit'} Profile</h2>
         </header>
         <form onSubmit={this.handleNewProfile}>
           <FormGroup controlId="formBasicText">
@@ -259,7 +277,7 @@ class NewProfile extends Component {
                 help={
                   this.state.profileData.image
                     ? this.state.profileData.image
-                    : "Upload Image File."
+                    : 'Upload Image File.'
                 }
                 name="image"
                 onChange={e => this.uploadFile(e)}
@@ -277,7 +295,7 @@ class NewProfile extends Component {
                 help={
                   this.state.profileData.resume
                     ? this.state.profileData.resume
-                    : "Upload Resume File in PDF format."
+                    : 'Upload Resume File in PDF format.'
                 }
                 name="resume"
                 onChange={e => this.uploadFile(e)}
@@ -289,7 +307,7 @@ class NewProfile extends Component {
             className="btn btn-primary"
             disabled={this.props.isLoading === true}
           >
-            {this.props.isLoading ? "UPDATE" : "ADD"}
+            {this.props.isLoading ? 'UPDATE' : 'ADD'}
           </Button>
           {this.props.hasError && (
             <ErrorMessage>
