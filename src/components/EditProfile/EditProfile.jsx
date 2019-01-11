@@ -22,10 +22,12 @@ function FieldGroup({ id, label, help, ...props }) {
 class EditProfile extends Component {
   state = {
     graduateId: this.props.match.params.graduateId,
-    profileData: {},
+    isNew: false,
     isAdmin: true,
     isLoading: false,
-    hasError: false
+    hasError: false,
+    isActive: 1,
+    profileData: {}
   };
 
   // handleEditProfile = e => {
@@ -81,12 +83,13 @@ class EditProfile extends Component {
                   placeholder="First Name"
                   value={this.state.profileData.firstName}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        firstName: e.target.value 
+                        firstName: e.target.value
                       }
-                  })}
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -100,12 +103,13 @@ class EditProfile extends Component {
                   placeholder="Last Name"
                   value={this.state.profileData.lastName}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        lastName: e.target.value 
+                        lastName: e.target.value
                       }
-                  })}
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -119,12 +123,13 @@ class EditProfile extends Component {
                   placeholder="Year of Graduation"
                   value={this.state.profileData.yearOfGrad}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        yearOfGrad: e.target.value 
-                    }
-                })}
+                        yearOfGrad: e.target.value
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -138,12 +143,13 @@ class EditProfile extends Component {
                   placeholder="Skills"
                   value={this.state.profileData.skills}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
                         skills: [e.target.value]
-                    }
-                })}
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -156,12 +162,14 @@ class EditProfile extends Component {
                   componentClass="textarea"
                   placeholder="Story"
                   value={this.state.profileData.story}
-                  onChange={e => this.setState({ 
-                    profileData: {
-                      ...this.state.profileData,
-                      story: e.target.value 
-                    }
-                })}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        story: e.target.value
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -174,12 +182,14 @@ class EditProfile extends Component {
                   type="text"
                   placeholder="Phone Number"
                   value={this.state.profileData.phone}
-                  onChange={e => this.setState({ 
-                    profileData: {
-                      ...this.state.profileData,
-                      phone: e.target.value 
-                    }
-                  })}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        phone: e.target.value
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -194,12 +204,13 @@ class EditProfile extends Component {
                     placeholder="Email"
                     value={this.state.profileData.email}
                     onChange={e =>
-                      this.setState({ 
+                      this.setState({
                         profileData: {
                           ...this.state.profileData,
-                          email: e.target.value 
+                          email: e.target.value
                         }
-                    })}
+                      })
+                    }
                   />
                 </Col>
               </FormGroup>
@@ -212,12 +223,13 @@ class EditProfile extends Component {
                   placeholder="LinkedIn"
                   value={this.state.profileData.linkedin}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        linkedin: e.target.value 
-                    }
-                  })}
+                        linkedin: e.target.value
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -231,12 +243,13 @@ class EditProfile extends Component {
                   placeholder="GitHub"
                   value={this.state.profileData.github}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        github: e.target.value 
-                    }
-                  })}
+                        github: e.target.value
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -250,12 +263,13 @@ class EditProfile extends Component {
                   placeholder="Website"
                   value={this.state.profileData.website}
                   onChange={e =>
-                    this.setState({ 
+                    this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        website: e.target.value 
-                    }
-                  })}
+                        website: e.target.value
+                      }
+                    })
+                  }
                 />
               </Col>
             </FormGroup>
@@ -267,7 +281,11 @@ class EditProfile extends Component {
                 <FieldGroup
                   id="formControlsFile"
                   type="file"
-                  label={this.state.profileData.image ? this.state.profileData.image : "None"}
+                  label={
+                    this.state.profileData.image
+                      ? this.state.profileData.image
+                      : "None"
+                  }
                   help="Upload New Image"
                   onChange={e => this.setState({ image: e.target.value })}
                 />
@@ -281,11 +299,13 @@ class EditProfile extends Component {
                 <FieldGroup
                   id="formControlsFile"
                   type="file"
-                  label={this.state.profileData.resume ? this.state.profileData.resume : "None"}
-                  help="Upload New Resume"
-                  onChange={e =>
-                    this.setState({ resume: e.target.value })
+                  label={
+                    this.state.profileData.resume
+                      ? this.state.profileData.resume
+                      : "None"
                   }
+                  help="Upload New Resume"
+                  onChange={e => this.setState({ resume: e.target.value })}
                 />
               </Col>
             </FormGroup>
@@ -298,9 +318,9 @@ class EditProfile extends Component {
             </Button>
             {this.props.hasError && (
               <ErrorMessage>
-                Sorry! The Graduate Portal is temporarily down. Our
-                engineers are aware of the problem and are hard at work
-                trying to fix it. Please come back later.
+                Sorry! The Graduate Portal is temporarily down. Our engineers
+                are aware of the problem and are hard at work trying to fix it.
+                Please come back later.
               </ErrorMessage>
             )}
           </form>
