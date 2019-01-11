@@ -30,19 +30,17 @@ class EditProfile extends Component {
   };
 
   handleEditProfile = e => {
-    console.log(this.state.profileData);
     e.preventDefault();
     this.props.profileEdit(this.state.profileData);
   };
 
   componentDidMount() {
-    console.log("from componentDidMount: ", this.props.profiles);
-    let id = this.props.match.params.graduateId;
+    let id = this.state.graduateId;
     if (!this.props.profiles)
       this.props.fetchAllProfiles().then(() => {
         this.setState({ 
           profileData: {
-            id,
+            graduateId: id,
             firstName: this.props.profiles[id].firstName,
             lastName: this.props.profiles[id].lastName,
             skills: this.props.profiles[id].skills,
@@ -63,7 +61,7 @@ class EditProfile extends Component {
         let currentProfile = this.props.profiles[id]
         this.setState({ 
           profileData: {
-            id,
+            graduateId: id,
             firstName: currentProfile.firstName,
             lastName: currentProfile.lastName,
             skills: currentProfile.skills,
@@ -83,7 +81,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log("from render:", this.props.profiles);
     return (
       <main className="">
         <div className="card">
