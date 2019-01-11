@@ -33,7 +33,18 @@ class EditProfile extends Component {
 
   handleEditProfile = e => {
     e.preventDefault();
-    const response = this.props.profileEdit(this.state.profileData);
+
+    // convert skills back to an array and trim leading/trailing white spaces
+    let skillsArray = this.state.profileData.skills.split(',');
+    for (let i = 0; i < skillsArray.length; i++) {
+      skillsArray[i] = skillsArray[i].trim();
+    }
+    let newProfileData = {
+      ...this.state.profileData,
+      skills: skillsArray
+    }
+
+    const response = this.props.profileEdit(newProfileData);
     this.setState({ submitForm: true, graduateId: response.graduateId });
   };
 
@@ -46,13 +57,15 @@ class EditProfile extends Component {
   componentDidMount() {
     let id = this.state.graduateId;
     if (!this.props.profiles)
+      // this step shouldn't be necessary (but it is and I don't know why -- Bill)
       this.props.fetchAllProfiles().then(() => {
         this.setState({
           profileData: {
             graduateId: id,
             firstName: this.props.profiles[id].firstName,
             lastName: this.props.profiles[id].lastName,
-            skills: this.props.profiles[id].skills,
+            // convert skills to a string
+            skills: this.props.profiles[id].skills.join(", "),
             github: this.props.profiles[id].links.github,
             linkedin: this.props.profiles[id].links.linkedin,
             email: this.props.profiles[id].links.email,
@@ -66,27 +79,29 @@ class EditProfile extends Component {
           }
         });
       });
-    else {
-      let currentProfile = this.props.profiles[id];
-      this.setState({
-        profileData: {
-          graduateId: id,
-          firstName: currentProfile.firstName,
-          lastName: currentProfile.lastName,
-          skills: currentProfile.skills,
-          github: currentProfile.links.github,
-          linkedin: currentProfile.links.linkedin,
-          email: currentProfile.links.email,
-          website: currentProfile.links.website,
-          phone: currentProfile.phone,
-          yearOfGrad: currentProfile.yearOfGrad,
-          image: currentProfile.image,
-          resume: currentProfile.resume,
-          story: currentProfile.story,
-          isActive: currentProfile.isActive
-        }
-      });
-    }
+      // this is the only place we should be setting the profileData in state
+      else {
+        let currentProfile = this.props.profiles[id]
+        this.setState({ 
+          profileData: {
+            graduateId: id,
+            firstName: currentProfile.firstName,
+            lastName: currentProfile.lastName,
+            // convert skills to a string
+            skills: currentProfile.skills.join(", "),
+            github: currentProfile.links.github,
+            linkedin: currentProfile.links.linkedin,
+            email: currentProfile.links.email,
+            website: currentProfile.links.website,
+            phone: currentProfile.phone,
+            yearOfGrad: currentProfile.yearOfGrad,
+            image: currentProfile.image,
+            resume: currentProfile.resume,
+            story: currentProfile.story,
+            isActive: currentProfile.isActive
+          }
+        });
+      }
   }
 
   render() {
@@ -176,7 +191,7 @@ class EditProfile extends Component {
                     this.setState({
                       profileData: {
                         ...this.state.profileData,
-                        skills: [e.target.value]
+                        skills: e.target.value
                       }
                     })
                   }
