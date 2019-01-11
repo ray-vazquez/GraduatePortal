@@ -190,7 +190,7 @@ class Search extends Component {
                             <Button
                               bsStyle="primary"
                               bsSize="small"
-                              href={`/profile/edit/${graduate.id}`}
+                              href={`/profile/${graduate.id}/edit`}
                             >
                               Edit Profile
                             </Button>

@@ -26,42 +26,60 @@ class EditProfile extends Component {
     isAdmin: true,
     isLoading: false,
     hasError: false,
-    isActive: 1,
     profileData: {}
   };
 
-  // handleEditProfile = e => {
-  //   e.preventDefault();
-  //   console.log(this.state);
-  //   this.setState({
-  //     profileData: {
-  //       graduateId: this.state.graduateId,
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       skills: this.state.skills,
-  //       github: this.state.github,
-  //       linkedin: this.state.linkedin,
-  //       email: this.state.email,
-  //       website: this.state.website,
-  //       phone: this.state.phone,
-  //       yearOfGrad: this.state.yearOfGrad,
-  //       inage: this.state.image,
-  //       resume: this.state.resume,
-  //       story: this.state.story,
-  //       isActive: this.state.isActive
-  //     }
-  //   });
-  //   this.props.fetchProfileEdit(this.state.profileData);
-  // };
+  handleEditProfile = e => {
+    console.log(this.state.profileData);
+    e.preventDefault();
+    this.props.profileEdit(this.state.profileData);
+  };
 
   componentDidMount() {
+    console.log("from componentDidMount: ", this.props.profiles);
     let id = this.props.match.params.graduateId;
     if (!this.props.profiles)
       this.props.fetchAllProfiles().then(() => {
-        this.setState({
-          profileData: this.props.profiles[id]
+        this.setState({ 
+          profileData: {
+            id,
+            firstName: this.props.profiles[id].firstName,
+            lastName: this.props.profiles[id].lastName,
+            skills: this.props.profiles[id].skills,
+            github: this.props.profiles[id].links.github,
+            linkedin: this.props.profiles[id].links.linkedin,
+            email: this.props.profiles[id].links.email,
+            website: this.props.profiles[id].links.website,
+            phone: this.props.profiles[id].phone,
+            yearOfGrad: this.props.profiles[id].yearOfGrad,
+            image: this.props.profiles[id].image,
+            resume: this.props.profiles[id].resume,
+            story: this.props.profiles[id].story,
+            isActive: this.props.profiles[id].isActive
+          }
         });
       });
+      else {
+        let currentProfile = this.props.profiles[id]
+        this.setState({ 
+          profileData: {
+            id,
+            firstName: currentProfile.firstName,
+            lastName: currentProfile.lastName,
+            skills: currentProfile.skills,
+            github: currentProfile.links.github,
+            linkedin: currentProfile.links.linkedin,
+            email: currentProfile.links.email,
+            website: currentProfile.links.website,
+            phone: currentProfile.phone,
+            yearOfGrad: currentProfile.yearOfGrad,
+            image: currentProfile.image,
+            resume: currentProfile.resume,
+            story: currentProfile.story,
+            isActive: currentProfile.isActive
+          }
+        });
+      }
   }
 
   render() {

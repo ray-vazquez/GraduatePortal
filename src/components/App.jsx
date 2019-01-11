@@ -19,16 +19,8 @@ function App() {
           <Route exact path="/" component={SearchContainer} />
           <Route exact path="/login" component={LoginContainer} />
           <Route exact path="/profile/add" component={NewProfileContainer} />
-          <Route
-            exact
-            path="/profile/:graduateId/edit"
-            component={EditProfileContainer}
-          />
-          <Route
-            exact
-            path="/profile/:graduateId"
-            component={ViewProfileContainer}
-          />
+          <Route exact path="/profile/:graduateId/edit" component={EditProfileContainer} />
+          <Route exact path="/profile/:graduateId" component={ViewProfileContainer} />
           <Redirect to="/" />
         </Switch>
       </main>
