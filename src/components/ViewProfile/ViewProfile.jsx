@@ -6,6 +6,7 @@ import { Media } from "react-bootstrap";
 import "./ViewProfile.css";
 import Loading from "../Widgets/Loading";
 import ErrorMessage from "../Widgets/ErrorMessage";
+import noPic from "../../images/no-profile.svg"; //if no profile picture use this default pic
 
 class ViewProfile extends Component {
   state = {
@@ -47,12 +48,21 @@ class ViewProfile extends Component {
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <img
-                          className="profile-thumbnail"
-                          width={100}
-                          src={graduate.image}
-                          alt=""
-                        />
+                        {graduate.image ? (
+                          <img
+                            className="profile-thumbnail"
+                            width={100}
+                            src={graduate.image}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="profile-thumbnail"
+                            width={100}
+                            src={noPic}
+                            alt=""
+                          />
+                        )}
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
