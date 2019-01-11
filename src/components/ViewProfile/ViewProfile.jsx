@@ -72,20 +72,34 @@ class ViewProfile extends Component {
                         <p>{graduate.skills.join(", ")}</p>
                         <p>{graduate.story}</p>
 
-                        <a href={graduate.links.linkedin}>
-                          <i className="fab fa-linkedin-in fa-lg" />
-                        </a>
-
-                        <a href={graduate.links.github}>
-                          <i className="fab fa-github fa-lg" />
-                        </a>
-
-                        <a href={graduate.links.website}>
-                          <i className="fas fa-globe fa-lg" />
-                        </a>
-                        <a href={graduate.links.email}>
-                          <i className="fas fa-envelope fa-lg" />
-                        </a>
+                        {graduate.links &&
+                          Object.entries(graduate.links).map(profileLinks => {
+                            const [linkKey, linkVal] = profileLinks;
+                            console.log(linkKey, linkVal);
+                            const icons = {
+                              linkedin: "fab fa-linkedin-in",
+                              github: "fab fa-github",
+                              website: "fas fa-globe",
+                              email: "fas fa-envelope"
+                            };
+                            // test to see if its truthy
+                            if (graduate.links[linkKey])
+                              return (
+                                <span className="" key={linkKey}>
+                                  <a
+                                    href={
+                                      graduate.links[linkKey] ===
+                                      graduate.links.email
+                                        ? `mailto:${graduate.links.email}`
+                                        : graduate.links[linkKey]
+                                    }
+                                    target={"_blank"}
+                                  >
+                                    <i className={`${icons[linkKey]} fa-lg`} />
+                                  </a>
+                                </span>
+                              );
+                          })}
 
                         {graduate.resume && (
                           <Button
