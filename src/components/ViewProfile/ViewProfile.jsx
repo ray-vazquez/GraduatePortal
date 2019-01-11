@@ -87,16 +87,18 @@ class ViewProfile extends Component {
                           <i className="fas fa-envelope fa-lg" />
                         </a>
 
-                        <Button
-                          bsStyle="primary"
-                          bsSize="small"
-                          onClick={graduate.resume}
-                        >
-                          <span>
-                            <i className="fas fa-eye" />
-                          </span>
-                          View Resume
-                        </Button>
+                        {graduate.resume && (
+                          <Button
+                            bsStyle="primary"
+                            bsSize="small"
+                            href={graduate.resume}
+                          >
+                            <span>
+                              <i className="fas fa-eye" />
+                            </span>
+                            View Resume
+                          </Button>
+                        )}
 
                         {this.state.isAdmin && (
                           <Button bsStyle="primary" bsSize="small">
