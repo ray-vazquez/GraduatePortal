@@ -8,6 +8,7 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import ErrorMessage from "../Widgets/ErrorMessage";
+import ModalWidget from "../Widgets/Modal";
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -26,19 +27,27 @@ class EditProfile extends Component {
     isAdmin: true,
     isLoading: false,
     hasError: false,
-    profileData: {}
+    profileData: {},
+    submitForm: false
   };
 
   handleEditProfile = e => {
     e.preventDefault();
-    this.props.profileEdit(this.state.profileData);
+    const response = this.props.profileEdit(this.state.profileData);
+    this.setState({ submitForm: true, graduateId: response.graduateId });
+  };
+
+  closeModal = () => {
+    this.setState({
+      submitForm: false
+    });
   };
 
   componentDidMount() {
     let id = this.state.graduateId;
     if (!this.props.profiles)
       this.props.fetchAllProfiles().then(() => {
-        this.setState({ 
+        this.setState({
           profileData: {
             graduateId: id,
             firstName: this.props.profiles[id].firstName,
@@ -57,35 +66,41 @@ class EditProfile extends Component {
           }
         });
       });
-      else {
-        let currentProfile = this.props.profiles[id]
-        this.setState({ 
-          profileData: {
-            graduateId: id,
-            firstName: currentProfile.firstName,
-            lastName: currentProfile.lastName,
-            skills: currentProfile.skills,
-            github: currentProfile.links.github,
-            linkedin: currentProfile.links.linkedin,
-            email: currentProfile.links.email,
-            website: currentProfile.links.website,
-            phone: currentProfile.phone,
-            yearOfGrad: currentProfile.yearOfGrad,
-            image: currentProfile.image,
-            resume: currentProfile.resume,
-            story: currentProfile.story,
-            isActive: currentProfile.isActive
-          }
-        });
-      }
+    else {
+      let currentProfile = this.props.profiles[id];
+      this.setState({
+        profileData: {
+          graduateId: id,
+          firstName: currentProfile.firstName,
+          lastName: currentProfile.lastName,
+          skills: currentProfile.skills,
+          github: currentProfile.links.github,
+          linkedin: currentProfile.links.linkedin,
+          email: currentProfile.links.email,
+          website: currentProfile.links.website,
+          phone: currentProfile.phone,
+          yearOfGrad: currentProfile.yearOfGrad,
+          image: currentProfile.image,
+          resume: currentProfile.resume,
+          story: currentProfile.story,
+          isActive: currentProfile.isActive
+        }
+      });
+    }
   }
 
   render() {
     return (
       <main className="">
         <div className="card">
+          <ModalWidget
+            show={this.state.submitForm}
+            message={"Graduate Edited Successfully!"}
+            title={"Edit Graduate Profile"}
+            closeModal={this.closeModal}
+          />
           <header>
-            <h2>{this.state.isNew ? "New" : "Edit"} Profile</h2>
+            <h2>{this.state.isNew ? "New" : "Edit"} Graduate Profile</h2>
           </header>
           <form onSubmit={this.handleEditProfile}>
             <FormGroup controlId="formBasicText">
