@@ -8,6 +8,7 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import ErrorMessage from "../Widgets/ErrorMessage";
+import ModalWidget from "../Widgets/Modal";
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -39,7 +40,8 @@ class NewProfile extends Component {
       image: "",
       resume: "",
       isActive: 1
-    }
+    },
+    submitForm: false
   };
 
   onChangeInput = e => {
@@ -68,7 +70,11 @@ class NewProfile extends Component {
 
   handleNewProfile = e => {
     e.preventDefault();
-    this.props.profileNew(this.state.profileData);
+    const response = this.props.profileNew(this.state.profileData);
+    this.setState({
+      submitForm: true,
+      graduateId: response.graduateId
+    });
   };
 
   uploadFile = e => {
@@ -100,6 +106,11 @@ class NewProfile extends Component {
   render() {
     return (
       <div className="container">
+        <ModalWidget
+          show={this.state.submitForm ? true : false}
+          message={"Graduate Added Successfully!"}
+          title={"New Graduate Profile"}
+        />
         <header>
           <h2>{this.state.isNew ? "New" : "Edit"} Profile</h2>
         </header>
