@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
-
 import { Media } from "react-bootstrap";
 
-import "./Search.css";
 import Loading from "../Widgets/Loading";
 import ErrorMessage from "../Widgets/ErrorMessage";
+
+import "./Search.css";
+import noPic from "../../images/no-profile.svg"; //if no profile picture use this default pic
 
 class Search extends Component {
   state = {
@@ -85,17 +86,36 @@ class Search extends Component {
             {this.state.profiles &&
               Object.values(this.state.profiles).map(graduate => {
                 const key = "graduate-" + graduate.id;
+
+                // For Story
+                const isBioLong = graduate.story.length > 200;
+                const gradStory = isBioLong
+                  ? graduate.story.substring(0, 200) + "..."
+                  : graduate.story;
+                const fullBio = graduate.story;
+
                 const viewLink = "/profile/" + graduate.id;
                 return (
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <img
-                          className="profile-thumbnail"
-                          width={100}
-                          src={graduate.image}
-                          alt=""
-                        />
+                        <a href={`/profile/${graduate.id}`} target={"_blank"}>
+                          {graduate.image ? (
+                            <img
+                              className="profile-thumbnail"
+                              width={100}
+                              src={graduate.image}
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              className="profile-thumbnail"
+                              width={100}
+                              src={noPic}
+                              alt=""
+                            />
+                          )}
+                        </a>
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
@@ -107,38 +127,74 @@ class Search extends Component {
                         </Media.Heading>
                         <p>{graduate.yearOfGrad}</p>
                         <p>{graduate.skills.join(", ")}</p>
-                        <p>{graduate.story}</p>
 
-                        <a href={graduate.links.linkedin}>
-                          <i className="fab fa-linkedin-in fa-lg" />
-                        </a>
+                        {/* If Bio is long show Read More button */}
+                        {isBioLong ? <p>{gradStory}</p> : <p>{fullBio}</p>}
 
-                        <a href={graduate.links.github}>
-                          <i className="fab fa-github fa-lg" />
-                        </a>
+                        {graduate.links &&
+                          Object.entries(graduate.links).map(profileLinks => {
+                            const [linkKey, linkVal] = profileLinks;
+                            console.log(linkKey, linkVal);
+                            const icons = {
+                              linkedin: "fab fa-linkedin-in",
+                              github: "fab fa-github",
+                              website: "fas fa-globe",
+                              email: "fas fa-envelope"
+                            };
+                            // test to see if its truthy
+                            if (graduate.links[linkKey])
+                              return (
+                                <span className="" key={linkKey}>
+                                  <a
+                                    href={
+                                      graduate.links[linkKey] ===
+                                      graduate.links.email
+                                        ? `mailto:${graduate.links.email}`
+                                        : graduate.links[linkKey]
+                                    }
+                                    target={"_blank"}
+                                  >
+                                    <i className={`${icons[linkKey]} fa-lg`} />
+                                  </a>
+                                </span>
+                              );
+                          })}
 
-                        <a href={graduate.links.website}>
-                          <i className="fas fa-globe fa-lg" />
-                        </a>
-                        <a href={graduate.links.email}>
-                          <i className="fas fa-envelope fa-lg" />
-                        </a>
+                        {graduate.resume && (
+                          <Button
+                            bsStyle="primary"
+                            bsSize="small"
+                            href={graduate.resume}
+                          >
+                            <span>
+                              <i className="fas fa-eye" />
+                            </span>
+                            View Resume
+                          </Button>
+                        )}
 
+                        {/* View Profile Button */}
                         <Button
                           bsStyle="primary"
                           bsSize="small"
-                          onClick={graduate.resume}
+                          href={`/profile/${graduate.id}`}
                         >
                           <span>
                             <i className="fas fa-eye" />
                           </span>
-                          View Resume
+                          View Profile
                         </Button>
 
-                        {this.state.isAdmin && (
-                          <Button bsStyle="primary" bsSize="small">
-                            Edit Resume
-                          </Button>
+                        {this.props.isAdmin && (
+                          <span>
+                            <Button
+                              bsStyle="primary"
+                              bsSize="small"
+                              href={`/profile/${graduate.id}/edit`}
+                            >
+                              Edit Profile
+                            </Button>
+                          </span>
                         )}
                       </Media.Body>
                     </Media>
