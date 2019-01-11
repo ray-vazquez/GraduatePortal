@@ -93,13 +93,12 @@ class Search extends Component {
                   ? graduate.story.substring(0, 200) + "..."
                   : graduate.story;
                 const fullBio = graduate.story;
-
                 const viewLink = "/profile/" + graduate.id;
                 return (
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <a href={`/profile/${graduate.id}`} target={"_blank"}>
+                        <a href={`/profile/${graduate.id}`}>
                           {graduate.image ? (
                             <img
                               className="profile-thumbnail"
@@ -185,6 +184,7 @@ class Search extends Component {
                           View Profile
                         </Button>
 
+                        {/* Edit Profile Button */}
                         {this.props.isAdmin && (
                           <span>
                             <Button
