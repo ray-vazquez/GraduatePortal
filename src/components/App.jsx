@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/profile/add" component={NewProfileContainer} />
           <Route
             exact
-            path="/profile/edit/:graduateId"
+            path="/profile/:graduateId/edit"
             component={EditProfileContainer}
           />
           <Route
