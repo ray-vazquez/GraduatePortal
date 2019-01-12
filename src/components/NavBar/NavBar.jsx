@@ -28,13 +28,10 @@ class NavBar extends Component {
                 <LinkContainer exact to="/" className="acc-link">
                   <NavItem eventKey={1}>SEARCH</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/profile/add" className="acc-link">
-                  <NavItem eventKey={2}>CREATE PROFILE</NavItem>
-                </LinkContainer>
                 <NavItem
                   className="acc-link"
                   href="#"
-                  eventKey={3}
+                  eventKey={2}
                   onClick={this.props.logout}
                 >
                   LOGOUT

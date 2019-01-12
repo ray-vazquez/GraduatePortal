@@ -1,0 +1,94 @@
+.grad-form {
+  margin-top: 15px;
+  margin-bottom: 40px;
+  max-width: 800px;
+}
+.grad-form-group {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.helper {
+  color: #868686;
+  font-weight: 300;
+  margin-left: 4px;
+}
+.helper-asterisk {
+  margin-left: 1px;
+}
+textarea {
+  resize: none;
+}
+
+/* --- Image & Update Button --------- */
+.form-thumbnail {
+  position: relative;
+}
+.form-thumbnail img {
+  position: relative;
+  float: left;
+  border: 1px solid #e2e2e2;
+}
+.choose-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #8ec957;
+  border: 1px solid #8ec957;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+.choose-button h3 {
+  text-align: center;
+  color: #fff;
+  font-size: 22px;
+  padding-top: 6px;
+}
+.form-thumbnail:hover .choose-button {
+  opacity: 1;
+}
+#image {
+  position: relative;
+  background: #8ec957;
+  z-index: 1000;
+  opacity: 0;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
+  border-radius: 50%;
+}
+
+/* --- Resume & Update Button --------- */
+.form-resume {
+  position: relative;
+  float: left;
+  margin-left: 30px;
+}
+.form-resume img {
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid #e2e2e2;
+}
+.form-resume:hover .choose-button {
+  opacity: 1;
+}
+#resume {
+  position: relative;
+  background: #8ec957;
+  z-index: 1000;
+  opacity: 0;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
+  border-radius: 50%;
+}

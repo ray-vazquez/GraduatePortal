@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import ErrorMessage from '../Widgets/ErrorMessage';
 import ModalWidget from '../Widgets/Modal';
+import './NewProfile.css';
 
 function FieldGroup({ id, label, help, ...props }) {
   return (

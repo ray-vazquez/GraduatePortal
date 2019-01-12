@@ -4,7 +4,6 @@ import { Media } from "react-bootstrap";
 
 import Loading from "../Widgets/Loading";
 import ErrorMessage from "../Widgets/ErrorMessage";
-
 import noPic from "../../images/no-profile.svg";
 import "./Search.css";
 
@@ -58,9 +57,20 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <div className="search-wrap container-fluid">
-          <header className="container">
+        <div className="header-wrap container-fluid">
+          <header className="container grad-header">
             <h1>Graduate Portal</h1>
+            {/* Edit Profile Button */}
+            {this.props.isAdmin && (
+              <Button
+                className="grad-btn grad-btn-secondary add-btn"
+                title="Add new graduate profile"
+                bsSize="small"
+                href={`/profile/add`}
+              >
+                +
+              </Button>
+            )}
             <div className="search-input">
               <FormGroup>
                 <span className="search-icon">

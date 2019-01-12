@@ -1,41 +1,82 @@
 /**********************************/
 /*** SEARCH HEADER ****************/
 /**********************************/
-.search header {
+.grad-header {
   position: relative;
   max-width: 800px;
 }
-.search-wrap {
+.header-wrap {
   background: #1c1c1c;
-  padding: 30px 0 45px;
+  padding: 0 0 10px;
 }
 header h1 {
+  float: left;
   color: white;
+  font-size: 30px;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 .search-input input::-webkit-input-placeholder, /* WebKit, Blink, Edge */
 .search-input input:-ms-input-placeholder, /* Internet Explorer 10-11 */
 .search-input input::-ms-input-placeholder, /* Microsoft Edge */
 .search-input input::placeholder { /* Most modern browsers support this now. */
- color:    #868686;
+ color: #868686;
 }
 .search-input input:-moz-placeholder, /* Mozilla Firefox 4 to 18 */
 .search-input input::-moz-placeholder { /* Mozilla Firefox 19+ */
- color:    #868686;
- opacity:  1;
-}
-.search-input {
-  margin-bottom: 20px;
+ color: #868686;
+ opacity: 1;
 }
 .search-input input {
   color: #fff;
   background: #383838;
   border-color: #383838;
+  margin-bottom: 10px;
 }
 .search-icon {
   position: absolute;
   color: #868686;
   padding: 8px;
   right: 14px;
+}
+.grad-btn.add-btn {
+  font-size: 22px;
+  margin-left: 12px;
+  margin-top: 18px;
+  padding: 1px 6px;
+}
+
+@media (min-width: 480px) {
+  .header-wrap {
+    padding: 13px 0 25px;
+  }
+  header h1 {
+    font-size: 34px;
+  }
+  .search-input input {
+    margin-bottom: 20px;
+  }
+  .grad-btn.add-btn {
+    font-size: 26px;
+    margin-left: 12px;
+    margin-top: 17px;
+    padding: 1px 7px;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-wrap {
+    padding: 30px 0 37px;
+  }
+  header h1 {
+    font-size: 36px;
+    margin-top: 20px;
+    margin-top: 10px;
+  }
+  .grad-btn.add-btn {
+    margin-left: 12px;
+    margin-top: 12px;
+  }
 }
 
 /*************************************/
@@ -74,7 +115,7 @@ header h1 {
 }
 .profile-thumbnail img {
   box-shadow: none;
-  margin-bottom: 0;
+  margin-bottom: 15px;
   border-radius: 50%;
   border: 1px solid #e2e2e2;
 }
