@@ -4,17 +4,19 @@ import {
   FormControl,
   HelpBlock,
   Button,
-  Col,
   ControlLabel
 } from 'react-bootstrap';
 import ErrorMessage from '../Widgets/ErrorMessage';
 import ModalWidget from '../Widgets/Modal';
+import noPic from "../../images/no-profile.svg";
+import resumeIcon from "../../images/resume-icon.svg";
+import resumeMissingIcon from "../../images/resume-missing-icon.svg";
 import './NewProfile.css';
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
+    <FormGroup controlId={id}
+      bsClass="form-group grad-form-group">
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
@@ -30,7 +32,7 @@ class NewProfile extends Component {
     profileData: {
       firstName: '',
       lastName: '',
-      yearOfGrad: 0,
+      yearOfGrad: null,
       skills: [],
       story: '',
       phone: '',
@@ -42,7 +44,8 @@ class NewProfile extends Component {
       resume: '',
       isActive: 1
     },
-    submitForm: false
+    submitForm: false,
+    storyHeight: 4
   };
 
   onChangeInput = e => {
@@ -110,214 +113,185 @@ class NewProfile extends Component {
     });
   };
 
+  addDefaultSrc(e) {
+    e.target.src = noPic;
+  }
+
   render() {
     return (
-      <div className="container">
-        <ModalWidget
-          show={this.state.submitForm}
-          message={'Graduate Added Successfully!'}
-          title={'New Graduate Profile'}
-          closeModal={this.closeModal}
-        />
-        <header>
-          <h2>{this.state.isNew ? 'New' : 'Edit'} Profile</h2>
-        </header>
-        <form onSubmit={this.handleNewProfile}>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              First Name
-            </Col>
-            <Col sm={10}>
+      <div>
+      {/* New Profile Header */}
+        <div className="header-wrap container-fluid">
+          <header className="container grad-header">
+            <h1>New Graduate Profile</h1>
+          </header>
+        </div>
+
+        <main className="container grad-form">
+
+          {/* OnSubmit Message */}
+          <ModalWidget
+            show={this.state.submitForm}
+            message={'Graduate Added Successfully!'}
+            title={'New Graduate Profile'}
+            closeModal={this.closeModal}
+          />
+
+          {/* Profile Image */}
+          <div className="profile-thumbnail form-thumbnail">
+            {this.state.profileData.image ? (
+              <img
+                width={100}
+                src={this.state.profileData.image}
+                alt="profile"
+                onError={this.addDefaultSrc}
+              />
+            ) : (
+              <img
+                width={100}
+                src={noPic}
+                alt="profile missing"
+              />
+            )}
+            <div className="choose-button">
+              <h3>{this.state.profileData.image ? "Update" : "Add"}<br /> Image</h3>
+            </div>
+            <FieldGroup
+              id="image"
+              type="file"
+              onChange={e => this.setState({ image: e.target.value })}
+            />
+          </div>
+
+          {/* Profile Resume */}
+          <div className="form-resume">
+            <img
+              src={this.state.profileData.resume ? resumeIcon : resumeMissingIcon}
+              width={100}
+              height={100}
+              alt="Resume icon"
+            />
+            <div className="choose-button">
+              <h3>{this.state.profileData.resume ? "Update" : "Add"} Resume</h3>
+            </div>
+            <FieldGroup
+              id="resume"
+              type="file"
+              onChange={e => this.setState({ resume: e.target.value })}
+            />
+          </div>
+          <div className="clearfix"></div>
+
+          {/* Profile Form */}
+          <form onSubmit={this.handleNewProfile}>
+            <FormGroup controlId="first-name">
+              <ControlLabel>First Name<span className="helper helper-asterisk">*</span></ControlLabel>
               <FormControl
                 type="text"
                 placeholder="First Name"
                 name="firstName"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Last Name
-            </Col>
-            <Col sm={10}>
+                value={this.state.profileData.firstName}
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <FormGroup controlId="last-name">
+              <ControlLabel>Last Name<span className="helper helper-asterisk">*</span></ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Last Name"
                 name="lastName"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Year of Graduation
-            </Col>
-            <Col sm={10}>
+                value={this.state.profileData.lastName}
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <FormGroup controlId="year-of-grad">
+              <ControlLabel>Year of Graduation<span className="helper helper-asterisk">*</span></ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Year of Graduation"
+                value={this.state.profileData.yearOfGrad}
                 name="yearOfGrad"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Skills
-            </Col>
-            <Col sm={10}>
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <FormGroup controlId="skills">
+              <ControlLabel>Skills<span className="helper">(Comma delimited)</span></ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Skills"
+                value={this.state.profileData.skills}
                 name="skills"
-                onChange={this.onChangeSkills}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formControlsTextarea">
-            <Col componentClass={ControlLabel} sm={2}>
-              Story
-            </Col>
-            <Col sm={10}>
+                onChange={this.onChangeSkills} />
+            </FormGroup>
+            <FormGroup controlId="story">
+              <ControlLabel>Story<span className="helper">(Max 800 characters)</span></ControlLabel>
               <FormControl
                 componentClass="textarea"
                 type="textarea"
                 placeholder="Story"
+                rows={this.state.storyHeight}
+                data-min-rows="4"
+                maxLength="800"
                 name="story"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Phone Number
-            </Col>
-            <Col sm={10}>
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <FormGroup controlId="phone">
+              <ControlLabel>Phone Number</ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Phone Number"
+                value={this.state.profileData.phone}
                 name="phone"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <FormGroup controlId="formBasicText">
-              <Col componentClass={ControlLabel} sm={2}>
-                Email
-              </Col>
-              <Col sm={10}>
-                <FormControl
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  onChange={this.onChangeInput}
-                />
-              </Col>
+                onChange={this.onChangeInput} />
             </FormGroup>
-            <Col componentClass={ControlLabel} sm={2}>
-              Linked In
-            </Col>
-            <Col sm={10}>
+            <FormGroup controlId="email">
+              <ControlLabel>Email<span className="helper helper-asterisk">*</span></ControlLabel>
               <FormControl
                 type="text"
-                placeholder="Linked In"
+                placeholder="Email"
+                value={this.state.profileData.email}
+                name="email"
+                onChange={this.onChangeInput} />
+              </FormGroup>
+            <FormGroup controlId="linkedin">
+              <ControlLabel>LinkedIn</ControlLabel>
+              <FormControl
+                type="text"
+                placeholder="LinkedIn"
+                value={this.state.profileData.linkedin}
                 name="linkedin"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              GitHub
-            </Col>
-            <Col sm={10}>
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <FormGroup controlId="github">
+              <ControlLabel>GitHub</ControlLabel>
               <FormControl
                 type="text"
                 placeholder="GitHub"
+                value={this.state.profileData.github}
                 name="github"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Website
-            </Col>
-            <Col sm={10}>
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <FormGroup controlId="website">
+              <ControlLabel>Website</ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Website"
                 name="website"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formBasicText">
-            <Col componentClass={ControlLabel} sm={2}>
-              Website
-            </Col>
-            <Col sm={10}>
-              <FormControl
-                type="text"
-                placeholder="Website"
-                name="website"
-                onChange={this.onChangeInput}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formControlsFile">
-            <Col componentClass={ControlLabel} sm={2}>
-              Image
-            </Col>
-            <Col sm={10}>
-              <FieldGroup
-                id="uploadButton"
-                type="file"
-                help={
-                  this.state.profileData.image
-                    ? this.state.profileData.image
-                    : 'Upload Image File.'
-                }
-                name="image"
-                onChange={e => this.uploadFile(e)}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formControlsFile">
-            <Col componentClass={ControlLabel} sm={2}>
-              Resume
-            </Col>
-            <Col sm={10}>
-              <FieldGroup
-                id="uploadButton"
-                type="file"
-                help={
-                  this.state.profileData.resume
-                    ? this.state.profileData.resume
-                    : 'Upload Resume File in PDF format.'
-                }
-                name="resume"
-                onChange={e => this.uploadFile(e)}
-              />
-            </Col>
-          </FormGroup>
-          <Button
-            type="submit"
-            className="btn btn-primary"
-            disabled={this.props.isLoading === true}
-          >
-            {this.props.isLoading ? 'UPDATE' : 'ADD'}
-          </Button>
-          {this.props.hasError && (
-            <ErrorMessage>
-              Sorry! The Graduate Portal is temporarily down. Our engineers are
-              aware of the problem and are hard at work trying to fix it. Please
-              come back later.
-            </ErrorMessage>
-          )}
-        </form>
+                onChange={this.onChangeInput} />
+            </FormGroup>
+            <Button
+              type="submit"
+              className="btn grad-btn grad-btn-secondary"
+              disabled={this.props.isLoading === true}
+            >
+              {this.props.isLoading ? 'LOADING...' : 'ADD'}
+            </Button>
+            {this.props.hasError && (
+              <ErrorMessage>
+                Sorry! The Graduate Portal is temporarily down. Our engineers are
+                aware of the problem and are hard at work trying to fix it. Please
+                come back later.
+              </ErrorMessage>
+            )}
+          </form>
+        </main>
       </div>
     );
   }

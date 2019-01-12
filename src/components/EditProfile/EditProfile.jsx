@@ -15,7 +15,7 @@ import resumeMissingIcon from "../../images/resume-missing-icon.svg";
 function FieldGroup({ id, label, help, ...props }) {
   return (
     <FormGroup controlId={id}
-    bsClass="form-group grad-form-group">
+      bsClass="form-group grad-form-group">
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
@@ -114,10 +114,11 @@ class EditProfile extends Component {
   render() {
     return (
       <div>
+      {/* New Profile Header */}
         <div className="header-wrap container-fluid">
           <header className="container grad-header">
             <h1>Edit Graduate Profile</h1>
-            {/* Edit Profile Button */}
+            {/* Add Profile Button */}
             {this.props.isAdmin && (
               <Button
                 className="grad-btn grad-btn-secondary add-btn"
@@ -129,6 +130,8 @@ class EditProfile extends Component {
             )}
           </header>
         </div>
+
+        {/* OnSubmit Message */}
         <main className="container grad-form">
           <ModalWidget
             show={this.state.submitForm}
@@ -136,6 +139,8 @@ class EditProfile extends Component {
             title={"Edit Graduate Profile"}
             closeModal={this.closeModal}
           />
+
+          {/* Profile Image */}
           <div className="profile-thumbnail form-thumbnail">
             {this.state.profileData.image ? (
               <img
@@ -160,6 +165,8 @@ class EditProfile extends Component {
               onChange={e => this.setState({ image: e.target.value })}
             />
           </div>
+
+          {/* Profile Resume */}
           <div className="form-resume">
             <img
               src={this.state.profileData.resume ? resumeIcon : resumeMissingIcon}
@@ -177,6 +184,8 @@ class EditProfile extends Component {
             />
           </div>
           <div className="clearfix"></div>
+
+          {/* Profile Form */}
           <form onSubmit={this.handleEditProfile}>
             <FormGroup controlId="first-name">
               <ControlLabel>First Name<span className="helper helper-asterisk">*</span></ControlLabel>
@@ -257,7 +266,7 @@ class EditProfile extends Component {
                 } />
             </FormGroup>
             <FormGroup controlId="phone">
-            <ControlLabel>Phone Number</ControlLabel>
+              <ControlLabel>Phone Number</ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Phone Number"
