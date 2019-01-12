@@ -9,7 +9,7 @@ import {
 
 function mapStateToProps(state) {
     return {
-        profiles: state.Shared.profiles,
+        ...state.Shared,
         isLoading: state.Search.isLoading,
         hasError: state.Search.hasError
     };

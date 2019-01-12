@@ -4,9 +4,8 @@ import { Media } from "react-bootstrap";
 
 import Loading from "../Widgets/Loading";
 import ErrorMessage from "../Widgets/ErrorMessage";
-
+import noPic from "../../images/no-profile.svg";
 import "./Search.css";
-import noPic from "../../images/no-profile.svg"; //if no profile picture use this default pic
 
 class Search extends Component {
   state = {
@@ -19,25 +18,26 @@ class Search extends Component {
   };
 
   filterProfiles = () => {
-    console.log("filterProfiles", this.props.profiles);
-    let searchTerms = this.state.searchInput.split(" ");
+    // convert search input to an array of terms without leading/trailing white space
+    let searchTerms = this.state.searchInput.toLowerCase().trim().split(" ");
 
     const profiles = Object.values(this.props.profiles).filter(profile => {
-      let profileTerms = profile.skills
-
-        .concat(profile.firstName)
-
-        .concat(profile.lastName);
-
-      for (let searchTerm of searchTerms) {
-        let regexSearchTerm = new RegExp(searchTerm, "i");
-
-        for (let profileTerm of profileTerms) {
-          if (regexSearchTerm.test(profileTerm)) return true;
-        }
-      }
-
-      return false;
+      let profileSkills = profile.skills.reduce((arr, term) => arr.concat(term.toLowerCase()), []);
+      let profileNames = []
+        .concat(profile.firstName.toLowerCase())
+        .concat(profile.lastName.toLowerCase());
+        for (let searchTerm of searchTerms) {
+          for (let name of profileNames) {
+          // first compare each search term to first/last names for a partial match
+          // the regex escapes any special characters so there are no errors when creating new RegExp
+            let nameSearchTerm = searchTerm.replace(/[^\w\s]/g, "\\$&");
+            let searchTermRegex = new RegExp(nameSearchTerm, "i");
+            if (searchTermRegex.test(name)) return true;
+          };
+          // then, if no name matches, ensure the term is an exact match to one of the skills
+          if (!profileSkills.includes(searchTerm.toLowerCase())) return false;
+        };
+        return true;
     });
 
     return this.setState({ profiles });
@@ -55,30 +55,41 @@ class Search extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
-      <div className="ProfileDirectory">
-        <div className="">
-          <h1>Employer Portal</h1>
+      <div className="search">
+        <div className="header-wrap container-fluid">
+          <header className="container grad-header">
+            <h1>Graduate Portal</h1>
+            {/* Edit Profile Button */}
+            {this.props.isAdmin && (
+              <Button
+                className="grad-btn grad-btn-secondary add-btn"
+                title="Add new graduate profile"
+                bsSize="small"
+                href={`/profile/add`}
+              >
+                +
+              </Button>
+            )}
+            <div className="search-input">
+              <FormGroup>
+                <span className="search-icon">
+                  <i className="fas fa-search" />
+                </span>
+                <FormControl
+                  type="text"
+                  className="login-input"
+                  placeholder="Filter graduates by name or skills"
+                  aria-label="Search Input"
+                  value={this.state.searchInput}
+                  onChange={e => this.handleChange(e)}
+                />
+              </FormGroup>
+            </div>
+          </header>
         </div>
-        <main className="">
-          <FormGroup>
-            <span className="search-icon">
-              <a>
-                <i className="fas fa-search" />
-              </a>
-            </span>
-            <FormControl
-              type="text"
-              className="login-input"
-              placeholder="Enter name or skills"
-              aria-label="Search Input"
-              value={this.state.searchInput}
-              onChange={e => this.handleChange(e)}
-            />
-          </FormGroup>
-
-          <div className="ProfileDirectory-profiles">
+        <main className="profile-directory">
+          <div>
             {this.state.isLoading && <Loading />}
             {this.state.hasError && (
               <ErrorMessage>
@@ -92,9 +103,9 @@ class Search extends Component {
                 const key = "graduate-" + graduate.id;
 
                 // For Story
-                const isBioLong = graduate.story.length > 200;
+                const isBioLong = graduate.story.length > 270;
                 const gradStory = isBioLong
-                  ? graduate.story.substring(0, 200) + "..."
+                  ? graduate.story.substring(0, 270) + "..."
                   : graduate.story;
                 const fullBio = graduate.story;
                 const viewLink = "/profile/" + graduate.id;
@@ -102,104 +113,100 @@ class Search extends Component {
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <a href={`/profile/${graduate.id}`}>
+                        <a href={`/profile/${graduate.id}`}
+                          className="profile-thumbnail">
                           {graduate.image ? (
                             <img
-                              className="profile-thumbnail"
                               width={100}
                               src={graduate.image}
-                              alt=""
+                              alt="profile"
                               onError={this.addDefaultSrc}
                             />
                           ) : (
                             <img
-                              className="profile-thumbnail"
                               width={100}
                               src={noPic}
-                              alt=""
+                              alt="profile missing"
                             />
                           )}
                         </a>
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
-                          <p>
                             <a href={viewLink}>
                               {graduate.firstName + " " + graduate.lastName}
                             </a>{" "}
-                          </p>
                         </Media.Heading>
                         <p>{graduate.yearOfGrad}</p>
-                        <p>{graduate.skills.join(", ")}</p>
+                        <p className="skills">{graduate.skills.join(", ")}</p>
 
                         {/* If Bio is long show Read More button */}
                         {isBioLong ? <p>{gradStory}</p> : <p>{fullBio}</p>}
 
                         {graduate.links &&
-                          Object.entries(graduate.links).map(profileLinks => {
-                            const [linkKey, linkVal] = profileLinks;
-                            console.log(linkKey, linkVal);
+                          Object.keys(graduate.links).map(linkKey => {
                             const icons = {
                               linkedin: "fab fa-linkedin-in",
                               github: "fab fa-github",
                               website: "fas fa-globe",
                               email: "fas fa-envelope"
                             };
+                            const titles = {
+                              linkedin: `View ${graduate.firstName}'s linkedin profile`,
+                              github: `View ${graduate.firstName}'s github profile`,
+                              website: `View ${graduate.firstName}'s website`,
+                              email: `Contact ${graduate.firstName}`
+                            };
                             // test to see if its truthy
                             if (graduate.links[linkKey])
                               return (
-                                <span className="" key={linkKey}>
-                                  <a
-                                    href={
-                                      graduate.links[linkKey] ===
-                                      graduate.links.email
-                                        ? `mailto:${graduate.links.email}`
-                                        : graduate.links[linkKey]
-                                    }
-                                    target={"_blank"}
-                                  >
-                                    <i className={`${icons[linkKey]} fa-lg`} />
-                                  </a>
-                                </span>
+                                <Button
+                                  key={linkKey}
+                                  className="grad-btn grad-btn-primary links"
+                                  bsSize="small"
+                                  href={
+                                    graduate.links[linkKey] ===
+                                    graduate.links.email
+                                      ? `mailto:${graduate.links.email}`
+                                      : graduate.links[linkKey]
+                                  }
+                                  title={titles[linkKey]}
+                                  target={"_blank"}
+                                >
+                                  <i className={`${icons[linkKey]} fa-lg acc-primary`} />
+                                </Button>
                               );
+                              else return null;
                           })}
 
                         {graduate.resume && (
                           <Button
-                            bsStyle="primary"
+                            className="grad-btn grad-btn-primary"
                             bsSize="small"
                             href={graduate.resume}
                           >
-                            <span>
-                              <i className="fas fa-eye" />
-                            </span>
                             View Resume
                           </Button>
                         )}
 
                         {/* View Profile Button */}
                         <Button
-                          bsStyle="primary"
+                          className="grad-btn grad-btn-primary"
                           bsSize="small"
                           href={`/profile/${graduate.id}`}
                         >
-                          <span>
-                            <i className="fas fa-eye" />
-                          </span>
                           View Profile
                         </Button>
 
                         {/* Edit Profile Button */}
                         {this.props.isAdmin && (
-                          <span>
-                            <Button
-                              bsStyle="primary"
-                              bsSize="small"
-                              href={`/profile/${graduate.id}/edit`}
-                            >
-                              Edit Profile
-                            </Button>
-                          </span>
+                          <Button
+                            className="grad-btn grad-btn-secondary"
+                            bsSize="small"
+                            href={`/profile/${graduate.id}/edit`}
+                          >
+                            Edit
+                          </Button>
                         )}
                       </Media.Body>
                     </Media>

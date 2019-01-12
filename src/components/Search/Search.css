@@ -1,42 +1,201 @@
-.ProfileDirectory {
-  max-width: 650px;
-  margin: auto;
+/**********************************/
+/*** SEARCH HEADER ****************/
+/**********************************/
+.grad-header {
   position: relative;
+  max-width: 800px;
 }
-
-.ProfileDirectory-profiles {
+.header-wrap {
+  background: #1c1c1c;
+  padding: 0 0 10px;
 }
-
-/**********************************/
-/*Input Box search icon position***/
-/**********************************/
-/* enable absolute positioning */
+header h1 {
+  float: left;
+  color: white;
+  font-size: 30px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.search-input input::-webkit-input-placeholder, /* WebKit, Blink, Edge */
+.search-input input:-ms-input-placeholder, /* Internet Explorer 10-11 */
+.search-input input::-ms-input-placeholder, /* Microsoft Edge */
+.search-input input::placeholder { /* Most modern browsers support this now. */
+ color: #868686;
+}
+.search-input input:-moz-placeholder, /* Mozilla Firefox 4 to 18 */
+.search-input input::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color: #868686;
+ opacity: 1;
+}
+.search-input input {
+  color: #fff;
+  background: #383838;
+  border-color: #383838;
+  margin-bottom: 10px;
+}
 .search-icon {
   position: absolute;
-  padding: 10px;
-  right: 0px;
+  color: #868686;
+  padding: 8px;
+  right: 14px;
+}
+.grad-btn.add-btn {
+  font-size: 22px;
+  margin-left: 12px;
+  margin-top: 18px;
+  padding: 1px 6px;
+}
+
+@media (min-width: 480px) {
+  .header-wrap {
+    padding: 13px 0 25px;
+  }
+  header h1 {
+    font-size: 34px;
+  }
+  .search-input input {
+    margin-bottom: 20px;
+  }
+  .grad-btn.add-btn {
+    font-size: 26px;
+    margin-left: 12px;
+    margin-top: 17px;
+    padding: 1px 7px;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-wrap {
+    padding: 30px 0 37px;
+  }
+  header h1 {
+    font-size: 36px;
+    margin-top: 20px;
+    margin-top: 10px;
+  }
+  .grad-btn.add-btn {
+    margin-left: 12px;
+    margin-top: 12px;
+  }
 }
 
 /*************************************/
-/****Profile Card**********************/
+/*** SEARCH RESULTS ******************/
 /*************************************/
+
+/* ------- Bootstrap Overrides ------ */
+.media-body {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+/* ------------------------------------ */
+/* enable absolute positioning */
+.profile-directory {
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  padding: 0 10px;
+}
+.profile-directory h1 {
+  font-family: Roboto Condensed;
+  font-weight: 700;
+  text-align: center;
+  margin: 35px auto 10px;
+}
 .card {
+  border-top: 1px solid #d0d0d0;
+  padding: 20px 0 10px;
   margin-bottom: 10px;
-  border: solid 1px #ddd;
 }
-
-.thumbnail {
-  box-shadow: none;
-  margin-bottom: 0;
+.card:first-child {
+  border-top: none;
 }
-.thumbnail > img {
-  border-radius: 50%;
-  border: 3px #efefef solid;
-}
-
 .profile-thumbnail {
+  margin-right: 20px;
+}
+.profile-thumbnail img {
   box-shadow: none;
-  margin-bottom: 0;
+  margin-bottom: 15px;
   border-radius: 50%;
-  border: 3px #efefef solid;
+  border: 1px solid #e2e2e2;
+}
+.media-left > a img:hover {
+  opacity: 0.7;
+}
+.media-body h4 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 22px;
+  margin-bottom: 10px;
+}
+.media-body h4 a {
+  color: #383838;
+}
+.media-body h4 a:hover {
+  color: #00b5e0;
+  text-decoration: none;
+}
+.grad-btn {
+  padding: 8px 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  line-height: 1 !important;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.grad-btn-primary {
+  color: #00b5e0;
+  border: 1px solid #00b5e0;
+  background: transparent;
+}
+.grad-btn-primary:hover {
+  color: #fff;
+  border: 1px solid #00b5e0;
+  background: #00b5e0;
+}
+.grad-btn-secondary {
+  color: #8ec957;
+  border: 1px solid #8ec957;
+  background: transparent;
+}
+.grad-btn-secondary:hover {
+  color: #fff;
+  border: 1px solid #8ec957;
+  background: #8ec957;
+}
+.grad-btn-admin {
+  color: #f6c22a; 
+  border: 1px solid #f6c22a; 
+  background: transparent;
+}
+.grad-btn-admin:hover {
+  color: #fff;
+  border: 1px solid #f6c22a; 
+  background: #f6c22a; 
+}
+.links {
+  margin-right: 10px;
+  padding: 8px 8px;
+}
+.links i {
+  color: #00b5e0;
+}
+.links:hover i{
+  color: #fff
+}
+.skills {
+  color: #00b5e0;
+  font-size: 600;
 }

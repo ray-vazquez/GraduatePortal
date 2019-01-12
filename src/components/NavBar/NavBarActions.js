@@ -12,7 +12,7 @@ export const logout = () => {
   return dispatch => {
     dispatch(logoutAction());
     let currentRoute = history.location.pathname;
-    if ((/^\/profile\/add/.test(currentRoute)) || (/^\/profile\/edit/.test(currentRoute))) {
+    if ((/^\/profile\/add/.test(currentRoute)) || (/^\/profile\/\w+\/edit/.test(currentRoute))) {
       history.push("/");
     };
   };
