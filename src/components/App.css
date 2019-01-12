@@ -9,6 +9,59 @@
     margin: 0;
     padding-bottom: 80px; /* creates a space for footer to overlap .wrapper. MUST match footer properties height & margin-top (Footer.css) */
 }
+.acc-primary {
+  color: #00b5e0;
+}
+.acc-primary-bg {
+  background: #00b5e0;
+}
+.acc-secondary {
+  color: #8ec957;
+}
+.acc-secondary-bg {
+  background: #8ec957;
+}
+.acc-btn {
+  padding: 8px 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  line-height: 1 !important;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+.acc-btn-primary {
+  color: #fff;
+  border: 1px solid #00b5e0;
+  background: #00b5e0;
+}
+.acc-btn-primary:hover {
+  color: #00b5e0;
+  border: 1px solid #00b5e0;
+  background: transparent;
+}
+.acc-btn-secondary {
+  color: #fff;
+  border: 1px solid #8ec957;
+  background: #8ec957;
+}
+.acc-btn-secondary:hover {
+  color: #8ec957;
+  border: 1px solid #8ec957;
+  background: transparent;
+}
+
+/* --- Bootstrap Overrides ----------- */
+.btn-primary {
+  background: #00b5e0;
+}
+
 @media (min-width: 992px) {
   .wrapper {
     padding-bottom: 64px; /* creates a space for footer to overlap .wrapper */

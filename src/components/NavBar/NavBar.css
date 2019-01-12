@@ -1,6 +1,7 @@
 .acc-navbar {
   background-color: #383838;
   border-radius: 0;
+  margin-bottom: 0;
 }
 .acc-navbar ul.navbar-nav {
   margin: 0 -15px;
@@ -80,7 +81,7 @@
     float: left;
   }
   .nav>li.search-icon a {
-    line-height: 94px;
+    line-height: 80px;
     padding: 0 15px;
   }
 }

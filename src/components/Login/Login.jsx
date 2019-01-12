@@ -53,7 +53,7 @@ class Login extends Component {
             </FormGroup>
             <Button
               type="submit"
-              className="btn btn-primary login-btn"
+              className="btn acc-btn acc-btn-primary login-btn"
               disabled={this.props.isLoading === true}
             >
               {this.props.isLoading ? "LOADING ..." : "LOGIN"}
