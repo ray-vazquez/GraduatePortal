@@ -151,6 +151,12 @@ class Search extends Component {
                               website: "fas fa-globe",
                               email: "fas fa-envelope"
                             };
+                            const titles = {
+                              linkedin: `View ${graduate.firstName}'s linkedin profile`,
+                              github: `View ${graduate.firstName}'s github profile`,
+                              website: `View ${graduate.firstName}'s website`,
+                              email: `Contact ${graduate.firstName}`
+                            };
                             // test to see if its truthy
                             if (graduate.links[linkKey])
                               return (
@@ -164,6 +170,7 @@ class Search extends Component {
                                       ? `mailto:${graduate.links.email}`
                                       : graduate.links[linkKey]
                                   }
+                                  title={titles[linkKey]}
                                   target={"_blank"}
                                 >
                                   <i className={`${icons[linkKey]} fa-lg acc-primary`} />
