@@ -16,20 +16,13 @@ class ViewProfile extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.profiles)
-      this.props.fetchAllProfiles().then(() => {
-        this.setState({
-          profileData: Object.values(this.props.profiles).filter(profile => {
-            return profile.id === parseInt(this.state.graduateId);
-          })
-        });
-      });
-    else
+    this.props.fetchAllProfiles().then(() => {
       this.setState({
         profileData: Object.values(this.props.profiles).filter(profile => {
           return profile.id === parseInt(this.state.graduateId);
         })
       });
+    });
   }
 
   render() {

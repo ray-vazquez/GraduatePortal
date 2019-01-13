@@ -15,8 +15,7 @@ import resumeMissingIcon from "../../images/resume-missing-icon.svg";
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
-    <FormGroup controlId={id}
-      bsClass="form-group grad-form-group">
+    <FormGroup controlId={id} bsClass="form-group grad-form-group">
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
@@ -54,14 +53,14 @@ class EditProfile extends Component {
     e.preventDefault();
 
     // convert skills back to an array and trim leading/trailing white spaces
-    let skillsArray = this.state.profileData.skills.split(',');
+    let skillsArray = this.state.profileData.skills.split(",");
     for (let i = 0; i < skillsArray.length; i++) {
       skillsArray[i] = skillsArray[i].trim();
     }
     let newProfileData = {
       ...this.state.profileData,
       skills: skillsArray
-    }
+    };
 
     const response = this.props.profileEdit(newProfileData);
     this.setState({ submitForm: true, graduateId: response.graduateId });
@@ -77,7 +76,7 @@ class EditProfile extends Component {
     this.setState({
       submitForm: false
     });
-    history.push(`/profile/${this.state.profileData.graduateId}`)
+    history.push(`/profile/${this.state.profileData.graduateId}`);
   };
 
   addDefaultSrc(e) {
@@ -109,35 +108,35 @@ class EditProfile extends Component {
           }
         });
       });
-      // this is the only place we should be setting the profileData in state
-      else {
-        let currentProfile = this.props.profiles[id]
-        this.setState({ 
-          profileData: {
-            graduateId: id,
-            firstName: currentProfile.firstName,
-            lastName: currentProfile.lastName,
-            // convert skills to a string
-            skills: currentProfile.skills.join(", "),
-            github: currentProfile.links.github,
-            linkedin: currentProfile.links.linkedin,
-            email: currentProfile.links.email,
-            website: currentProfile.links.website,
-            phone: currentProfile.phone,
-            yearOfGrad: currentProfile.yearOfGrad,
-            image: currentProfile.image,
-            resume: currentProfile.resume,
-            story: currentProfile.story,
-            isActive: currentProfile.isActive
-          }
-        });
-      }
+    // this is the only place we should be setting the profileData in state
+    else {
+      let currentProfile = this.props.profiles[id];
+      this.setState({
+        profileData: {
+          graduateId: id,
+          firstName: currentProfile.firstName,
+          lastName: currentProfile.lastName,
+          // convert skills to a string
+          skills: currentProfile.skills.join(", "),
+          github: currentProfile.links.github,
+          linkedin: currentProfile.links.linkedin,
+          email: currentProfile.links.email,
+          website: currentProfile.links.website,
+          phone: currentProfile.phone,
+          yearOfGrad: currentProfile.yearOfGrad,
+          image: currentProfile.image,
+          resume: currentProfile.resume,
+          story: currentProfile.story,
+          isActive: currentProfile.isActive
+        }
+      });
+    }
   }
 
   render() {
     return (
       <div>
-      {/* New Profile Header */}
+        {/* New Profile Header */}
         <div className="header-wrap container-fluid">
           <header className="container grad-header">
             <h1>Edit Graduate Profile</h1>
@@ -147,7 +146,8 @@ class EditProfile extends Component {
                 className="grad-btn grad-btn-secondary add-btn"
                 title="Add new graduate profile"
                 bsSize="small"
-                href={`/profile/add`}>
+                href={`/profile/add`}
+              >
                 +
               </Button>
             )}
@@ -158,11 +158,14 @@ class EditProfile extends Component {
         <main className="container grad-form">
           <ModalWidget
             show={this.state.submitForm}
-            message={"Graduate edited successfully! What would you like to do next?"}
+            message={
+              "Graduate edited successfully! What would you like to do next?"
+            }
             title={"Edit Graduate Profile"}
             closeModal={this.closeModal}
-            linkToViewProfile={this.linkToViewProfile}
-            graduate={this.state.profileData}
+            graduateId={this.state.profileData.graduateId}
+            // linkToViewProfile={this.linkToViewProfile}
+            // graduate={this.state.profileData}
           />
 
           {/* Profile Image */}
@@ -175,14 +178,13 @@ class EditProfile extends Component {
                 onError={this.addDefaultSrc}
               />
             ) : (
-              <img
-                width={100}
-                src={noPic}
-                alt="profile missing"
-              />
+              <img width={100} src={noPic} alt="profile missing" />
             )}
             <div className="choose-button">
-              <h3>{this.state.profileData.image ? "Update" : "Add"}<br /> Image</h3>
+              <h3>
+                {this.state.profileData.image ? "Update" : "Add"}
+                <br /> Image
+              </h3>
             </div>
             <FieldGroup
               id="image"
@@ -194,7 +196,9 @@ class EditProfile extends Component {
           {/* Profile Resume */}
           <div className="form-resume">
             <img
-              src={this.state.profileData.resume ? resumeIcon : resumeMissingIcon}
+              src={
+                this.state.profileData.resume ? resumeIcon : resumeMissingIcon
+              }
               width={100}
               height={100}
               alt="Resume icon"
@@ -208,12 +212,14 @@ class EditProfile extends Component {
               onChange={e => this.setState({ resume: e.target.value })}
             />
           </div>
-          <div className="clearfix"></div>
+          <div className="clearfix" />
 
           {/* Profile Form */}
           <form onSubmit={this.handleEditProfile}>
             <FormGroup controlId="first-name">
-              <ControlLabel>First Name<span className="helper helper-asterisk">*</span></ControlLabel>
+              <ControlLabel>
+                First Name<span className="helper helper-asterisk">*</span>
+              </ControlLabel>
               <FormControl
                 type="text"
                 placeholder="First Name"
@@ -225,10 +231,13 @@ class EditProfile extends Component {
                       firstName: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <FormGroup controlId="last-name">
-              <ControlLabel>Last Name<span className="helper helper-asterisk">*</span></ControlLabel>
+              <ControlLabel>
+                Last Name<span className="helper helper-asterisk">*</span>
+              </ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Last Name"
@@ -240,10 +249,14 @@ class EditProfile extends Component {
                       lastName: e.target.value
                     }
                   })
-                }/>
+                }
+              />
             </FormGroup>
             <FormGroup controlId="year-of-grad">
-              <ControlLabel>Year of Graduation<span className="helper helper-asterisk">*</span></ControlLabel>
+              <ControlLabel>
+                Year of Graduation
+                <span className="helper helper-asterisk">*</span>
+              </ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Year of Graduation"
@@ -255,10 +268,13 @@ class EditProfile extends Component {
                       yearOfGrad: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <FormGroup controlId="skills">
-              <ControlLabel>Skills<span className="helper">(Comma delimited)</span></ControlLabel>
+              <ControlLabel>
+                Skills<span className="helper">(Comma delimited)</span>
+              </ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Skills"
@@ -270,10 +286,13 @@ class EditProfile extends Component {
                       skills: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <FormGroup controlId="story">
-              <ControlLabel>Story<span className="helper">(Max 800 characters)</span></ControlLabel>
+              <ControlLabel>
+                Story<span className="helper">(Max 800 characters)</span>
+              </ControlLabel>
               <FormControl
                 componentClass="textarea"
                 placeholder="Story"
@@ -288,7 +307,8 @@ class EditProfile extends Component {
                       story: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <FormGroup controlId="phone">
               <ControlLabel>Phone Number</ControlLabel>
@@ -307,7 +327,9 @@ class EditProfile extends Component {
               />
             </FormGroup>
             <FormGroup controlId="email">
-              <ControlLabel>Email<span className="helper helper-asterisk">*</span></ControlLabel>
+              <ControlLabel>
+                Email<span className="helper helper-asterisk">*</span>
+              </ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Email"
@@ -335,7 +357,8 @@ class EditProfile extends Component {
                       linkedin: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <FormGroup controlId="github">
               <ControlLabel>GitHub</ControlLabel>
@@ -350,7 +373,8 @@ class EditProfile extends Component {
                       github: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <FormGroup controlId="website">
               <ControlLabel>Website</ControlLabel>
@@ -365,7 +389,8 @@ class EditProfile extends Component {
                       website: e.target.value
                     }
                   })
-                } />
+                }
+              />
             </FormGroup>
             <Button
               type="submit"

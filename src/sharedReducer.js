@@ -10,7 +10,6 @@ const sharedReducer = (
   switch (action.type) {
     case types.LOGIN_FULFILLED: {
       const { token } = action.payload;
-      console.log(token);
       return token ? { ...state, isAdmin: true } : { ...state, isAdmin: false };
     }
     case types.LOGOUT:
@@ -22,7 +21,6 @@ const sharedReducer = (
       const { profiles } = action.payload;
       return {
         ...state,
-        // profiles: action.payload
         profiles
       };
     }

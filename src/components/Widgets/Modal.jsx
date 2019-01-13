@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import history from "../../history";
 import "./Modal.css";
 
 class ModalWidget extends Component {
@@ -19,6 +20,7 @@ class ModalWidget extends Component {
   }
 
   render() {
+    let currentRoute = history.location.pathname;
     return (
       <div>
         <Modal show={this.props.show} onHide={this.handleClose}>
@@ -27,9 +29,25 @@ class ModalWidget extends Component {
           </Modal.Header>
           <Modal.Body>
             <p>{this.props.message}</p>
-            <p><Link to="/">Return to Search Results</Link></p>
-            <p><Button bsStyle="link" onClick={this.handleLinkToViewProfile}>View Graduate Profile</Button></p>
-            <p><Link to="/profile/add">Create a New Profile</Link></p>
+            <p>
+              <Link to="/">Return to Search Results</Link>
+            </p>
+            <p>
+              <Link to={`/profile/${this.props.graduateId}`}>
+                View Graduate Profile
+              </Link>
+            </p>
+            {/\/profile\/add/.test(currentRoute) ? (
+              <p>
+                <Button bsStyle="link" onClick={this.handleLinkToViewProfile}>
+                  Create a New Profile
+                </Button>
+              </p>
+            ) : (
+              <p>
+                <Link to="/profile/add">Create a New Profile</Link>
+              </p>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Continue Editing</Button>

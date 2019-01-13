@@ -1,4 +1,4 @@
-import * as types from '../../constants/actionTypes';
+import * as types from "../../constants/actionTypes";
 
 const NewProfileReducer = (
   state = {
@@ -12,10 +12,9 @@ const NewProfileReducer = (
   switch (action.type) {
     case types.NEW_PROFILE_FULFILLED:
       const { graduateId } = action.payload;
-      console.log("from NewProfileReducer: ", graduateId);
       return {
         ...state,
-        graduateId 
+        graduateId
       };
     case types.NEW_PROFILE_PENDING:
       return {
@@ -30,8 +29,8 @@ const NewProfileReducer = (
         hasError: true
       };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default NewProfileReducer;
