@@ -19,7 +19,7 @@ const send = (url, data = null, method = "POST") => {
 const upload = (url, image = null, method = "PUT") => {
   const token = localStorage.getItem("token");
   const data = new FormData();
-  data.append("image", image)
+  data.append("image", image);
   return axios(url, {
     method,
     headers: {
@@ -53,29 +53,28 @@ export const searchProfilesRequest = userInput => {
   });
 };
 
-export const fetchProfilesNewRequest = (profileData) => {
-  console.log('api new profile: ', profileData);
+export const fetchProfilesNewRequest = profileData => {
   return send(`${api}/graduates/new`, profileData).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
   });
 };
 
-export const fetchProfileEditRequest = (profileData) => {
+export const fetchProfileEditRequest = profileData => {
   return send(`${api}/graduates/edit`, profileData, "PUT").then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
   });
 };
 
-export const uploadImageRequest = (data) => {
+export const uploadImageRequest = data => {
   return upload(`${api}/upload/image`, data).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
   });
 };
 
-export const uploadResumeRequest = (data) => {
+export const uploadResumeRequest = data => {
   return upload(`${api}/upload/resume`, data).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;

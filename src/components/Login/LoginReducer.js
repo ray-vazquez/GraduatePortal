@@ -10,13 +10,10 @@ const LoginReducer = (
   action
 ) => {
   switch (action.type) {
-    case types.LOGIN_FULFILLED:
-      {
-        const {
-          isSuccess
-        } = action.payload;
-        return isSuccess ?
-          {
+    case types.LOGIN_FULFILLED: {
+      const { isSuccess } = action.payload;
+      return isSuccess
+        ? {
             ...state,
             isLoading: false,
             hasError: false,
