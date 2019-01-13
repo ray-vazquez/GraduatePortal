@@ -1,13 +1,20 @@
 /**********************************/
 /*** SEARCH HEADER ****************/
 /**********************************/
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
 .grad-header {
   position: relative;
   max-width: 800px;
 }
 .header-wrap {
   background: #1c1c1c;
-  padding: 0 0 10px;
+  padding: 0 0 8px;
+  z-index: 1;
 }
 header h1 {
   float: left;
@@ -19,13 +26,15 @@ header h1 {
 .search-input input::-webkit-input-placeholder, /* WebKit, Blink, Edge */
 .search-input input:-ms-input-placeholder, /* Internet Explorer 10-11 */
 .search-input input::-ms-input-placeholder, /* Microsoft Edge */
-.search-input input::placeholder { /* Most modern browsers support this now. */
- color: #868686;
+.search-input input::placeholder {
+  /* Most modern browsers support this now. */
+  color: #868686;
 }
 .search-input input:-moz-placeholder, /* Mozilla Firefox 4 to 18 */
-.search-input input::-moz-placeholder { /* Mozilla Firefox 19+ */
- color: #868686;
- opacity: 1;
+.search-input input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #868686;
+  opacity: 1;
 }
 .search-input input {
   color: #fff;
@@ -48,7 +57,7 @@ header h1 {
 
 @media (min-width: 480px) {
   .header-wrap {
-    padding: 13px 0 25px;
+    padding: 8px 0 8px;
   }
   header h1 {
     font-size: 34px;
@@ -66,7 +75,7 @@ header h1 {
 
 @media (min-width: 768px) {
   .header-wrap {
-    padding: 30px 0 37px;
+    padding: 8px 0 8px;
   }
   header h1 {
     font-size: 36px;
@@ -186,14 +195,14 @@ header h1 {
   background: transparent;
 }
 .grad-btn-admin {
-  color: #f6c22a; 
-  border: 1px solid #f6c22a; 
+  color: #f6c22a;
+  border: 1px solid #f6c22a;
   background: transparent;
 }
 .grad-btn-admin:hover {
   color: #fff;
-  border: 1px solid #f6c22a; 
-  background: #f6c22a; 
+  border: 1px solid #f6c22a;
+  background: #f6c22a;
 }
 .links {
   margin-right: 10px;
@@ -202,8 +211,8 @@ header h1 {
 .links i {
   color: #00b5e0;
 }
-.links:hover i{
-  color: #fff
+.links:hover i {
+  color: #fff;
 }
 .skills {
   color: #00b5e0;

@@ -24,11 +24,12 @@ class ViewProfile extends Component {
           })
         });
       });
-    else this.setState({
-      profileData: Object.values(this.props.profiles).filter(profile => {
-        return profile.id === parseInt(this.state.graduateId);
-      })
-    });
+    else
+      this.setState({
+        profileData: Object.values(this.props.profiles).filter(profile => {
+          return profile.id === parseInt(this.state.graduateId);
+        })
+      });
   }
 
   render() {
@@ -57,8 +58,8 @@ class ViewProfile extends Component {
               {this.state.hasError && (
                 <ErrorMessage>
                   Sorry! The Graduate Portal is temporarily down. Our engineers
-                  are aware of the problem and are hard at work trying to fix it.
-                  Please come back later.
+                  are aware of the problem and are hard at work trying to fix
+                  it. Please come back later.
                 </ErrorMessage>
               )}
               {this.state.profileData &&
@@ -87,7 +88,7 @@ class ViewProfile extends Component {
                         </Media.Left>
                         <Media.Body>
                           <Media.Heading>
-                          {graduate.firstName + " " + graduate.lastName}
+                            {graduate.firstName + " " + graduate.lastName}
                           </Media.Heading>
                           <p>{graduate.yearOfGrad}</p>
                           <p className="skills">{graduate.skills.join(", ")}</p>
@@ -105,8 +106,12 @@ class ViewProfile extends Component {
                                 email: "fas fa-envelope"
                               };
                               const titles = {
-                                linkedin: `View ${graduate.firstName}'s linkedin profile`,
-                                github: `View ${graduate.firstName}'s github profile`,
+                                linkedin: `View ${
+                                  graduate.firstName
+                                }'s linkedin profile`,
+                                github: `View ${
+                                  graduate.firstName
+                                }'s github profile`,
                                 website: `View ${graduate.firstName}'s website`,
                                 email: `Contact ${graduate.firstName}`
                               };
@@ -126,13 +131,19 @@ class ViewProfile extends Component {
                                     title={titles[linkKey]}
                                     target={
                                       graduate.links[linkKey] ===
-                                      graduate.links.email ? "" : "_blank"
+                                      graduate.links.email
+                                        ? ""
+                                        : "_blank"
                                     }
                                   >
-                                    <i className={`${icons[linkKey]} fa-lg acc-primary`} />
+                                    <i
+                                      className={`${
+                                        icons[linkKey]
+                                      } fa-lg acc-primary`}
+                                    />
                                   </Button>
                                 );
-                                else return null;
+                              else return null;
                             })}
 
                           {graduate.resume && (
@@ -140,6 +151,7 @@ class ViewProfile extends Component {
                               className="grad-btn grad-btn-primary"
                               bsSize="small"
                               href={graduate.resume}
+                              target="_blank"
                             >
                               View Resume
                             </Button>

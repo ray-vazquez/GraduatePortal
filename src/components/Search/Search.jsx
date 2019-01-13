@@ -19,25 +19,31 @@ class Search extends Component {
 
   filterProfiles = () => {
     // convert search input to an array of terms without leading/trailing white space
-    let searchTerms = this.state.searchInput.toLowerCase().trim().split(" ");
+    let searchTerms = this.state.searchInput
+      .toLowerCase()
+      .trim()
+      .split(" ");
 
     const profiles = Object.values(this.props.profiles).filter(profile => {
-      let profileSkills = profile.skills.reduce((arr, term) => arr.concat(term.toLowerCase()), []);
+      let profileSkills = profile.skills.reduce(
+        (arr, term) => arr.concat(term.toLowerCase()),
+        []
+      );
       let profileNames = []
         .concat(profile.firstName.toLowerCase())
         .concat(profile.lastName.toLowerCase());
-        for (let searchTerm of searchTerms) {
-          for (let name of profileNames) {
+      for (let searchTerm of searchTerms) {
+        for (let name of profileNames) {
           // first compare each search term to first/last names for a partial match
           // the regex escapes any special characters so there are no errors when creating new RegExp
-            let nameSearchTerm = searchTerm.replace(/[^\w\s]/g, "\\$&");
-            let searchTermRegex = new RegExp(nameSearchTerm, "i");
-            if (searchTermRegex.test(name)) return true;
-          };
-          // then, if no name matches, ensure the term is an exact match to one of the skills
-          if (!profileSkills.includes(searchTerm.toLowerCase())) return false;
-        };
-        return true;
+          let nameSearchTerm = searchTerm.replace(/[^\w\s]/g, "\\$&");
+          let searchTermRegex = new RegExp(nameSearchTerm, "i");
+          if (searchTermRegex.test(name)) return true;
+        }
+        // then, if no name matches, ensure the term is an exact match to one of the skills
+        if (!profileSkills.includes(searchTerm.toLowerCase())) return false;
+      }
+      return true;
     });
 
     return this.setState({ profiles });
@@ -57,10 +63,10 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <div className="header-wrap container-fluid">
+        <div className="header-wrap container-fluid sticky">
           <header className="container grad-header">
             <h1>Graduate Portal</h1>
-            {/* Edit Profile Button */}
+            {/* Add Profile Button */}
             {this.props.isAdmin && (
               <Button
                 className="grad-btn grad-btn-secondary add-btn"
@@ -102,7 +108,7 @@ class Search extends Component {
               Object.values(this.state.profiles).map(graduate => {
                 const key = "graduate-" + graduate.id;
 
-                // For Story
+                //If story is longer than 270 char make  it short
                 const isBioLong = graduate.story.length > 270;
                 const gradStory = isBioLong
                   ? graduate.story.substring(0, 270) + "..."
@@ -113,8 +119,10 @@ class Search extends Component {
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <a href={`/profile/${graduate.id}`}
-                          className="profile-thumbnail">
+                        <a
+                          href={`/profile/${graduate.id}`}
+                          className="profile-thumbnail"
+                        >
                           {graduate.image ? (
                             <img
                               width={100}
@@ -133,14 +141,14 @@ class Search extends Component {
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
-                            <a href={viewLink}>
-                              {graduate.firstName + " " + graduate.lastName}
-                            </a>{" "}
+                          <a href={viewLink}>
+                            {graduate.firstName + " " + graduate.lastName}
+                          </a>
                         </Media.Heading>
                         <p>{graduate.yearOfGrad}</p>
                         <p className="skills">{graduate.skills.join(", ")}</p>
 
-                        {/* If Bio is long show Read More button */}
+                        {/* If Bio is long cut story short*/}
                         {isBioLong ? <p>{gradStory}</p> : <p>{fullBio}</p>}
 
                         {graduate.links &&
@@ -152,8 +160,12 @@ class Search extends Component {
                               email: "fas fa-envelope"
                             };
                             const titles = {
-                              linkedin: `View ${graduate.firstName}'s linkedin profile`,
-                              github: `View ${graduate.firstName}'s github profile`,
+                              linkedin: `View ${
+                                graduate.firstName
+                              }'s linkedin profile`,
+                              github: `View ${
+                                graduate.firstName
+                              }'s github profile`,
                               website: `View ${graduate.firstName}'s website`,
                               email: `Contact ${graduate.firstName}`
                             };
@@ -173,13 +185,19 @@ class Search extends Component {
                                   title={titles[linkKey]}
                                   target={
                                     graduate.links[linkKey] ===
-                                    graduate.links.email ? "" : "_blank"
+                                    graduate.links.email
+                                      ? ""
+                                      : "_blank"
                                   }
                                 >
-                                  <i className={`${icons[linkKey]} fa-lg acc-primary`} />
+                                  <i
+                                    className={`${
+                                      icons[linkKey]
+                                    } fa-lg acc-primary`}
+                                  />
                                 </Button>
                               );
-                              else return null;
+                            else return null;
                           })}
 
                         {graduate.resume && (
@@ -187,6 +205,7 @@ class Search extends Component {
                             className="grad-btn grad-btn-primary"
                             bsSize="small"
                             href={graduate.resume}
+                            target="_blank"
                           >
                             View Resume
                           </Button>
