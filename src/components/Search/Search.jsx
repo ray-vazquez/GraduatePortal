@@ -171,7 +171,10 @@ class Search extends Component {
                                       : graduate.links[linkKey]
                                   }
                                   title={titles[linkKey]}
-                                  target={"_blank"}
+                                  target={
+                                    graduate.links[linkKey] ===
+                                    graduate.links.email ? "" : "_blank"
+                                  }
                                 >
                                   <i className={`${icons[linkKey]} fa-lg acc-primary`} />
                                 </Button>

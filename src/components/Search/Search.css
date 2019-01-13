@@ -165,6 +165,11 @@ header h1 {
   border: 1px solid #00b5e0;
   background: #00b5e0;
 }
+.grad-btn-primary:focus {
+  color: #00b5e0;
+  border: 1px solid #00b5e0;
+  background: transparent;
+}
 .grad-btn-secondary {
   color: #8ec957;
   border: 1px solid #8ec957;
@@ -174,6 +179,11 @@ header h1 {
   color: #fff;
   border: 1px solid #8ec957;
   background: #8ec957;
+}
+.grad-btn-secondary:focus {
+  color: #8ec957;
+  border: 1px solid #8ec957;
+  background: transparent;
 }
 .grad-btn-admin {
   color: #f6c22a; 
@@ -198,4 +208,5 @@ header h1 {
 .skills {
   color: #00b5e0;
   font-size: 600;
+  word-spacing: 2px;
 }
