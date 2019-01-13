@@ -63,10 +63,10 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <div className="header-wrap container-fluid">
+        <div className="header-wrap container-fluid sticky">
           <header className="container grad-header">
             <h1>Graduate Portal</h1>
-            {/* Edit Profile Button */}
+            {/* Add Profile Button */}
             {this.props.isAdmin && (
               <Button
                 className="grad-btn grad-btn-secondary add-btn"
