@@ -9,7 +9,6 @@ import {
 } from "../../services/api";
 
 export const profileEdit = (profileData) => {
-  console.log('actions edit profile:', profileData);
   return {
     type: EDIT_PROFILE,
     payload: fetchProfileEditRequest(profileData)
@@ -17,7 +16,6 @@ export const profileEdit = (profileData) => {
 };
 
 export const uploadImageFile = (data) => {
-  console.log('actions image uploadFile: ', data);
   return {
     type: UPLOAD_FILE,
     payload: uploadImageRequest(data)
@@ -25,7 +23,6 @@ export const uploadImageFile = (data) => {
 };
 
 export const uploadResumeFile = (data) => {
-  console.log('actions resume uploadFile: ', data);
   return {
     type: UPLOAD_FILE,
     payload: uploadResumeRequest(data)

@@ -24,6 +24,11 @@ class ViewProfile extends Component {
           })
         });
       });
+    else this.setState({
+      profileData: Object.values(this.props.profiles).filter(profile => {
+        return profile.id === parseInt(this.state.graduateId);
+      })
+    });
   }
 
   render() {
@@ -87,6 +92,7 @@ class ViewProfile extends Component {
                           <p>{graduate.yearOfGrad}</p>
                           <p className="skills">{graduate.skills.join(", ")}</p>
                           <p>{graduate.story}</p>
+                          {graduate.phone && <p>Phone: {graduate.phone}</p>}
 
                           {graduate.links &&
                             Object.entries(graduate.links).map(profileLinks => {
@@ -118,7 +124,10 @@ class ViewProfile extends Component {
                                         : graduate.links[linkKey]
                                     }
                                     title={titles[linkKey]}
-                                    target={"_blank"}
+                                    target={
+                                      graduate.links[linkKey] ===
+                                      graduate.links.email ? "" : "_blank"
+                                    }
                                   >
                                     <i className={`${icons[linkKey]} fa-lg acc-primary`} />
                                   </Button>

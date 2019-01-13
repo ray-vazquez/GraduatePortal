@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import history from "../../history";
 import {
   FormGroup,
   FormControl,
@@ -29,7 +30,22 @@ class EditProfile extends Component {
     isAdmin: true,
     isLoading: false,
     hasError: false,
-    profileData: {},
+    profileData: {
+      graduateId: "",
+      firstName: "",
+      lastName: "",
+      skills: "",
+      github: "",
+      linkedin: "",
+      email: "",
+      website: "",
+      phone: "",
+      yearOfGrad: "",
+      image: "",
+      resume: "",
+      story: "",
+      isActive: 1
+    },
     submitForm: false,
     storyHeight: 4
   };
@@ -55,6 +71,13 @@ class EditProfile extends Component {
     this.setState({
       submitForm: false
     });
+  };
+
+  linkToViewProfile = () => {
+    this.setState({
+      submitForm: false
+    });
+    history.push(`/profile/${this.state.profileData.graduateId}`)
   };
 
   addDefaultSrc(e) {
@@ -135,9 +158,11 @@ class EditProfile extends Component {
         <main className="container grad-form">
           <ModalWidget
             show={this.state.submitForm}
-            message={"Graduate Edited Successfully!"}
+            message={"Graduate edited successfully! What would you like to do next?"}
             title={"Edit Graduate Profile"}
             closeModal={this.closeModal}
+            linkToViewProfile={this.linkToViewProfile}
+            graduate={this.state.profileData}
           />
 
           {/* Profile Image */}
@@ -157,7 +182,7 @@ class EditProfile extends Component {
               />
             )}
             <div className="choose-button">
-              <h3>{this.state.profileData.image ? "Update" : "Add"} Image</h3>
+              <h3>{this.state.profileData.image ? "Update" : "Add"}<br /> Image</h3>
             </div>
             <FieldGroup
               id="image"

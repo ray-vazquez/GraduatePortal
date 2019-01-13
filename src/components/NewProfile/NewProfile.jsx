@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import history from "../../history";
 import {
   FormGroup,
   FormControl,
@@ -32,8 +33,8 @@ class NewProfile extends Component {
     profileData: {
       firstName: '',
       lastName: '',
-      yearOfGrad: null,
-      skills: [],
+      yearOfGrad: '',
+      skills: '',
       story: '',
       phone: '',
       email: '',
@@ -44,6 +45,7 @@ class NewProfile extends Component {
       resume: '',
       isActive: 1
     },
+    graduateId: this.props.graduateId,
     submitForm: false,
     storyHeight: 4
   };
@@ -58,27 +60,28 @@ class NewProfile extends Component {
     });
   };
 
-  onChangeSkills = e => {
-    let skillsArray = e.target.value.split(',');
+  handleNewProfile = e => {
+    e.preventDefault();
+
+    // convert skills back to an array and trim leading/trailing white spaces
+    let skillsArray = this.state.profileData.skills.split(',');
     for (let i = 0; i < skillsArray.length; i++) {
       skillsArray[i] = skillsArray[i].trim();
     }
-    this.setState({
-      ...this.state,
-      profileData: {
-        ...this.state.profileData,
-        skills: skillsArray
-      }
-    });
-  };
+    let newProfileData = {
+      ...this.state.profileData,
+      skills: skillsArray
+    }
 
-  handleNewProfile = e => {
-    e.preventDefault();
-    const response = this.props.profileNew(this.state.profileData);
-    this.setState({
-      submitForm: true,
-      graduateId: response.graduateId
-    });
+    this.props.profileNew(newProfileData)
+      .then(() => {
+        this.setState({
+          submitForm: true,
+          graduateId: this.props.graduateId
+        });
+      }, 
+      console.log(this.state.graduateId)
+    );
   };
 
   uploadFile = e => {
@@ -113,6 +116,13 @@ class NewProfile extends Component {
     });
   };
 
+  linkToViewProfile = () => {
+    this.setState({
+      submitForm: false,
+      graduateId: this.props.graduateId
+    }, history.push(`/profile/${this.state.graduateId}`));
+  };
+
   addDefaultSrc(e) {
     e.target.src = noPic;
   }
@@ -135,6 +145,7 @@ class NewProfile extends Component {
             message={'Graduate Added Successfully!'}
             title={'New Graduate Profile'}
             closeModal={this.closeModal}
+            linkToViewProfile={this.linkToViewProfile}
           />
 
           {/* Profile Image */}
@@ -218,7 +229,7 @@ class NewProfile extends Component {
                 placeholder="Skills"
                 value={this.state.profileData.skills}
                 name="skills"
-                onChange={this.onChangeSkills} />
+                onChange={this.onChangeInput} />
             </FormGroup>
             <FormGroup controlId="story">
               <ControlLabel>Story<span className="helper">(Max 800 characters)</span></ControlLabel>

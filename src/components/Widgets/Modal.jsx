@@ -1,15 +1,21 @@
-import { Modal, Button } from 'react-bootstrap';
-
 import React, { Component } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import "./Modal.css";
 
 class ModalWidget extends Component {
   constructor(props, context) {
     super(props, context);
     this.handleClose = this.handleClose.bind(this);
+    this.handleLinkToViewProfile = this.handleLinkToViewProfile.bind(this);
   }
 
   handleClose() {
     this.props.closeModal();
+  }
+
+  handleLinkToViewProfile() {
+    this.props.linkToViewProfile();
   }
 
   render() {
@@ -20,10 +26,13 @@ class ModalWidget extends Component {
             <Modal.Title>{this.props.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>{this.props.message}</h4>
+            <p>{this.props.message}</p>
+            <p><Link to="/">Return to Search Results</Link></p>
+            <p><Button bsStyle="link" onClick={this.handleLinkToViewProfile}>View Graduate Profile</Button></p>
+            <p><Link to="/profile/add">Create a New Profile</Link></p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
+            <Button onClick={this.handleClose}>Continue Editing</Button>
           </Modal.Footer>
         </Modal>
       </div>

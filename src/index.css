@@ -26,6 +26,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Roboto Condensed;
   font-weight: 700;
 }
+a {
+  color: #00b5e0;
+  font-weight: 500;
+}
+a:hover {
+  color: #00b5e0;
+}
 .clearfix {
   clear: both;
 }

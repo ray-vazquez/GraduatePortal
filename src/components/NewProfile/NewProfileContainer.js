@@ -9,10 +9,9 @@ import {
 } from "./NewProfileActions";
 
 function mapStateToProps(state) {
+  console.log("from NewProfileContainer: ", state.NewProfile);
   return {
-    profileData: state.NewProfile.profileData,
-    isLoading: state.NewProfile.isLoading,
-    hasError: state.NewProfile.hasError
+    ...state.NewProfile
   };
 }
 
