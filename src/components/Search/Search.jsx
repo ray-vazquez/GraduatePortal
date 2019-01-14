@@ -119,25 +119,27 @@ class Search extends Component {
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <a
-                          href={`/profile/${graduate.id}`}
-                          className="profile-thumbnail"
-                        >
-                          {graduate.image ? (
-                            <img
-                              width={100}
-                              src={graduate.image}
-                              alt="profile"
-                              onError={this.addDefaultSrc}
-                            />
-                          ) : (
-                            <img
-                              width={100}
-                              src={noPic}
-                              alt="profile missing"
-                            />
-                          )}
-                        </a>
+                          <a
+                            href={`/profile/${graduate.id}`}
+                            className="profile-thumbnail"
+                          >
+                            {graduate.image ? (
+                              <img
+                                width={100}
+                                height={100}
+                                src={graduate.image}
+                                alt="profile"
+                                onError={this.addDefaultSrc}
+                              />
+                            ) : (
+                              <img
+                                width={100}
+                                height={100}
+                                src={noPic}
+                                alt="profile missing"
+                              />
+                            )}
+                          </a>
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
