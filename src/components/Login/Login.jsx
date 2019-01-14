@@ -6,12 +6,17 @@ import ErrorMessage from "../Widgets/ErrorMessage";
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    validationState: this.props.validationState
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.login(this.state.username, this.state.password);
+    // this.setState({
+    //   username: "",
+    //   password: ""
+    // });
   };
 
   render() {
@@ -26,12 +31,6 @@ class Login extends Component {
             </h2>
           </header>
           <main className="panel-body">
-            {this.props.isLoginInvalid && (
-              <p className="login-error">
-                Your username or password does not match what we have in our
-                records.
-              </p>
-            )}
             <FormGroup validationState={this.props.validationState}>
               <FormControl
                 type="text"
@@ -58,8 +57,13 @@ class Login extends Component {
             >
               {this.props.isLoading ? "LOADING ..." : "LOGIN"}
             </Button>
+            {this.props.isLoginInvalid && (
+              <ErrorMessage errorData="login-error">
+                Your username or password does not match what we have in our records.
+              </ErrorMessage>
+            )}
             {this.props.hasError && (
-              <ErrorMessage>
+              <ErrorMessage errorData="login-error">
                 Sorry! The Graduate Portal is temporarily down. Our engineers
                 are aware of the problem and are hard at work trying to fix it.
                 Please come back later.
