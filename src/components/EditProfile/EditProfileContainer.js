@@ -18,9 +18,8 @@ import {
 
 function mapStateToProps(state) {
   return {
-    profiles: state.Shared.profiles,
-    isLoading: state.Search.isLoading,
-    hasError: state.Search.hasError
+    ...state.Shared,
+    ...state.EditProfile
   };
 }
 

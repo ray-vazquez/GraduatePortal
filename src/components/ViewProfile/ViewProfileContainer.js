@@ -1,17 +1,10 @@
-import {
-    connect
-} from "react-redux";
+import { connect } from "react-redux";
 import ViewProfile from "./ViewProfile";
-
-import {
-    fetchAllProfiles
-} from "../Search/searchActions";
+import { fetchAllProfiles } from "../Search/searchActions";
 
 function mapStateToProps(state) {
     return {
-        ...state.Shared,
-        isLoading: state.Search.isLoading,
-        hasError: state.Search.hasError
+        ...state.Shared
     };
 }
 

@@ -7,6 +7,7 @@ import {
   Button,
   ControlLabel
 } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import ErrorMessage from "../Widgets/ErrorMessage";
 import ModalWidget from "../Widgets/Modal";
 import noPic from "../../images/no-profile.svg";
@@ -131,8 +132,7 @@ class EditProfile extends Component {
 
   componentDidMount() {
     let id = this.state.graduateId;
-    if (!this.props.profiles)
-      // this step shouldn't be necessary (but it is and I don't know why -- Bill)
+    if (!this.props.profiles) {
       this.props.fetchAllProfiles().then(() => {
         this.setState({
           profileData: {
@@ -154,26 +154,25 @@ class EditProfile extends Component {
           }
         });
       });
-    // this is the only place we should be setting the profileData in state
-    else {
-      let currentProfile = this.props.profiles[id];
+    } else {
+      let profile = this.props.profiles[id];
       this.setState({
         profileData: {
           graduateId: id,
-          firstName: currentProfile.firstName,
-          lastName: currentProfile.lastName,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
           // convert skills to a string
-          skills: currentProfile.skills.join(", "),
-          github: currentProfile.links.github,
-          linkedin: currentProfile.links.linkedin,
-          email: currentProfile.links.email,
-          website: currentProfile.links.website,
-          phone: currentProfile.phone,
-          yearOfGrad: currentProfile.yearOfGrad,
-          image: currentProfile.image,
-          resume: currentProfile.resume,
-          story: currentProfile.story,
-          isActive: currentProfile.isActive
+          skills: profile.skills.join(", "),
+          github: profile.links.github,
+          linkedin: profile.links.linkedin,
+          email: profile.links.email,
+          website: profile.links.website,
+          phone: profile.phone,
+          yearOfGrad: profile.yearOfGrad,
+          image: profile.image,
+          resume: profile.resume,
+          story: profile.story,
+          isActive: profile.isActive
         }
       });
     }
@@ -186,16 +185,18 @@ class EditProfile extends Component {
         <div className="header-wrap container-fluid">
           <header className="container grad-header">
             <h1>Edit Graduate Profile</h1>
+
             {/* Add Profile Button */}
             {this.props.isAdmin && (
-              <Button
-                className="grad-btn grad-btn-secondary add-btn"
-                title="Add new graduate profile"
-                bsSize="small"
-                href={`/profile/add`}
-              >
-                +
-              </Button>
+              <LinkContainer to="/profile/add">
+                <Button
+                  className="grad-btn grad-btn-secondary add-btn"
+                  title="Add new graduate profile"
+                  bsSize="small"
+                >
+                  +
+                </Button>
+              </LinkContainer>
             )}
           </header>
         </div>

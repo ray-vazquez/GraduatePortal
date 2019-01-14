@@ -7,20 +7,20 @@ const EditProfileReducer = (
   },
   action
 ) => {
-  switch (action.types) {
-    case types.FETCH_ALL_PROFILES_FULFILLED:
+  switch (action.type) {
+    case types.EDIT_PROFILE_FULFILLED:
       return {
         ...state,
         isLoading: false,
         hasError: false
       };
-    case types.FETCH_ALL_PROFILES_PENDING:
+    case types.EDIT_PROFILE_PENDING:
       return {
         ...state,
         isLoading: true,
         hasError: false
       };
-    case types.FETCH_ALL_PROFILES_REJECTED:
+    case types.EDIT_PROFILE_REJECTED:
       return {
         ...state,
         isLoading: false,

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
 import { Media } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 import Loading from "../Widgets/Loading";
 import ErrorMessage from "../Widgets/ErrorMessage";
@@ -66,16 +67,18 @@ class Search extends Component {
         <div className="header-wrap container-fluid sticky">
           <header className="container grad-header">
             <h1>Graduate Portal</h1>
+
             {/* Add Profile Button */}
             {this.props.isAdmin && (
-              <Button
-                className="grad-btn grad-btn-secondary add-btn"
-                title="Add new graduate profile"
-                bsSize="small"
-                href={`/profile/add`}
-              >
-                +
-              </Button>
+              <LinkContainer to="/profile/add">
+                <Button
+                  className="grad-btn grad-btn-secondary add-btn"
+                  title="Add new graduate profile"
+                  bsSize="small"
+                >
+                  +
+                </Button>
+              </LinkContainer>
             )}
             <div className="search-input">
               <FormGroup>
@@ -214,23 +217,25 @@ class Search extends Component {
                         )}
 
                         {/* View Profile Button */}
-                        <Button
-                          className="grad-btn grad-btn-primary"
-                          bsSize="small"
-                          href={`/profile/${graduate.id}`}
-                        >
-                          View Profile
-                        </Button>
+                        <LinkContainer to={`/profile/${graduate.id}`}>
+                          <Button
+                            className="grad-btn grad-btn-primary"
+                            bsSize="small"
+                          >
+                            View Profile
+                          </Button>
+                        </LinkContainer>
 
                         {/* Edit Profile Button */}
                         {this.props.isAdmin && (
-                          <Button
-                            className="grad-btn grad-btn-secondary"
-                            bsSize="small"
-                            href={`/profile/${graduate.id}/edit`}
-                          >
-                            Edit
-                          </Button>
+                          <LinkContainer to={`/profile/${graduate.id}/edit`}>
+                            <Button
+                              className="grad-btn grad-btn-secondary"
+                              bsSize="small"
+                            >
+                              Edit
+                            </Button>
+                          </LinkContainer>
                         )}
                       </Media.Body>
                     </Media>

@@ -3,7 +3,9 @@ import * as types from "./constants/actionTypes";
 const sharedReducer = (
   state = {
     profiles: null,
-    isAdmin: !!localStorage.token
+    isAdmin: !!localStorage.token,
+    isLoading: false,
+    hasError: false
   },
   action
 ) => {
@@ -24,7 +26,18 @@ const sharedReducer = (
         profiles
       };
     }
-
+    case types.FETCH_ALL_PROFILES_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false
+      };
+    case types.FETCH_ALL_PROFILES_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true
+      };
     default:
       return state;
   }
