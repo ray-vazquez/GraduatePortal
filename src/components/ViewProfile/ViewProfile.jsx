@@ -90,8 +90,7 @@ class ViewProfile extends Component {
 
                           {graduate.links &&
                             Object.entries(graduate.links).map(profileLinks => {
-                              const [linkKey, linkVal] = profileLinks;
-                              console.log(linkKey, linkVal);
+                              const [ linkKey ] = profileLinks;
                               const icons = {
                                 linkedin: "fab fa-linkedin-in",
                                 github: "fab fa-github",

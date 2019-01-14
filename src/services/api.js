@@ -30,7 +30,11 @@ const upload = (url, image = null, method = "PUT") => {
   }).then(response => response.data);
 };
 
+
+// Login, Fetch All Profiles, New & Edit Profile use the "send" AJAX call
+// ----------------------------------------------------------------------
 export const loginRequest = (username, password) => {
+  console.log("logged from send in api");
   return send(`${api}/login`, {
     username,
     password
@@ -42,15 +46,6 @@ export const loginRequest = (username, password) => {
 
 export const fetchAllProfilesRequest = () => {
   return send(`${api}/graduates`, null, "GET");
-};
-
-export const searchProfilesRequest = userInput => {
-  return send(`${api}/search/${userInput}`, {
-    userInput
-  }).then(response => {
-    if (response.data && response.data.profiles && response.data.profiles > 0)
-      return response;
-  });
 };
 
 export const fetchProfilesNewRequest = profileData => {
@@ -67,7 +62,10 @@ export const fetchProfileEditRequest = profileData => {
   });
 };
 
+// Upload Image and Resume use the "upload" AJAX call
+// --------------------------------------------------
 export const uploadImageRequest = data => {
+  console.log("logged from uploadImageRequest in api");
   return upload(`${api}/upload/image`, data).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;
@@ -75,6 +73,7 @@ export const uploadImageRequest = data => {
 };
 
 export const uploadResumeRequest = data => {
+  console.log("logged from uploadResumeRequest in api");
   return upload(`${api}/upload/resume`, data).then(response => {
     if (response.token) localStorage.token = response.token;
     return response;

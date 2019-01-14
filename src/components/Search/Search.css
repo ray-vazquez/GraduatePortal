@@ -60,7 +60,7 @@ header h1 {
     padding: 8px 0 8px;
   }
   header h1 {
-    font-size: 34px;
+    font-size: 36px;
   }
   .search-input input {
     margin-bottom: 20px;
@@ -70,21 +70,6 @@ header h1 {
     margin-left: 12px;
     margin-top: 17px;
     padding: 1px 7px;
-  }
-}
-
-@media (min-width: 768px) {
-  .header-wrap {
-    padding: 8px 0 8px;
-  }
-  header h1 {
-    font-size: 36px;
-    margin-top: 20px;
-    margin-top: 10px;
-  }
-  .grad-btn.add-btn {
-    margin-left: 12px;
-    margin-top: 12px;
   }
 }
 

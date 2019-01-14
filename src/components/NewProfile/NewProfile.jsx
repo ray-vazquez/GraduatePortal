@@ -179,7 +179,8 @@ class NewProfile extends Component {
             <FieldGroup
               id="image"
               type="file"
-              onChange={e => this.setState({ image: e.target.value })}
+              name="image"
+              onChange={e => this.uploadFile(e)}
             />
           </div>
 
@@ -199,7 +200,8 @@ class NewProfile extends Component {
             <FieldGroup
               id="resume"
               type="file"
-              onChange={e => this.setState({ resume: e.target.value })}
+              name="resume"
+              onChange={e => this.uploadFile(e)}
             />
           </div>
           <div className="clearfix" />
