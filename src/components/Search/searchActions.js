@@ -7,3 +7,10 @@ export const fetchAllProfiles = () => {
     payload: fetchAllProfilesRequest()
   };
 };
+
+export const storeSearchInput = (searchInput) => {
+  return {
+    type: types.STORE_SEARCH_INPUT,
+    searchInput
+  };
+};

@@ -29,7 +29,7 @@ const sharedReducer = (
     case types.FETCH_ALL_PROFILES_PENDING:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         hasError: false
       };
     case types.FETCH_ALL_PROFILES_REJECTED:
