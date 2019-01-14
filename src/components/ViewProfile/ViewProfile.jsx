@@ -66,6 +66,7 @@ class ViewProfile extends Component {
                             {graduate.image ? (
                               <img
                                 width={100}
+                                height={100}
                                 src={graduate.image}
                                 alt="profile"
                                 onError={this.addDefaultSrc}
@@ -73,6 +74,7 @@ class ViewProfile extends Component {
                             ) : (
                               <img
                                 width={100}
+                                height={100}
                                 src={noPic}
                                 alt="profile missing"
                               />

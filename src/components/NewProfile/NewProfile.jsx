@@ -163,12 +163,17 @@ class NewProfile extends Component {
             {this.state.profileData.image ? (
               <img
                 width={100}
+                height={100}
                 src={this.state.profileData.image}
                 alt="profile"
                 onError={this.addDefaultSrc}
               />
             ) : (
-              <img width={100} src={noPic} alt="profile missing" />
+              <img 
+                width={100}
+                height={100} 
+                src={noPic} 
+                alt="profile missing" />
             )}
             <div className="choose-button">
               <h3>

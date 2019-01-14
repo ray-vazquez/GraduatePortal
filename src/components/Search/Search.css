@@ -104,10 +104,19 @@ header h1 {
 .card:first-child {
   border-top: none;
 }
+.profile-thumbnail-wrap {
+  width: 100px;
+  height: 100px;
+  text-indent: -50%;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #e2e2e2;
+}
 .profile-thumbnail {
   margin-right: 20px;
 }
 .profile-thumbnail img {
+  object-fit: cover;
   box-shadow: none;
   margin-bottom: 15px;
   border-radius: 50%;
