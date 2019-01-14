@@ -9,7 +9,6 @@ import {
 } from "./NewProfileActions";
 
 function mapStateToProps(state) {
-  console.log("from NewProfileContainer: ", state.NewProfile);
   return {
     ...state.NewProfile
   };

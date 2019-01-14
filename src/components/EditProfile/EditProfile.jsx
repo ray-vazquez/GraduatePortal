@@ -66,6 +66,31 @@ class EditProfile extends Component {
     this.setState({ submitForm: true, graduateId: response.graduateId });
   };
 
+  uploadFile = e => {
+    e.preventDefault();
+    let name = e.target.name;
+    if (name === "image")
+      this.props.uploadImageFile(e.target.files[0]).then(response =>
+        this.setState({
+          ...this.state,
+          profileData: {
+            ...this.state.profileData,
+            [name]: response.value.url.replace(/\s/g, "")
+          }
+        })
+      );
+    else if (name === "resume")
+      this.props.uploadResumeFile(e.target.files[0]).then(response =>
+        this.setState({
+          ...this.state,
+          profileData: {
+            ...this.state.profileData,
+            [name]: response.value.url.replace(/\s/g, "")
+          }
+        })
+      );
+  };
+
   closeModal = () => {
     this.setState({
       submitForm: false
@@ -164,8 +189,6 @@ class EditProfile extends Component {
             title={"Edit Graduate Profile"}
             closeModal={this.closeModal}
             graduateId={this.state.profileData.graduateId}
-            // linkToViewProfile={this.linkToViewProfile}
-            // graduate={this.state.profileData}
           />
 
           {/* Profile Image */}
@@ -189,7 +212,8 @@ class EditProfile extends Component {
             <FieldGroup
               id="image"
               type="file"
-              onChange={e => this.setState({ image: e.target.value })}
+              name="image"
+              onChange={e => this.uploadFile(e)}
             />
           </div>
 
@@ -209,7 +233,8 @@ class EditProfile extends Component {
             <FieldGroup
               id="resume"
               type="file"
-              onChange={e => this.setState({ resume: e.target.value })}
+              name="resume"
+              onChange={e => this.uploadFile(e)}
             />
           </div>
           <div className="clearfix" />
