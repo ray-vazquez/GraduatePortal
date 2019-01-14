@@ -25,7 +25,20 @@ class ViewProfile extends Component {
     });
   }
 
+  // // This is just some temporary code while I test some stuff... -Bill
+  // componentDidMount() {
+  //   console.log("props.profiles from componentDidMount: ", this.props.profiles);
+  //   console.log("state.profiles from componentDidMount: ", this.state.profileData);
+  //   this.setState({
+  //     profileData: Object.values(this.props.profiles).filter(profile => {
+  //       return profile.id === parseInt(this.state.graduateId);
+  //     })
+  //   });
+  // }
+
   render() {
+    console.log("props from render: ", this.props);
+    console.log("state.profiles from render: ", this.state.profileData);
     return (
       <div>
         <div className="header-wrap container-fluid">
