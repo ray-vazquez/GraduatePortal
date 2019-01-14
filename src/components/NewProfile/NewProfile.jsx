@@ -43,8 +43,11 @@ class NewProfile extends Component {
       resume: "",
       isActive: 1
     },
-    submitForm: false,
-    storyHeight: 4
+    firstNameValid: null,
+    lastNameValid: null,
+    yearOfGradValid: null,
+    emailValid: null,
+    submitForm: false
   };
 
   onChangeInput = e => {
@@ -59,6 +62,24 @@ class NewProfile extends Component {
 
   handleNewProfile = e => {
     e.preventDefault();
+
+    // check for validation on required fields
+    const requiredArray = [
+      ["firstName", "firstNameValid"], 
+      ["lastName", "lastNameValid"], 
+      ["yearOfGrad", "yearOfGradValid"],
+      ["email", "emailValid"]
+    ];
+    for (let key of requiredArray) {
+      if (!this.state.profileData[key[0]]) {
+        this.setState({ [key[1]]: "error" });
+      } else {
+        this.setState({ [key[1]]: null });
+      }
+    }
+    for (let key of requiredArray) {
+      if (!this.state.profileData[key[0]]) return;
+    }
 
     // convert skills back to an array and trim leading/trailing white spaces
     let skillsArray = this.state.profileData.skills.split(",");
@@ -213,7 +234,9 @@ class NewProfile extends Component {
 
           {/* Profile Form */}
           <form onSubmit={this.handleNewProfile}>
-            <FormGroup controlId="first-name">
+            <FormGroup 
+              controlId="first-name" 
+              validationState={this.state.firstNameValid}>
               <ControlLabel>
                 First Name<span className="helper helper-asterisk">*</span>
               </ControlLabel>
@@ -225,7 +248,9 @@ class NewProfile extends Component {
                 onChange={this.onChangeInput}
               />
             </FormGroup>
-            <FormGroup controlId="last-name">
+            <FormGroup 
+              controlId="last-name"
+              validationState={this.state.lastNameValid}>
               <ControlLabel>
                 Last Name<span className="helper helper-asterisk">*</span>
               </ControlLabel>
@@ -237,7 +262,9 @@ class NewProfile extends Component {
                 onChange={this.onChangeInput}
               />
             </FormGroup>
-            <FormGroup controlId="year-of-grad">
+            <FormGroup 
+              controlId="year-of-grad"
+              validationState={this.state.yearOfGradValid}>
               <ControlLabel>
                 Year of Graduation
                 <span className="helper helper-asterisk">*</span>
@@ -270,8 +297,7 @@ class NewProfile extends Component {
                 componentClass="textarea"
                 type="textarea"
                 placeholder="Story"
-                rows={this.state.storyHeight}
-                data-min-rows="4"
+                rows={4}
                 maxLength="800"
                 value={this.state.profileData.story}
                 name="story"
@@ -288,7 +314,9 @@ class NewProfile extends Component {
                 onChange={this.onChangeInput}
               />
             </FormGroup>
-            <FormGroup controlId="email">
+            <FormGroup 
+              controlId="email"
+              validationState={this.state.emailValid}>
               <ControlLabel>
                 Email<span className="helper helper-asterisk">*</span>
               </ControlLabel>

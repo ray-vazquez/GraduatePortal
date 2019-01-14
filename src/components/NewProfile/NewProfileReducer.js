@@ -2,7 +2,6 @@ import * as types from "../../constants/actionTypes";
 
 const NewProfileReducer = (
   state = {
-    isAdmin: true,
     isLoading: false,
     hasError: false,
     graduateId: null
@@ -14,6 +13,8 @@ const NewProfileReducer = (
       const { graduateId } = action.payload;
       return {
         ...state,
+        isLoading: false,
+        hasError: false,
         graduateId
       };
     case types.NEW_PROFILE_PENDING:
