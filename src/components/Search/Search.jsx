@@ -94,7 +94,7 @@ class Search extends Component {
             </div>
 
             {/* Filter Profiles Input */}
-            <div className="search-input clearfix">
+            <div className="search-input">
               <FormGroup>
                 <span className="search-icon">
                   <i className="fas fa-search" />
