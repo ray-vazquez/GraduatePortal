@@ -32,14 +32,17 @@ const LoginReducer = (
       return {
         ...state,
         isLoading: true,
-        hasError: false
+        hasError: false,
+        isLoginInvalid: false,
+        validationState: null
       };
     case types.LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
         hasError: true,
-        validationState: "error"
+        isLoginInvalid: false,
+        validationState: null
       };
     default:
       return state;
