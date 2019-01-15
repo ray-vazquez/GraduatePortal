@@ -12,7 +12,6 @@ import ErrorMessage from "../Widgets/ErrorMessage";
 import ModalWidget from "../Widgets/Modal";
 import noPic from "../../images/no-profile.svg";
 import resumeIcon from "../../images/resume-icon.svg";
-import resumeMissingIcon from "../../images/resume-missing-icon.svg";
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -50,7 +49,7 @@ class EditProfile extends Component {
     lastNameValid: null,
     yearOfGradValid: null,
     emailValid: null,
-    submitForm: false,
+    submitForm: false
   };
 
   handleEditProfile = e => {
@@ -58,8 +57,8 @@ class EditProfile extends Component {
 
     // check for validation on required fields
     const requiredArray = [
-      ["firstName", "firstNameValid"], 
-      ["lastName", "lastNameValid"], 
+      ["firstName", "firstNameValid"],
+      ["lastName", "lastNameValid"],
       ["yearOfGrad", "yearOfGradValid"],
       ["email", "emailValid"]
     ];
@@ -190,7 +189,7 @@ class EditProfile extends Component {
             {this.props.isAdmin && (
               <LinkContainer to="/profile/add">
                 <Button
-                  className="grad-btn grad-btn-secondary add-btn"
+                  className="grad-btn grad-btn-admin add-btn"
                   title="Add new graduate profile"
                   bsSize="small"
                 >
@@ -201,273 +200,286 @@ class EditProfile extends Component {
           </header>
         </div>
 
-        {/* OnSubmit Message */}
-        <main className="container grad-form">
-          <ModalWidget
-            show={this.state.submitForm}
-            message={
-              "Graduate edited successfully! What would you like to do next?"
-            }
-            title={"Edit Graduate Profile"}
-            closeModal={this.closeModal}
-            graduateId={this.state.profileData.graduateId}
-          />
+        {this.props.hasError ? (
+          <div className="container">
+            <ErrorMessage errorData="grad-error">
+              Sorry! The Graduate Portal is temporarily down. Our engineers are
+              aware of the problem and are hard at work trying to fix it. Please
+              come back later.
+            </ErrorMessage>
+          </div>
+        ) : (
+          <main className="container grad-form">
+            {/* OnSubmit Message */}
+            <ModalWidget
+              show={this.state.submitForm}
+              message={"What would you like to do next?"}
+              title={"Graduate Edited Successfully!"}
+              closeModal={this.closeModal}
+              graduateId={this.state.profileData.graduateId}
+            />
 
-          {/* Profile Image */}
-          <div className="profile-thumbnail form-thumbnail">
-            {this.state.profileData.image ? (
-              <img
+            {/* Profile Image */}
+            <div className="profile-thumbnail form-thumbnail">
+              {this.state.profileData.image ? (
+                <img
+                  width={100}
+                  height={100}
+                  src={this.state.profileData.image}
+                  alt="profile"
+                  onError={this.addDefaultSrc}
+                />
+              ) : (
+                <img
+                  width={100}
+                  height={100}
+                  src={noPic}
+                  alt="profile missing"
+                />
+              )}
+              <div className="choose-btn">
+                <h3>
+                  {this.state.profileData.image ? "Update" : "Add"}
+                  <br /> Image
+                </h3>
+              </div>
+              <FieldGroup
+                id="image"
+                type="file"
+                name="image"
+                onChange={e => this.uploadFile(e)}
+              />
+            </div>
+
+            {/* Profile Resume */}
+            <div className="form-resume">
+            {this.state.profileData.resume ?
+              <img 
+                src={resumeIcon}
                 width={100}
                 height={100}
-                src={this.state.profileData.image}
-                alt="profile"
-                onError={this.addDefaultSrc}
-              />
-            ) : (
-              <img 
-                width={100}
-                height={100} 
-                src={noPic} 
-                alt="profile missing" />
-            )}
-            <div className="choose-button">
-              <h3>
-                {this.state.profileData.image ? "Update" : "Add"}
-                <br /> Image
-              </h3>
-            </div>
-            <FieldGroup
-              id="image"
-              type="file"
-              name="image"
-              onChange={e => this.uploadFile(e)}
-            />
-          </div>
-
-          {/* Profile Resume */}
-          <div className="form-resume">
-            <img
-              src={
-                this.state.profileData.resume ? resumeIcon : resumeMissingIcon
+                alt="Resume icon" />
+              : (
+                <div className="missing-btn">
+                  <h3>Add<br />Resume</h3>
+                </div>
+                  )
               }
-              width={100}
-              height={100}
-              alt="Resume icon"
-            />
-            <div className="choose-button">
-              <h3>{this.state.profileData.resume ? "Update" : "Add"} Resume</h3>
+              <div className="choose-btn">
+                <h3>
+                  {this.state.profileData.resume ? "Update" : "Add"} Resume
+                </h3>
+              </div>
+              <FieldGroup
+                id="resume"
+                type="file"
+                name="resume"
+                onChange={e => this.uploadFile(e)}
+              />
             </div>
-            <FieldGroup
-              id="resume"
-              type="file"
-              name="resume"
-              onChange={e => this.uploadFile(e)}
-            />
-          </div>
-          <div className="clearfix" />
+            
+            <div className="clearfix" />
 
-          {/* Profile Form */}
-          <form onSubmit={this.handleEditProfile}>
-            <FormGroup 
-              controlId="first-name" 
-              validationState={this.state.firstNameValid}>
-              <ControlLabel>
-                First Name<span className="helper helper-asterisk">*</span>
-              </ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="First Name"
-                value={this.state.profileData.firstName}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      firstName: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup 
-              controlId="last-name"
-              validationState={this.state.lastNameValid}>
-              <ControlLabel>
-                Last Name<span className="helper helper-asterisk">*</span>
-              </ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Last Name"
-                value={this.state.profileData.lastName}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      lastName: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup 
-              controlId="year-of-grad"
-              validationState={this.state.yearOfGradValid}>
-              <ControlLabel>
-                Year of Graduation
-                <span className="helper helper-asterisk">*</span>
-              </ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Year of Graduation"
-                value={this.state.profileData.yearOfGrad}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      yearOfGrad: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup controlId="skills">
-              <ControlLabel>
-                Skills<span className="helper">(Comma delimited)</span>
-              </ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Skills"
-                value={this.state.profileData.skills}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      skills: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup controlId="story">
-              <ControlLabel>
-                Story<span className="helper">(Max 800 characters)</span>
-              </ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                placeholder="Story"
-                rows={this.state.storyHeight}
-                data-min-rows="4"
-                maxLength="800"
-                value={this.state.profileData.story}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      story: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup controlId="phone">
-              <ControlLabel>Phone Number</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Phone Number"
-                value={this.state.profileData.phone}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      phone: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup 
-              controlId="email"
-              validationState={this.state.emailValid}>
-              <ControlLabel>
-                Email<span className="helper helper-asterisk">*</span>
-              </ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Email"
-                value={this.state.profileData.email}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      email: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup controlId="linkedin">
-              <ControlLabel>LinkedIn</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="LinkedIn"
-                value={this.state.profileData.linkedin}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      linkedin: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup controlId="github">
-              <ControlLabel>GitHub</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="GitHub"
-                value={this.state.profileData.github}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      github: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <FormGroup controlId="website">
-              <ControlLabel>Website</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Website"
-                value={this.state.profileData.website}
-                onChange={e =>
-                  this.setState({
-                    profileData: {
-                      ...this.state.profileData,
-                      website: e.target.value
-                    }
-                  })
-                }
-              />
-            </FormGroup>
-            <Button
-              type="submit"
-              className="btn grad-btn grad-btn-secondary"
-              disabled={this.props.isLoading === true}
-            >
-              {this.props.isLoading ? "LOADING..." : "UPDATE"}
-            </Button>
-            {this.props.hasError && (
-              <ErrorMessage>
-                Sorry! The Graduate Portal is temporarily down. Our engineers
-                are aware of the problem and are hard at work trying to fix it.
-                Please come back later.
-              </ErrorMessage>
-            )}
-          </form>
-        </main>
+            {/* Profile Form */}
+            <form onSubmit={this.handleEditProfile}>
+              <FormGroup
+                controlId="first-name"
+                validationState={this.state.firstNameValid}
+              >
+                <ControlLabel>
+                  First Name<span className="helper helper-asterisk">*</span>
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="First Name"
+                  value={this.state.profileData.firstName}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        firstName: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup
+                controlId="last-name"
+                validationState={this.state.lastNameValid}
+              >
+                <ControlLabel>
+                  Last Name<span className="helper helper-asterisk">*</span>
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Last Name"
+                  value={this.state.profileData.lastName}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        lastName: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup
+                controlId="year-of-grad"
+                validationState={this.state.yearOfGradValid}
+              >
+                <ControlLabel>
+                  Year of Graduation
+                  <span className="helper helper-asterisk">*</span>
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Year of Graduation"
+                  value={this.state.profileData.yearOfGrad}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        yearOfGrad: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup controlId="skills">
+                <ControlLabel>
+                  Skills<span className="helper">(Comma delimited)</span>
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Skills"
+                  value={this.state.profileData.skills}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        skills: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup controlId="story">
+                <ControlLabel>
+                  Story<span className="helper">(Max 800 characters)</span>
+                </ControlLabel>
+                <FormControl
+                  componentClass="textarea"
+                  placeholder="Story"
+                  rows={this.state.storyHeight}
+                  data-min-rows="4"
+                  maxLength="800"
+                  value={this.state.profileData.story}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        story: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup controlId="phone">
+                <ControlLabel>Phone Number</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Phone Number"
+                  value={this.state.profileData.phone}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        phone: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup
+                controlId="email"
+                validationState={this.state.emailValid}
+              >
+                <ControlLabel>
+                  Email<span className="helper helper-asterisk">*</span>
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Email"
+                  value={this.state.profileData.email}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        email: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup controlId="linkedin">
+                <ControlLabel>LinkedIn</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="LinkedIn"
+                  value={this.state.profileData.linkedin}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        linkedin: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup controlId="github">
+                <ControlLabel>GitHub</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="GitHub"
+                  value={this.state.profileData.github}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        github: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup controlId="website">
+                <ControlLabel>Website</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Website"
+                  value={this.state.profileData.website}
+                  onChange={e =>
+                    this.setState({
+                      profileData: {
+                        ...this.state.profileData,
+                        website: e.target.value
+                      }
+                    })
+                  }
+                />
+              </FormGroup>
+              <Button
+                type="submit"
+                className="btn grad-btn grad-btn-admin grad-btn-admin-submit"
+                disabled={this.props.isLoading === true}
+              >
+                {this.props.isLoading ? "LOADING..." : "UPDATE"}
+              </Button>
+            </form>
+          </main>
+        )}
       </div>
     );
   }
