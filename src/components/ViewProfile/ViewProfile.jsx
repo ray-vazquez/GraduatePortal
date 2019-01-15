@@ -37,7 +37,7 @@ class ViewProfile extends Component {
             {this.props.isAdmin && (
               <LinkContainer to="/profile/add">
                 <Button
-                  className="grad-btn grad-btn-secondary add-btn"
+                  className="grad-btn grad-btn-admin add-btn"
                   title="Add new graduate profile"
                   bsSize="small"
                 >
@@ -142,6 +142,8 @@ class ViewProfile extends Component {
                                 );
                               else return null;
                             })}
+
+                          {/* View Resume Button */}
                           {graduate.resume && (
                             <Button
                               className="grad-btn grad-btn-primary"
@@ -152,13 +154,14 @@ class ViewProfile extends Component {
                               View Resume
                             </Button>
                           )}
+
                           {/* Edit Profile Button */}
                           {this.props.isAdmin && (
                             <LinkContainer
                               to={`/profile/${this.state.graduateId}/edit`}
                             >
                               <Button
-                                className="grad-btn grad-btn-secondary"
+                                className="grad-btn grad-btn-admin"
                                 bsSize="small"
                               >
                                 Edit

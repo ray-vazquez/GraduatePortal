@@ -12,7 +12,6 @@ import ErrorMessage from "../Widgets/ErrorMessage";
 import ModalWidget from "../Widgets/Modal";
 import noPic from "../../images/no-profile.svg";
 import resumeIcon from "../../images/resume-icon.svg";
-import resumeMissingIcon from "../../images/resume-missing-icon.svg";
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -190,7 +189,7 @@ class EditProfile extends Component {
             {this.props.isAdmin && (
               <LinkContainer to="/profile/add">
                 <Button
-                  className="grad-btn grad-btn-secondary add-btn"
+                  className="grad-btn grad-btn-admin add-btn"
                   title="Add new graduate profile"
                   bsSize="small"
                 >
@@ -214,10 +213,8 @@ class EditProfile extends Component {
             {/* OnSubmit Message */}
             <ModalWidget
               show={this.state.submitForm}
-              message={
-                "Graduate edited successfully! What would you like to do next?"
-              }
-              title={"Edit Graduate Profile"}
+              message={"What would you like to do next?"}
+              title={"Graduate Edited Successfully!"}
               closeModal={this.closeModal}
               graduateId={this.state.profileData.graduateId}
             />
@@ -240,7 +237,7 @@ class EditProfile extends Component {
                   alt="profile missing"
                 />
               )}
-              <div className="choose-button">
+              <div className="choose-btn">
                 <h3>
                   {this.state.profileData.image ? "Update" : "Add"}
                   <br /> Image
@@ -256,15 +253,19 @@ class EditProfile extends Component {
 
             {/* Profile Resume */}
             <div className="form-resume">
-              <img
-                src={
-                  this.state.profileData.resume ? resumeIcon : resumeMissingIcon
-                }
+            {this.state.profileData.resume ?
+              <img 
+                src={resumeIcon}
                 width={100}
                 height={100}
-                alt="Resume icon"
-              />
-              <div className="choose-button">
+                alt="Resume icon" />
+              : (
+                <div className="missing-btn">
+                  <h3>Add<br />Resume</h3>
+                </div>
+                  )
+              }
+              <div className="choose-btn">
                 <h3>
                   {this.state.profileData.resume ? "Update" : "Add"} Resume
                 </h3>
@@ -276,6 +277,7 @@ class EditProfile extends Component {
                 onChange={e => this.uploadFile(e)}
               />
             </div>
+            
             <div className="clearfix" />
 
             {/* Profile Form */}
@@ -470,7 +472,7 @@ class EditProfile extends Component {
               </FormGroup>
               <Button
                 type="submit"
-                className="btn grad-btn grad-btn-secondary"
+                className="btn grad-btn grad-btn-admin grad-btn-admin-submit"
                 disabled={this.props.isLoading === true}
               >
                 {this.props.isLoading ? "LOADING..." : "UPDATE"}

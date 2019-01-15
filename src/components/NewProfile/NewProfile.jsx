@@ -10,7 +10,6 @@ import ErrorMessage from "../Widgets/ErrorMessage";
 import ModalWidget from "../Widgets/Modal";
 import noPic from "../../images/no-profile.svg";
 import resumeIcon from "../../images/resume-icon.svg";
-import resumeMissingIcon from "../../images/resume-missing-icon.svg";
 import "./NewProfile.css";
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -179,10 +178,8 @@ class NewProfile extends Component {
             {/* OnSubmit Message */}
             <ModalWidget
               show={this.state.submitForm}
-              message={
-                "Graduate Added Successfully! What would you like to do next?"
-              }
-              title={"New Graduate Profile"}
+              title={"Graduate Added Successfully!"}
+              message={"What would you like to do next?"}
               closeModal={this.closeModal}
               linkToViewProfile={this.linkToViewProfile}
               graduateId={this.props.graduateId}
@@ -199,17 +196,14 @@ class NewProfile extends Component {
                   onError={this.addDefaultSrc}
                 />
               ) : (
-                <img
-                  width={100}
-                  height={100}
-                  src={noPic}
-                  alt="profile missing"
-                />
+                <div className="missing-btn">
+                  <h3>Add<br />Image</h3>
+                </div>
               )}
-              <div className="choose-button">
+              <div className="choose-btn">
                 <h3>
                   {this.state.profileData.image ? "Update" : "Add"}
-                  <br /> Image
+                  <br />Image
                 </h3>
               </div>
               <FieldGroup
@@ -222,15 +216,19 @@ class NewProfile extends Component {
 
             {/* Profile Resume */}
             <div className="form-resume">
-              <img
-                src={
-                  this.state.profileData.resume ? resumeIcon : resumeMissingIcon
-                }
+            {this.state.profileData.resume ?
+              <img 
+                src={resumeIcon}
                 width={100}
                 height={100}
-                alt="Resume icon"
-              />
-              <div className="choose-button">
+                alt="Resume icon" />
+              : (
+                <div className="missing-btn">
+                  <h3>Add<br />Resume</h3>
+                </div>
+                  )
+              }
+              <div className="choose-btn">
                 <h3>
                   {this.state.profileData.resume ? "Update" : "Add"} Resume
                 </h3>
@@ -375,7 +373,7 @@ class NewProfile extends Component {
               </FormGroup>
               <Button
                 type="submit"
-                className="btn grad-btn grad-btn-secondary"
+                className="btn grad-btn grad-btn-admin grad-btn-admin-submit"
                 disabled={this.props.isLoading === true}
               >
                 {this.props.isLoading ? "LOADING..." : "ADD"}
