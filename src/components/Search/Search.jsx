@@ -76,20 +76,22 @@ class Search extends Component {
         {/* Header */}
         <div className="header-wrap container-fluid sticky">
           <header className="container grad-header">
-            <h1>Graduate Portal</h1>
+            <div className="search-headline">
+              <h1>Graduate Portal</h1>
 
-            {/* Add Profile Button */}
-            {this.props.isAdmin && (
-              <LinkContainer to="/profile/add">
-                <Button
-                  className="grad-btn grad-btn-secondary add-btn"
-                  title="Add new graduate profile"
-                  bsSize="small"
-                >
-                  +
-                </Button>
-              </LinkContainer>
-            )}
+              {/* Add Profile Button */}
+              {this.props.isAdmin && (
+                <LinkContainer to="/profile/add">
+                  <Button
+                    className="grad-btn grad-btn-admin add-btn"
+                    title="Add new graduate profile"
+                    bsSize="small"
+                  >
+                    +
+                  </Button>
+                </LinkContainer>
+              )}
+            </div>
 
             {/* Filter Profiles Input */}
             <div className="search-input clearfix">
@@ -117,7 +119,7 @@ class Search extends Component {
             {this.props.isLoading ? (
               <Loading />
             ) : this.props.hasError ? (
-              <ErrorMessage>
+              <ErrorMessage errorData="grad-error">
                 Sorry! The Graduate Portal is temporarily down. Our engineers
                 are aware of the problem and are hard at work trying to fix it.
                 Please come back later.
@@ -235,7 +237,7 @@ class Search extends Component {
                         {/* View Profile Button */}
                         <LinkContainer to={`/profile/${graduate.id}`}>
                           <Button
-                            className="grad-btn grad-btn-primary"
+                            className="grad-btn grad-btn-secondary"
                             bsSize="small"
                           >
                             View Profile
@@ -246,7 +248,7 @@ class Search extends Component {
                         {this.props.isAdmin && (
                           <LinkContainer to={`/profile/${graduate.id}/edit`}>
                             <Button
-                              className="grad-btn grad-btn-secondary"
+                              className="grad-btn grad-btn-admin"
                               bsSize="small"
                             >
                               Edit

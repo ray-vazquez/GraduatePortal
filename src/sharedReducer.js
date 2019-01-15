@@ -23,13 +23,14 @@ const sharedReducer = (
       const { profiles } = action.payload;
       return {
         ...state,
+        isLoading: false,
         profiles
       };
     }
     case types.FETCH_ALL_PROFILES_PENDING:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
         hasError: false
       };
     case types.FETCH_ALL_PROFILES_REJECTED:

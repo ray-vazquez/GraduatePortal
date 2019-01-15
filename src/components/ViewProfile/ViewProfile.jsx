@@ -37,7 +37,7 @@ class ViewProfile extends Component {
             {this.props.isAdmin && (
               <LinkContainer to="/profile/add">
                 <Button
-                  className="grad-btn grad-btn-secondary add-btn"
+                  className="grad-btn grad-btn-admin add-btn"
                   title="Add new graduate profile"
                   bsSize="small"
                 >
@@ -50,15 +50,16 @@ class ViewProfile extends Component {
         <main className="container">
           <div className="profile-directory">
             <div className="ProfileDirectory-profiles">
-              {this.state.isLoading && <Loading />}
-              {this.state.hasError && (
-                <ErrorMessage>
+              {this.props.isLoading ? (
+                <Loading />
+              ) : this.props.hasError ? (
+                <ErrorMessage errorData="grad-error">
                   Sorry! The Graduate Portal is temporarily down. Our engineers
                   are aware of the problem and are hard at work trying to fix
                   it. Please come back later.
                 </ErrorMessage>
-              )}
-              {this.state.profileData &&
+              ) : (
+                this.state.profileData &&
                 Object.values(this.state.profileData).map(graduate => {
                   const key = "graduate-" + graduate.id;
                   return (
@@ -92,10 +93,9 @@ class ViewProfile extends Component {
                           <p className="skills">{graduate.skills.join(", ")}</p>
                           <p>{graduate.story}</p>
                           {graduate.phone && <p>Phone: {graduate.phone}</p>}
-
                           {graduate.links &&
                             Object.entries(graduate.links).map(profileLinks => {
-                              const [ linkKey ] = profileLinks;
+                              const [linkKey] = profileLinks;
                               const icons = {
                                 linkedin: "fab fa-linkedin-in",
                                 github: "fab fa-github",
@@ -143,6 +143,7 @@ class ViewProfile extends Component {
                               else return null;
                             })}
 
+                          {/* View Resume Button */}
                           {graduate.resume && (
                             <Button
                               className="grad-btn grad-btn-primary"
@@ -156,9 +157,11 @@ class ViewProfile extends Component {
 
                           {/* Edit Profile Button */}
                           {this.props.isAdmin && (
-                            <LinkContainer to={`/profile/${this.state.graduateId}/edit`}>
+                            <LinkContainer
+                              to={`/profile/${this.state.graduateId}/edit`}
+                            >
                               <Button
-                                className="grad-btn grad-btn-secondary"
+                                className="grad-btn grad-btn-admin"
                                 bsSize="small"
                               >
                                 Edit
@@ -169,7 +172,8 @@ class ViewProfile extends Component {
                       </Media>
                     </div>
                   );
-                })}
+                })
+              )}
             </div>
           </div>
         </main>

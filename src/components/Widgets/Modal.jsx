@@ -50,7 +50,12 @@ class ModalWidget extends Component {
             )}
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Continue Editing</Button>
+            <Button 
+              onClick={this.handleClose}
+              className="btn grad-btn grad-btn-admin grad-btn-admin-submit"
+            >
+              Continue Editing
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
