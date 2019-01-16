@@ -248,7 +248,11 @@ class NewProfile extends Component {
                 validationState={this.state.firstNameValid}
               >
                 <ControlLabel>
-                  First Name<span className="helper helper-asterisk">*</span>
+                  First Name
+                  <span 
+                    className={`helper helper-asterisk ${this.state.firstNameValid && "helper-asterisk-red"}`}>
+                    *
+                  </span>
                 </ControlLabel>
                 <FormControl
                   type="text"
@@ -263,7 +267,11 @@ class NewProfile extends Component {
                 validationState={this.state.lastNameValid}
               >
                 <ControlLabel>
-                  Last Name<span className="helper helper-asterisk">*</span>
+                  Last Name
+                  <span 
+                    className={`helper helper-asterisk ${this.state.lastNameValid && "helper-asterisk-red"}`}>
+                    *
+                  </span>
                 </ControlLabel>
                 <FormControl
                   type="text"
@@ -279,7 +287,10 @@ class NewProfile extends Component {
               >
                 <ControlLabel>
                   Year of Graduation
-                  <span className="helper helper-asterisk">*</span>
+                  <span 
+                    className={`helper helper-asterisk ${this.state.yearOfGradValid && "helper-asterisk-red"}`}>
+                    *
+                  </span>
                 </ControlLabel>
                 <FormControl
                   type="text"
@@ -331,7 +342,11 @@ class NewProfile extends Component {
                 validationState={this.state.emailValid}
               >
                 <ControlLabel>
-                  Email<span className="helper helper-asterisk">*</span>
+                  Email
+                  <span 
+                    className={`helper helper-asterisk ${this.state.emailValid && "helper-asterisk-red"}`}>
+                    *
+                  </span>
                 </ControlLabel>
                 <FormControl
                   type="text"

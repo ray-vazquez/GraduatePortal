@@ -16,6 +16,9 @@
 .helper-asterisk {
   margin-left: 1px;
 }
+.helper-asterisk-red {
+  color: #a94442;
+}
 textarea {
   resize: none;
 }
