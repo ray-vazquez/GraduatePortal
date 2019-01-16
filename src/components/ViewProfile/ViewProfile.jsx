@@ -16,6 +16,33 @@ class ViewProfile extends Component {
     e.target.src = noPic;
   }
 
+  handleActivation = (e) => {
+    e.target.blur();
+    let newProfileData = this.state.profileData;
+    newProfileData[0].isActive = Math.abs(this.state.profileData[0].isActive - 1);
+    const editProfileData = {
+      graduateId: newProfileData[0].id,
+      firstName: newProfileData[0].firstName,
+      lastName: newProfileData[0].lastName,
+      yearOfGrad: newProfileData[0].yearOfGrad,
+      skills: newProfileData[0].skills,
+      story: newProfileData[0].story,
+      phone: newProfileData[0].phone,
+      email: newProfileData[0].links.email,
+      linkedin: newProfileData[0].links.linkedin,
+      github: newProfileData[0].links.github,
+      website: newProfileData[0].links.website,
+      image: newProfileData[0].image,
+      resume: newProfileData[0].resume,
+      isActive: newProfileData[0].isActive
+    }
+    
+    this.setState({
+      profileData: newProfileData
+    }, () => this.props.profileEdit(editProfileData)
+    );
+  }
+
   componentDidMount() {
     this.props.fetchAllProfiles().then(() => {
       this.setState({
@@ -153,6 +180,27 @@ class ViewProfile extends Component {
                             >
                               View Resume
                             </Button>
+                          )}
+
+                          {/* Active/Inactive Button */}
+                          {this.props.isAdmin && (
+                            graduate.isActive ? (
+                                <Button
+                                  className="grad-btn grad-btn-admin-active"
+                                  bsSize="small"
+                                  onClick={e => this.handleActivation(e)}
+                                >
+                                  <span>Active</span>
+                                </Button>
+                            ) : (
+                                <Button
+                                  className="grad-btn grad-btn-admin-inactive"
+                                  bsSize="small"
+                                  onClick={e => this.handleActivation(e)}
+                                >
+                                  <span>InActive</span>
+                                </Button>
+                            )
                           )}
 
                           {/* Edit Profile Button */}

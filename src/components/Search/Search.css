@@ -123,6 +123,10 @@ header h1 {
   margin-bottom: 10px;
 }
 .media-body h4 a {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 22px;
+  margin-bottom: 10px;
   color: #383838;
 }
 .media-body h4 a:hover {

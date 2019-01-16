@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import ViewProfile from "./ViewProfile";
 import { fetchAllProfiles } from "../Search/searchActions";
+import { profileEdit } from "../EditProfile/EditProfileActions";
 
 function mapStateToProps(state) {
     return {
@@ -10,7 +11,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchAllProfiles: () => dispatch(fetchAllProfiles())
+        fetchAllProfiles: () => dispatch(fetchAllProfiles()),
+        profileEdit: (profileData) => dispatch(profileEdit(profileData))
     };
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, Button } from "react-bootstrap";
-import { Media } from "react-bootstrap";
+import { FormGroup, FormControl, Button, Media, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 import Loading from "../Widgets/Loading";
@@ -197,12 +197,12 @@ class Search extends Component {
                   <div className="card" key={key}>
                     <Media>
                       <Media.Left>
-                        <a
-                          href={`/profile/${graduate.id}`}
+                        <Link
+                          to={viewLink}
                           className="profile-thumbnail"
                         >
                           {graduate.image ? (
-                            <img
+                            <Image
                               width={100}
                               height={100}
                               src={graduate.image}
@@ -210,20 +210,20 @@ class Search extends Component {
                               onError={this.addDefaultSrc}
                             />
                           ) : (
-                            <img
+                            <Image
                               width={100}
                               height={100}
                               src={noPic}
                               alt="profile missing"
                             />
                           )}
-                        </a>
+                        </Link>
                       </Media.Left>
                       <Media.Body>
                         <Media.Heading>
-                          <a href={viewLink}>
+                          <Link to={viewLink}>
                             {graduate.firstName + " " + graduate.lastName}
-                          </a>
+                          </Link>
                         </Media.Heading>
                         <p>{graduate.yearOfGrad}</p>
                         <p className="skills">{graduate.skills.join(", ")}</p>
@@ -320,7 +320,6 @@ class Search extends Component {
                                 <span>InActive</span>
                               </Button>
                           )
-
                         )}
 
                         {/* Edit Profile Button */}
