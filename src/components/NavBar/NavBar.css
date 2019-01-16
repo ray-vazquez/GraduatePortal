@@ -38,10 +38,10 @@
 .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
   background-color: #00b5e0;
 }
-.nav>li.search-word {
+.nav>li.nav-search-word {
   display: none;
 }
-.nav>li.search-icon {
+.nav>li.nav-search-icon {
   display: block;
 }
 @media (min-width: 480px) {
@@ -54,10 +54,10 @@
     line-height: 94px;
     padding: 0 15px;
   }
-  .nav>li.search-word {
+  .nav>li.nav-search-word {
     display: block;
   }
-  .nav>li.search-icon {
+  .nav>li.nav-search-icon {
     display: none;
   }
 }
@@ -73,15 +73,15 @@
       -ms-transform: translateY(-50%);
       margin: 0 15px 0;
   }
-  .nav>li.search-icon {
+  .nav>li.nav-search-icon {
     display: block;
     float: right;
   }
   .acc-header.non-admin {
     float: left;
   }
-  .nav>li.search-icon a {
-    line-height: 80px;
-    padding: 0 15px;
+  .nav>li.nav-search-icon a {
+    line-height: 91px;
+    padding: 3px 15px 0;
   }
 }

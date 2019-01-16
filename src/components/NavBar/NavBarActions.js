@@ -1,5 +1,6 @@
-import { LOGOUT } from "../../constants/actionTypes";
 import history from "../../history";
+import { LOGOUT } from "../../constants/actionTypes";
+
 
 const logoutAction = () => {
   return {

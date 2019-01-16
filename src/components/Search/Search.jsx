@@ -11,23 +11,76 @@ import "./Search.css";
 class Search extends Component {
   state = {
     searchInput: "",
-    profiles: null //local state after getting from store
+    profiles: null, //local state after getting from store
+    profileData: {
+      graduateId: null,
+      firstName: "",
+      lastName: "",
+      yearOfGrad: null,
+      skills: [],
+      story: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      github: "",
+      website: "",
+      image: "",
+      resume: "",
+      isActive: null
+    }
   };
 
   handleChange = e => {
     this.setState({ searchInput: e.target.value }, () => this.filterProfiles());
   };
 
+  handleActivation = (e, id) => {
+    e.target.blur();
+
+    const newProfiles = this.state.profiles.map(profile => {
+      if (profile.id === id) {
+        profile.isActive = Math.abs(profile.isActive - 1);
+        return profile;
+      }
+      return profile;
+    });
+    const currentProfile = newProfiles.filter(profile => profile.id === id)[0];
+
+    this.setState({
+      profiles: newProfiles,
+      profileData: {
+        graduateId: currentProfile.id,
+        firstName: currentProfile.firstName,
+        lastName: currentProfile.lastName,
+        yearOfGrad: currentProfile.yearOfGrad,
+        skills: currentProfile.skills,
+        story: currentProfile.story,
+        phone: currentProfile.phone,
+        email: currentProfile.links.email,
+        linkedin: currentProfile.links.linkedin,
+        github: currentProfile.links.github,
+        website: currentProfile.links.website,
+        image: currentProfile.image,
+        resume: currentProfile.resume,
+        isActive: currentProfile.isActive
+      }
+    }, () => this.props.profileEdit(this.state.profileData)
+    );
+  }
+
   filterProfiles = () => {
+    // store search input for use with backward navigation
     this.props.storeSearchInput(this.state.searchInput);
 
-    // convert search input to an array of terms without leading/trailing white space
+    // convert search input from a string to an array of terms without leading/trailing white space
     let searchTerms = this.state.searchInput
       .toLowerCase()
       .trim()
       .split(" ");
 
+    // filter profiles
     const profiles = Object.values(this.props.profiles).filter(profile => {
+      if (!this.props.isAdmin && !profile.isActive) return false;
       let profileSkills = profile.skills.reduce(
         (arr, term) => arr.concat(term.toLowerCase()),
         []
@@ -37,13 +90,13 @@ class Search extends Component {
         .concat(profile.lastName.toLowerCase());
       for (let searchTerm of searchTerms) {
         for (let name of profileNames) {
-          // first compare each search term to first/last names for a partial match
-          // the regex escapes special characters so there are no errors when creating new RegExp
+          // step 1: compare each search term to first/last names for a partial match
+          // (the regex escapes special characters so there are no errors when creating new RegExp)
           let nameSearchTerm = searchTerm.replace(/[^\w\s]/g, "\\$&");
           let searchTermRegex = new RegExp(nameSearchTerm, "i");
           if (searchTermRegex.test(name)) return true;
         }
-        // then, if no name matches, ensure the term is an exact match to one of the skills
+        // step 2: if no name matches, the term MUST exactly match one of the skills
         if (!profileSkills.includes(searchTerm.toLowerCase())) return false;
       }
       return true;
@@ -68,6 +121,10 @@ class Search extends Component {
         );
       });
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isAdmin !== prevProps.isAdmin) this.filterProfiles();
   }
 
   render() {
@@ -244,6 +301,28 @@ class Search extends Component {
                           </Button>
                         </LinkContainer>
 
+                        {/* Active/Inactive Button */}
+                        {this.props.isAdmin && (
+                          graduate.isActive ? (
+                              <Button
+                                className="grad-btn grad-btn-admin-active"
+                                bsSize="small"
+                                onClick={(e) => this.handleActivation(e, graduate.id)}
+                              >
+                                <span>Active</span>
+                              </Button>
+                          ) : (
+                              <Button
+                                className="grad-btn grad-btn-admin-inactive"
+                                bsSize="small"
+                                onClick={(e) => this.handleActivation(e, graduate.id)}
+                              >
+                                <span>InActive</span>
+                              </Button>
+                          )
+
+                        )}
+
                         {/* Edit Profile Button */}
                         {this.props.isAdmin && (
                           <LinkContainer to={`/profile/${graduate.id}/edit`}>
@@ -259,6 +338,7 @@ class Search extends Component {
                     </Media>
                   </div>
                 );
+                
               })
             )}
           </div>

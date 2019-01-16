@@ -19,6 +19,11 @@
 textarea {
   resize: none;
 }
+.isActive {
+  display: block;
+  float: left;
+  margin-right: 6px;
+}
 
 /* --- Image & Update Button ------------------ */
 /* --- See additional styling in Search.css --- */

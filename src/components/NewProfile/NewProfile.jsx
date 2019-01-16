@@ -51,7 +51,6 @@ class NewProfile extends Component {
 
   onChangeInput = e => {
     this.setState({
-      ...this.state,
       profileData: {
         ...this.state.profileData,
         [e.target.name]: e.target.value ? e.target.value : ""
@@ -284,7 +283,7 @@ class NewProfile extends Component {
                 </ControlLabel>
                 <FormControl
                   type="text"
-                  placeholder="Year of Graduation"
+                  placeholder="Year of Graduation: YYYY"
                   value={this.state.profileData.yearOfGrad}
                   name="yearOfGrad"
                   onChange={this.onChangeInput}
@@ -292,7 +291,7 @@ class NewProfile extends Component {
               </FormGroup>
               <FormGroup controlId="skills">
                 <ControlLabel>
-                  Skills<span className="helper">(Comma delimited)</span>
+                  Skills<span className="helper">- Comma delimited</span>
                 </ControlLabel>
                 <FormControl
                   type="text"
@@ -304,7 +303,7 @@ class NewProfile extends Component {
               </FormGroup>
               <FormGroup controlId="story">
                 <ControlLabel>
-                  Story<span className="helper">(Max 800 characters)</span>
+                  Story<span className="helper">- Max 800 characters</span>
                 </ControlLabel>
                 <FormControl
                   componentClass="textarea"
@@ -321,7 +320,7 @@ class NewProfile extends Component {
                 <ControlLabel>Phone Number</ControlLabel>
                 <FormControl
                   type="text"
-                  placeholder="Phone Number"
+                  placeholder="Phone Number: XXX-XXX-XXXX"
                   value={this.state.profileData.phone}
                   name="phone"
                   onChange={this.onChangeInput}

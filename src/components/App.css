@@ -32,15 +32,17 @@
   background: #8ec957;
 }
 .acc-admin {
-  color: #f6c22a;
+  color: #eeb50e;
 }
 .acc-admin-bg {
-  background: #f6c22a;
+  background: #eeb50e;
 }
 
 /*****************************************/
 /****** BUTTONS **************************/
 /*****************************************/
+
+/* Rectangular Buttons */
 .acc-btn {
   padding: 8px 20px;
   margin-right: 10px;
@@ -76,8 +78,9 @@
   border: 1px solid #8ec957;
   background: transparent;
 }
+/* Oval Buttons */
 .grad-btn {
-  padding: 8px 20px;
+  padding: 8px 15px;
   margin-right: 10px;
   margin-bottom: 10px;
   font-weight: bold;
@@ -96,6 +99,7 @@
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
 }
+/* Primary */
 .grad-btn-primary {
   color: #00b5e0;
   border: 1px solid #00b5e0;
@@ -111,6 +115,7 @@
   border: 1px solid #00b5e0;
   background: transparent;
 }
+/* Secondary */
 .grad-btn-secondary {
   color: #8ec957;
   border: 1px solid #8ec957;
@@ -126,27 +131,82 @@
   border: 1px solid #8ec957;
   background: transparent;
 }
+/* Admin */
 .grad-btn-admin {
-  color: #f6c22a;
-  border: 1px solid #f6c22a;
+  color: #eeb50e;
+  border: 1px solid #eeb50e;
   background: transparent;
 }
 .grad-btn-admin:hover {
   color: #fff;
-  border: 1px solid #f6c22a;
-  background: #f6c22a;
+  border: 1px solid #eeb50e;
+  background: #eeb50e;
 }
+/* Admin Submit */
 .grad-btn-admin-submit {
   color: #fff;
-  border: 1px solid #f6c22a;
-  background: #f6c22a;
+  border: 1px solid #eeb50e;
+  background: #eeb50e;
   margin-top: 5px;
 }
 .grad-btn-admin-submit:hover {
-  color: #f6c22a;
-  border: 1px solid #f6c22a;
+  color: #eeb50e;
+  border: 1px solid #eeb50e;
   background: transparent;
 }
+/* Admin isActive */
+.grad-btn-admin-active {
+  color: #eeb50e;
+  border: 1px solid #eeb50e;
+  background: #fff;
+  width: 90px;
+  padding-left: 0;
+  padding-right: 0;
+}
+.grad-btn-admin-active:hover {
+  color: #fff;
+  border: 1px solid #adadad;
+  background: #adadad;
+}
+.grad-btn-admin-active:focus {
+  color: #eeb50e;
+  border: 1px solid #eeb50e;
+  background: #fff;
+  outline: 5px auto #eeb50e;
+  outline-offset: -2px;
+}
+.grad-btn-admin-inactive {
+  color: #adadad;
+  border: 1px solid #adadad;
+  background: #fff;
+  width: 83px;
+  padding-left: 0;
+  padding-right: 0;
+}
+.grad-btn-admin-inactive:hover {
+  color: #fff;
+  border: 1px solid #eeb50e;
+  background: #eeb50e;
+}
+.grad-btn-admin-inactive:focus {
+  color: #adadad;
+  border: 1px solid #adadad;
+  background: #fff;
+  outline: 5px auto #adadad;
+  outline-offset: -2px;
+}
+.grad-btn-admin-active:hover span,
+.grad-btn-admin-inactive:hover span {
+  display: none;
+}
+.grad-btn-admin-active:hover:after {
+  content: "Deactivate";
+}
+.grad-btn-admin-inactive:hover:after {
+  content: "Activate";
+}
+
+/* Add */
 .grad-btn.add-btn {
   font-size: 22px;
   margin: 3px 12px 0;

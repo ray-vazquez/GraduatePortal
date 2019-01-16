@@ -5,7 +5,8 @@ import {
   FormControl,
   HelpBlock,
   Button,
-  ControlLabel
+  ControlLabel,
+  Checkbox
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import ErrorMessage from "../Widgets/ErrorMessage";
@@ -43,7 +44,7 @@ class EditProfile extends Component {
       image: "",
       resume: "",
       story: "",
-      isActive: 1
+      isActive: null
     },
     firstNameValid: null,
     lastNameValid: null,
@@ -93,7 +94,6 @@ class EditProfile extends Component {
     if (name === "image")
       this.props.uploadImageFile(e.target.files[0]).then(response =>
         this.setState({
-          ...this.state,
           profileData: {
             ...this.state.profileData,
             [name]: response.value.url.replace(/\s/g, "")
@@ -103,7 +103,6 @@ class EditProfile extends Component {
     else if (name === "resume")
       this.props.uploadResumeFile(e.target.files[0]).then(response =>
         this.setState({
-          ...this.state,
           profileData: {
             ...this.state.profileData,
             [name]: response.value.url.replace(/\s/g, "")
@@ -111,6 +110,15 @@ class EditProfile extends Component {
         })
       );
   };
+
+  handleCheckbox = () => {
+    this.setState({
+      profileData: {
+        ...this.state.profileData,
+        isActive: Math.abs(this.state.profileData.isActive - 1)
+      }
+    })
+  }
 
   closeModal = () => {
     this.setState({
@@ -282,6 +290,15 @@ class EditProfile extends Component {
 
             {/* Profile Form */}
             <form onSubmit={this.handleEditProfile}>
+
+              <FormGroup controlId="isActive" >
+                <ControlLabel bsClass="control-label isActive">Profile Activated</ControlLabel>
+                <Checkbox 
+                  checked={!!this.state.profileData.isActive}
+                  onChange={this.handleCheckbox} 
+                  readOnly />
+              </FormGroup>
+
               <FormGroup
                 controlId="first-name"
                 validationState={this.state.firstNameValid}
@@ -303,6 +320,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup
                 controlId="last-name"
                 validationState={this.state.lastNameValid}
@@ -324,6 +342,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup
                 controlId="year-of-grad"
                 validationState={this.state.yearOfGradValid}
@@ -334,7 +353,7 @@ class EditProfile extends Component {
                 </ControlLabel>
                 <FormControl
                   type="text"
-                  placeholder="Year of Graduation"
+                  placeholder="Year of Graduation: YYYY"
                   value={this.state.profileData.yearOfGrad}
                   onChange={e =>
                     this.setState({
@@ -346,9 +365,10 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup controlId="skills">
                 <ControlLabel>
-                  Skills<span className="helper">(Comma delimited)</span>
+                  Skills<span className="helper">- Comma delimited</span>
                 </ControlLabel>
                 <FormControl
                   type="text"
@@ -364,16 +384,16 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup controlId="story">
                 <ControlLabel>
-                  Story<span className="helper">(Max 800 characters)</span>
+                  Story<span className="helper">- Max 1000 characters</span>
                 </ControlLabel>
                 <FormControl
                   componentClass="textarea"
                   placeholder="Story"
-                  rows={this.state.storyHeight}
-                  data-min-rows="4"
-                  maxLength="800"
+                  rows="4"
+                  maxLength="1000"
                   value={this.state.profileData.story}
                   onChange={e =>
                     this.setState({
@@ -385,11 +405,14 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup controlId="phone">
-                <ControlLabel>Phone Number</ControlLabel>
+                <ControlLabel>
+                  Phone Number
+                </ControlLabel>
                 <FormControl
                   type="text"
-                  placeholder="Phone Number"
+                  placeholder="Phone Number: XXX-XXX-XXXX"
                   value={this.state.profileData.phone}
                   onChange={e =>
                     this.setState({
@@ -401,6 +424,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup
                 controlId="email"
                 validationState={this.state.emailValid}
@@ -422,6 +446,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup controlId="linkedin">
                 <ControlLabel>LinkedIn</ControlLabel>
                 <FormControl
@@ -438,6 +463,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup controlId="github">
                 <ControlLabel>GitHub</ControlLabel>
                 <FormControl
@@ -454,6 +480,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <FormGroup controlId="website">
                 <ControlLabel>Website</ControlLabel>
                 <FormControl
@@ -470,6 +497,7 @@ class EditProfile extends Component {
                   }
                 />
               </FormGroup>
+
               <Button
                 type="submit"
                 className="btn grad-btn grad-btn-admin grad-btn-admin-submit"
