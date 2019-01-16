@@ -49,8 +49,8 @@ header h1 {
 .search-icon {
   position: absolute;
   color: #868686;
-  top: 50px;
-  right: 20px;
+  top: 45px;
+  right: 23px;
 }
 
 @media (min-width: 480px) {
@@ -59,6 +59,9 @@ header h1 {
   }
   header h1 {
     font-size: 36px;
+  }
+  .search-icon {
+    top: 50px;
   }
 }
 

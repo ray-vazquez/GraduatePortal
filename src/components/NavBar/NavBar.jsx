@@ -41,10 +41,10 @@ class NavBar extends Component {
           ) : (
             // Show less features for non-admins.
             <Nav pullRight>
-              <LinkContainer exact to="/" className="acc-link search-word">
+              <LinkContainer exact to="/" className="acc-link nav-search-word">
                 <NavItem eventKey={1}>SEARCH</NavItem>
               </LinkContainer>
-              <LinkContainer exact to="/" className="acc-link search-icon">
+              <LinkContainer exact to="/" className="acc-link nav-search-icon">
                 <NavItem eventKey={1}>
                   <i className="fa fa-search" />
                 </NavItem>

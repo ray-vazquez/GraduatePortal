@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Search from "./Search";
 
 import { fetchAllProfiles, storeSearchInput } from "./searchActions";
+import { profileEdit } from "../EditProfile/EditProfileActions";
 
 function mapStateToProps(state) {
   return {
@@ -13,7 +14,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchAllProfiles: () => dispatch(fetchAllProfiles()),
-    storeSearchInput: (searchInput) => dispatch(storeSearchInput(searchInput))
+    storeSearchInput: (searchInput) => dispatch(storeSearchInput(searchInput)),
+    profileEdit: (profileData) => dispatch(profileEdit(profileData))
   };
 }
 

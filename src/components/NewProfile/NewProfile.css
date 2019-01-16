@@ -16,8 +16,16 @@
 .helper-asterisk {
   margin-left: 1px;
 }
+.helper-asterisk-red {
+  color: #a94442;
+}
 textarea {
   resize: none;
+}
+.isActive {
+  display: block;
+  float: left;
+  margin-right: 6px;
 }
 
 /* --- Image & Update Button ------------------ */
