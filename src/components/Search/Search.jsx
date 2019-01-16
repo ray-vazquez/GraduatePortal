@@ -73,7 +73,6 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-
         {/* Header */}
         <div className="header-wrap container-fluid sticky">
           <header className="container grad-header">
@@ -100,6 +99,7 @@ class Search extends Component {
                 <span className="search-icon">
                   <i className="fas fa-search" />
                 </span>
+
                 <FormControl
                   type="text"
                   className="login-input"
