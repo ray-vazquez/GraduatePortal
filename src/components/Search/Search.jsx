@@ -13,7 +13,7 @@ class Search extends Component {
     searchInput: "",
     profiles: null, //local state after getting from store
     profileData: {
-      graduateId: null,
+      _id: null,
       firstName: "",
       lastName: "",
       yearOfGrad: null,
@@ -38,18 +38,18 @@ class Search extends Component {
     e.target.blur();
 
     const newProfiles = this.state.profiles.map(profile => {
-      if (profile.id === id) {
+      if (profile._id.toString() === id.toString()) {
         profile.isActive = Math.abs(profile.isActive - 1);
         return profile;
       }
       return profile;
     });
-    const currentProfile = newProfiles.filter(profile => profile.id === id)[0];
+    const currentProfile = newProfiles.filter(profile => profile._id === id)[0];
 
     this.setState({
       profiles: newProfiles,
       profileData: {
-        graduateId: currentProfile.id,
+        _id: currentProfile._id,
         firstName: currentProfile.firstName,
         lastName: currentProfile.lastName,
         yearOfGrad: currentProfile.yearOfGrad,
@@ -78,12 +78,18 @@ class Search extends Component {
       .trim()
       .split(" ");
 
-    // filter profiles
+    // filter profiles 
     const profiles = Object.values(this.props.profiles).filter(profile => {
       if (!this.props.isAdmin && !profile.isActive) return false;
-      let profileSkills = profile.skills.reduce(
-        (arr, term) => arr.concat(term.toLowerCase()),
-        []
+
+      // Process skils to match individual words rather than phrases.
+      let profileSkills = profile.skills.reduce((arr, term) => {
+        term = term.toLowerCase();
+        if (term.includes(" ")) {
+          term = term.split(" ");
+        }
+        return arr.concat(term);
+      },[]
       );
       let profileNames = []
         .concat(profile.firstName.toLowerCase())
@@ -184,15 +190,19 @@ class Search extends Component {
             ) : (
               this.state.profiles &&
               Object.values(this.state.profiles).map(graduate => {
-                const key = "graduate-" + graduate.id;
+                console.log(graduate._id);
+                const key = "graduate-" + graduate._id;
 
                 //If story is longer than 270 char make  it short
-                const isBioLong = graduate.story.length > 270;
-                const gradStory = isBioLong
-                  ? graduate.story.substring(0, 270) + "..."
-                  : graduate.story;
-                const fullBio = graduate.story;
-                const viewLink = "/profile/" + graduate.id;
+                let gradStory, fullBio, isBioLong;
+                if (graduate.story) {
+                  isBioLong = graduate.story.length > 270;
+                  gradStory = isBioLong
+                    ? graduate.story.substring(0, 270) + "..."
+                    : graduate.story;
+                  fullBio = graduate.story;
+                } else gradStory = graduate.story;
+                const viewLink = "/profile/" + graduate._id;
                 return (
                   <div className="card" key={key}>
                     <Media>
@@ -292,7 +302,7 @@ class Search extends Component {
                         )}
 
                         {/* View Profile Button */}
-                        <LinkContainer to={`/profile/${graduate.id}`}>
+                        <LinkContainer to={`/profile/${graduate._id}`}>
                           <Button
                             className="grad-btn grad-btn-secondary"
                             bsSize="small"
@@ -307,7 +317,7 @@ class Search extends Component {
                               <Button
                                 className="grad-btn grad-btn-admin-active"
                                 bsSize="small"
-                                onClick={(e) => this.handleActivation(e, graduate.id)}
+                                onClick={(e) => this.handleActivation(e, graduate._id)}
                               >
                                 <span>Active</span>
                               </Button>
@@ -315,7 +325,7 @@ class Search extends Component {
                               <Button
                                 className="grad-btn grad-btn-admin-inactive"
                                 bsSize="small"
-                                onClick={(e) => this.handleActivation(e, graduate.id)}
+                                onClick={(e) => this.handleActivation(e, graduate._id)}
                               >
                                 <span>InActive</span>
                               </Button>
@@ -324,7 +334,7 @@ class Search extends Component {
 
                         {/* Edit Profile Button */}
                         {this.props.isAdmin && (
-                          <LinkContainer to={`/profile/${graduate.id}/edit`}>
+                          <LinkContainer to={`/profile/${graduate._id}/edit`}>
                             <Button
                               className="grad-btn grad-btn-admin"
                               bsSize="small"
