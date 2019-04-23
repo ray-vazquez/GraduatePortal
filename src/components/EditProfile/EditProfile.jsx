@@ -83,6 +83,7 @@ class EditProfile extends Component {
       ...this.state.profileData,
       skills: skillsArray
     };
+    console.log(newProfileData);
 
     const response = this.props.profileEdit(newProfileData);
     this.setState({ submitForm: true, graduateId: response._id });

@@ -38,7 +38,7 @@ class Search extends Component {
     e.target.blur();
 
     const newProfiles = this.state.profiles.map(profile => {
-      if (profile._id === id) {
+      if (profile._id.toString() === id.toString()) {
         profile.isActive = Math.abs(profile.isActive - 1);
         return profile;
       }
@@ -78,12 +78,18 @@ class Search extends Component {
       .trim()
       .split(" ");
 
-    // filter profiles
+    // filter profiles 
     const profiles = Object.values(this.props.profiles).filter(profile => {
       if (!this.props.isAdmin && !profile.isActive) return false;
-      let profileSkills = profile.skills.reduce(
-        (arr, term) => arr.concat(term.toLowerCase()),
-        []
+
+      // Process skils to match individual words rather than phrases.
+      let profileSkills = profile.skills.reduce((arr, term) => {
+        term = term.toLowerCase();
+        if (term.includes(" ")) {
+          term = term.split(" ");
+        }
+        return arr.concat(term);
+      },[]
       );
       let profileNames = []
         .concat(profile.firstName.toLowerCase())
@@ -188,11 +194,14 @@ class Search extends Component {
                 const key = "graduate-" + graduate._id;
 
                 //If story is longer than 270 char make  it short
-                const isBioLong = graduate.story.length > 270;
-                const gradStory = isBioLong
-                  ? graduate.story.substring(0, 270) + "..."
-                  : graduate.story;
-                const fullBio = graduate.story;
+                let gradStory, fullBio, isBioLong;
+                if (graduate.story) {
+                  isBioLong = graduate.story.length > 270;
+                  gradStory = isBioLong
+                    ? graduate.story.substring(0, 270) + "..."
+                    : graduate.story;
+                  fullBio = graduate.story;
+                } else gradStory = graduate.story;
                 const viewLink = "/profile/" + graduate._id;
                 return (
                   <div className="card" key={key}>

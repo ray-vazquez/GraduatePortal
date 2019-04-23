@@ -21,7 +21,7 @@ class ViewProfile extends Component {
     let newProfileData = this.state.profileData;
     newProfileData[0].isActive = Math.abs(this.state.profileData[0].isActive - 1);
     const editProfileData = {
-      graduateId: newProfileData[0].id,
+      graduateId: newProfileData[0]._id,
       firstName: newProfileData[0].firstName,
       lastName: newProfileData[0].lastName,
       yearOfGrad: newProfileData[0].yearOfGrad,
@@ -47,7 +47,7 @@ class ViewProfile extends Component {
     this.props.fetchAllProfiles().then(() => {
       this.setState({
         profileData: Object.values(this.props.profiles).filter(profile => {
-          return profile.id === parseInt(this.state.graduateId);
+          return profile._id.toString() === this.state.graduateId.toString();
         })
       });
     });
@@ -88,7 +88,7 @@ class ViewProfile extends Component {
               ) : (
                 this.state.profileData &&
                 Object.values(this.state.profileData).map(graduate => {
-                  const key = "graduate-" + graduate.id;
+                  const key = "graduate-" + graduate._id;
                   return (
                     <div className="card" key={key}>
                       <Media>
