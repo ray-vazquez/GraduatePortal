@@ -162,7 +162,9 @@ class EditProfile extends Component {
         });
       });
     } else {
-      let profile = this.props.profiles[id];
+      console.log(id);
+      console.log(this.props.profiles);
+      let profile = this.props.profiles.find(profile => profile._id === id);
       this.setState({
         profileData: {
           _id: id,
