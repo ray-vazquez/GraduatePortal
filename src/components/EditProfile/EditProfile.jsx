@@ -31,7 +31,7 @@ class EditProfile extends Component {
     isLoading: false,
     hasError: false,
     profileData: {
-      graduateId: "",
+      _id: "",
       firstName: "",
       lastName: "",
       skills: "",
@@ -85,7 +85,7 @@ class EditProfile extends Component {
     };
 
     const response = this.props.profileEdit(newProfileData);
-    this.setState({ submitForm: true, graduateId: response.graduateId });
+    this.setState({ submitForm: true, graduateId: response._id });
   };
 
   uploadFile = e => {
@@ -130,7 +130,7 @@ class EditProfile extends Component {
     this.setState({
       submitForm: false
     });
-    history.push(`/profile/${this.state.profileData.graduateId}`);
+    history.push(`/profile/${this.state.profileData._id}`);
   };
 
   addDefaultSrc(e) {
@@ -143,7 +143,7 @@ class EditProfile extends Component {
       this.props.fetchAllProfiles().then(() => {
         this.setState({
           profileData: {
-            graduateId: id,
+            _id: id,
             firstName: this.props.profiles[id].firstName,
             lastName: this.props.profiles[id].lastName,
             // convert skills to a string
@@ -165,7 +165,7 @@ class EditProfile extends Component {
       let profile = this.props.profiles[id];
       this.setState({
         profileData: {
-          graduateId: id,
+          _id: id,
           firstName: profile.firstName,
           lastName: profile.lastName,
           // convert skills to a string
@@ -224,7 +224,7 @@ class EditProfile extends Component {
               message={"What would you like to do next?"}
               title={"Graduate Edited Successfully!"}
               closeModal={this.closeModal}
-              graduateId={this.state.profileData.graduateId}
+              graduateId={this.state.profileData._id}
             />
 
             {/* Profile Image */}
