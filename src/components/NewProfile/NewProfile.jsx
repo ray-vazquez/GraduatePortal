@@ -26,7 +26,7 @@ class NewProfile extends Component {
     isNew: true,
     isAdmin: true,
     hasError: false,
-    isActive: 1,
+    isActive: true,
     profileData: {
       firstName: "",
       lastName: "",
@@ -40,7 +40,7 @@ class NewProfile extends Component {
       website: "",
       image: "",
       resume: "",
-      isActive: 1
+      isActive: true
     },
     firstNameValid: null,
     lastNameValid: null,
@@ -143,7 +143,7 @@ class NewProfile extends Component {
           website: "",
           image: "",
           resume: "",
-          isActive: 1
+          isActive: true
         }
       },
       this.closeModal()
