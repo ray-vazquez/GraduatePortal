@@ -10,9 +10,7 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 - Simona "simi" Asaro
 - Matt Bitley
 - Patrick Gorman
-<<<<<<< HEAD
 - Nikita Thomas
-=======
 - Stephanie Wyatt
 - Ramon Vazquez
 - Kishon Grant
@@ -20,4 +18,3 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 - Matthew Holland
 - Linda Kovacs
 - Ahmad Hijazi
->>>>>>> 8bee60bd97b65746fb5f93dd599c20e736d86fac
