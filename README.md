@@ -10,9 +10,9 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 - Simona "simi" Asaro
 - Matt Bitley
 - Patrick Gorman
+- Ramon Vazquez
 - Kishon Grant
 - Greg Westover
 - Matthew Holland
 - Linda Kovacs
 - Ahmad Hijazi
-
