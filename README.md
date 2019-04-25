@@ -10,6 +10,7 @@ A place for potential employers to discover and connect to AlbanyCanCode's gradu
 - Simona "simi" Asaro
 - Matt Bitley
 - Patrick Gorman
+- Stephanie Wyatt
 - Ramon Vazquez
 - Kishon Grant
 - Greg Westover
